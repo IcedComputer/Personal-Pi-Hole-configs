@@ -91,10 +91,12 @@ function public_allowlist()
 	##Get allowlist
 	#Public
 	curl -o $TEMPDIR/basic.allow.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/basic.allow'
+	echo " " >> $TEMPDIR/basic.allow.temp
 	wait
 	curl -o $TEMPDIR/adlist.allow.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/adlist.allow'
 	#On System
 	cp $PIDIR/whitelist.txt $TEMPDIR/current.allow.temp
+	echo " " >> $TEMPDIR/current.allow.temp
 	
 }
 

@@ -1,6 +1,6 @@
 # Trial Blocklists Included 
 # trial.adlist.list
-## Last Updated 27 Aug 2020
+## Last Updated 04 Nov 2020
 ## Items that are still in testing
 #########
 
@@ -9,14 +9,7 @@ https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/B
 
 
 ## 15 August 2020
-https://raw.githubusercontent.com/blocklistproject/Lists/master/abuse.txt
-https://raw.githubusercontent.com/blocklistproject/Lists/master/ads.txt
-https://raw.githubusercontent.com/blocklistproject/Lists/master/drugs.txt
-https://raw.githubusercontent.com/blocklistproject/Lists/master/facebook.txt
-https://raw.githubusercontent.com/blocklistproject/Lists/master/fraud.txt
-https://raw.githubusercontent.com/blocklistproject/Lists/master/gambling.txt
-https://raw.githubusercontent.com/blocklistproject/Lists/master/piracy.txt
-https://raw.githubusercontent.com/blocklistproject/Lists/master/torrent.txt
+
 http://someonewhocares.org/hosts/hosts
 
 ## 29 August 2020
@@ -26,5 +19,10 @@ https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/Facebook
 https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/MobileAppAds/appadsblocklist.txt
 https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/Tracking/trackingblocklist.txt
 https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/WhatsAppblocklist/whatsappblocklist.txt
+
+## 04 Nov 2020
+https://raw.githubusercontent.com/0xsentinel/CHEF-KOCH/master/HOSTS/CK's-Malware-HOSTS-FilterList.txt
+
+
 ## temp off until I can investigate
 #https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/Windows/windowstelemetryblocklist.txt

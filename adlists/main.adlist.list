@@ -1,14 +1,21 @@
 # This adlist is the full blocking list
-# Last Updated 27 AUG 2020
+# Last Updated 04 Nov 2020
 
-## Ads
+## Ads & Tracking
 https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts;showintro=0
 https://raw.githubusercontent.com/Firestorrrm/Minimal-Hosts-Blocker/master/iosadlist.txt
 https://raw.githubusercontent.com/Firestorrrm/Minimal-Hosts-Blocker/master/youtubeads.txt
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/adHosts.blocklist
+https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/android-tracking.txt
+https://raw.githubusercontent.com/Ultimate-Hosts-Blacklist/quidsup_notrack_trackers/master/domains.list
 https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
-https://raw.githubusercontent.com/lightswitch05/hosts/master/ads-and-tracking.txt
+https://raw.githubusercontent.com/blocklistproject/Lists/master/ads.txt
+https://raw.githubusercontent.com/blocklistproject/Lists/master/facebook.txt
+https://raw.githubusercontent.com/blocklistproject/Lists/master/tracking.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/disconnect.me-tracking/list.txt
+https://raw.githubusercontent.com/notracking/hosts-blocklists/master/hostnames.txt
 https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
 https://v.firebog.net/hosts/Prigent-Ads.txt
 https://www.github.developerdan.com/hosts/lists/ads-and-tracking-extended.txt
 
@@ -43,7 +50,6 @@ https://v.firebog.net/hosts/Airelle-hrsk.txt
 https://v.firebog.net/hosts/Prigent-Malware.txt
 https://v.firebog.net/hosts/Shalla-mal.txt
 https://www.malwaredomainlist.com/hostslist/hosts.txt
-https://zeustracker.abuse.ch/blocklist.php?download=domainblocklist
 
 ## Phishing
 https://phishing.army/download/phishing_army_blocklist_extended.txt
@@ -52,17 +58,13 @@ https://raw.githubusercontent.com/hectorm/hmirror/master/data/eth-phishing-detec
 https://v.firebog.net/hosts/Prigent-Phishing.txt
 
 ## Ransomware
-https://ransomwaretracker.abuse.ch/downloads/CW_C2_DOMBL.txt
-https://ransomwaretracker.abuse.ch/downloads/LY_C2_DOMBL.txt
-https://ransomwaretracker.abuse.ch/downloads/RW_DOMBL.txt
-https://ransomwaretracker.abuse.ch/downloads/TC_C2_DOMBL.txt
-https://ransomwaretracker.abuse.ch/downloads/TL_C2_DOMBL.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/ransomware.txt
 
 ## Scams & Redirects
 https://raw.githubusercontent.com/blocklistproject/Lists/master/redirect.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/scam.txt
 https://raw.githubusercontent.com/dnsblocklistnet/blocklists/master/multilevelmarketing.list
+https://raw.githubusercontent.com/blocklistproject/Lists/master/fraud.txt
 
 ## Smart TV
 https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/SmartTV.txt
@@ -74,24 +76,10 @@ https://www.stopforumspam.com/downloads/toxic_domains_whole.txt
 
 ## TikTok
 https://raw.githubusercontent.com/blocklistproject/Lists/master/tiktok.txt
-https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/TikTok/tiktokblocklist.txt
 https://raw.githubusercontent.com/llacb47/mischosts/master/social/tiktok-block
 https://raw.githubusercontent.com/llacb47/mischosts/master/tiktok-hosts
 https://raw.githubusercontent.com/superover/TikTok-Blocklist/master/tiktok.txt
 
-## Tracking
-https://raw.githubusercontent.com/CHEF-KOCH/Audio-fingerprint-pages/master/AudioFp.txt
-https://raw.githubusercontent.com/CHEF-KOCH/Canvas-Font-Fingerprinting-pages/master/Canvas.txt
-https://raw.githubusercontent.com/CHEF-KOCH/Canvas-fingerprinting-pages/master/Canvas.txt
-https://raw.githubusercontent.com/CHEF-KOCH/NSABlocklist/master/HOSTS/Trackers/audio%20fingerprinting%20pages.txt
-https://raw.githubusercontent.com/CHEF-KOCH/NSABlocklist/master/HOSTS/Trackers/trackers.txt
-https://raw.githubusercontent.com/CHEF-KOCH/WebRTC-tracking/master/WebRTC.txt
-https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/android-tracking.txt
-https://raw.githubusercontent.com/Ultimate-Hosts-Blacklist/quidsup_notrack_trackers/master/domains.list
-https://raw.githubusercontent.com/blocklistproject/Lists/master/tracking.txt
-https://raw.githubusercontent.com/hectorm/hmirror/master/data/disconnect.me-tracking/list.txt
-https://raw.githubusercontent.com/notracking/hosts-blocklists/master/hostnames.txt
-https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
 
 ## Other & Hosts
 http://127.0.0.1/alist.txt
@@ -116,13 +104,16 @@ https://raw.githubusercontent.com/StevenBlack/hosts/master/data/StevenBlack/host
 https://raw.githubusercontent.com/StevenBlack/hosts/master/data/add.2o7Net/hosts
 https://raw.githubusercontent.com/StevenBlack/hosts/master/data/add.Risk/hosts
 https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+https://raw.githubusercontent.com/blocklistproject/Lists/master/abuse.txt
+https://raw.githubusercontent.com/blocklistproject/Lists/master/drugs.txt
+https://raw.githubusercontent.com/blocklistproject/Lists/master/gambling.txt
+https://raw.githubusercontent.com/blocklistproject/Lists/master/piracy.txt
+https://raw.githubusercontent.com/blocklistproject/Lists/master/torrent.txt
 https://raw.githubusercontent.com/deathbybandaid/piholeparser/master/Subscribable-Lists/CountryCodesLists/Germany.txt
 https://raw.githubusercontent.com/durablenapkin/block/master/avast.txt
 https://raw.githubusercontent.com/hectorm/hmirror/master/data/fademind-add.risk/list.txt
 https://raw.githubusercontent.com/mitchellkrogza/Ultimate.Hosts.Blacklist/master/hosts/hosts0
 https://raw.githubusercontent.com/mitchellkrogza/Ultimate.Hosts.Blacklist/master/hosts/hosts1
-https://raw.githubusercontent.com/mitchellkrogza/Ultimate.Hosts.Blacklist/master/hosts/hosts2
-https://raw.githubusercontent.com/mitchellkrogza/Ultimate.Hosts.Blacklist/master/hosts/hosts3
 https://raw.githubusercontent.com/vokins/yhosts/master/hosts
 https://raw.githubusercontent.com/yous/YousList/master/hosts.txt
 https://v.firebog.net/hosts/AdguardDNS.txt

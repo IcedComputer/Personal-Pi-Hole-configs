@@ -1,5 +1,5 @@
 ## Random Other TLD ##
-## Updated 25 July 2020 ##
+## Updated 04 November 2020 ##
 ## oTLD.regex
 #####
 (^|\.)XN--11B4C3D$
@@ -216,6 +216,7 @@
 (^|\.)mil\.gov$
 (^|\.)mom$
 (^|\.)moscow$
+(^|\.)online$
 (^|\.)party$
 (^|\.)pics$
 (^|\.)racing$

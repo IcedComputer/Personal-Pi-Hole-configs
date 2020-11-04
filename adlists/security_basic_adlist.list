@@ -4,7 +4,6 @@
 
 ## TikTok (State Sponsored Malware & RAT)
 https://raw.githubusercontent.com/blocklistproject/Lists/master/tiktok.txt
-https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/TikTok/tiktokblocklist.txt
 https://raw.githubusercontent.com/llacb47/mischosts/master/social/tiktok-block
 https://raw.githubusercontent.com/llacb47/mischosts/master/tiktok-hosts
 https://raw.githubusercontent.com/superover/TikTok-Blocklist/master/tiktok.txt
@@ -28,11 +27,6 @@ https://raw.githubusercontent.com/hectorm/hmirror/master/data/eth-phishing-detec
 https://v.firebog.net/hosts/Prigent-Phishing.txt
 
 ## Ransomware
-https://ransomwaretracker.abuse.ch/downloads/CW_C2_DOMBL.txt
-https://ransomwaretracker.abuse.ch/downloads/LY_C2_DOMBL.txt
-https://ransomwaretracker.abuse.ch/downloads/RW_DOMBL.txt
-https://ransomwaretracker.abuse.ch/downloads/TC_C2_DOMBL.txt
-https://ransomwaretracker.abuse.ch/downloads/TL_C2_DOMBL.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/ransomware.txt
 
 ## Spam
@@ -53,7 +47,7 @@ https://isc.sans.edu/feeds/suspiciousdomains_Medium.txt
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/Static/f2bblocks
 https://raw.githubusercontent.com/StevenBlack/hosts/master/data/add.Risk/hosts
 https://v.firebog.net/hosts/Shalla-mal.txt
-https://zeustracker.abuse.ch/blocklist.php?download=domainblocklist
+
 
 ## Fake News
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/fakenews.blocklist

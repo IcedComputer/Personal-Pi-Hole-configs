@@ -1,4 +1,4 @@
-## Last Updated 01 November 2020 ##
+## Last Updated 04 November 2020 ##
 ## Regex Blacklist ##
 ## test.regex
 ## This regex is designed to test various features before they get added to the master list
@@ -6,9 +6,6 @@
 
 
 #17 Sep 2020
-(^|\.|-)hwcdn\.net
-(^|\.|-)itsup\.com
-(^|\.|-)traffichaus\.com
 (^|\.|-)kunlue?a?n?g?r?(120)?(010)?\.((com)|((net)|(org))
 
 # 27 Sep 2020
@@ -27,4 +24,7 @@
 
 ## 01 November 2020
 (^|\.|-)chicdn\.net
+
+## 04 November 2020
+(^|\.|-)clickbank\.net$
 

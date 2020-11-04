@@ -1,7 +1,7 @@
 # A list of test items
 # test.blocklist
 # Re-Organized: 03 July 2020
-# Last Updated: 01 November 2020
+# Last Updated: 04 November 2020
 
 ## To adHosts.blocklist (tracking, advertising and other non-malicious hosts)
 tag.device9.com 
@@ -17,6 +17,7 @@ cds.k7y9i5a8.hwcdn.net
 ## To MalBlock.blocklist (malware, randsomware, spam, phishing, etc.)
 cadef.dev-nano.com
 ratemygirth.com
+gonzy.online
 
 ## To custom.blocklist (Other)
 www.dpreview.com
@@ -31,11 +32,10 @@ shops.myshopify.com
 ## To ForeignHost.blocklist (Non-Malicious / Non-ad Foreign Hosts)
 cdn.xuansiwei.com.w.kunlunar.com
 cdn.xuansiwei.com
+domestic-static.duolingo.cn.w.kunlungr.com
 
 ## To dns.blocklist (DNS)
-doh.dns.apple.com
-usqas5.ce.apple-dns.net
-www-cdn.icloud.com.akadns.net
+
 
 
 ## Unknown

@@ -279,6 +279,7 @@
 (^|\.|-)hs(collected)?forms\.net$
 (^|\.|-)hs-scripts\.com$
 (^|\.|-)hsleadflows\.net$
+(^|\.|-)hwcdn\.net
 (^|\.|-)hypestat\.com$
 (^|\.|-)hypstarcdn(\.|-)
 (^|\.|-)i?((ris)|(spotx?))\.tv$
@@ -305,6 +306,7 @@
 (^|\.|-)irchan\.com$
 (^|\.|-)islafenice\.net$
 (^|\.|-)isnssdk\.com(\.|-)?
+(^|\.|-)itsup\.com
 (^|\.|-)ivwbox\.de$
 (^|\.|-)izatcloud\.net$
 (^|\.|-)jmp9\.com$
@@ -546,6 +548,7 @@
 (^|\.|-)tradedoubler\.com$
 (^|\.|-)traff(ic)?[-_\.]
 (^|\.|-)traffic((junky)|(stars)|(factory))\.((net)|(com)|(biz))$
+(^|\.|-)traffichaus\.com
 (^|\.|-)tremorhub\.com$
 (^|\.|-)triplebyte\.com$
 (^|\.|-)tsyndicate\.com$
