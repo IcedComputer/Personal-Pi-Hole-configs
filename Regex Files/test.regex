@@ -1,12 +1,9 @@
-## Last Updated 04 November 2020 ##
+## Last Updated 06 December 2020 ##
 ## Regex Blacklist ##
 ## test.regex
 ## This regex is designed to test various features before they get added to the master list
 #########
 
-
-#17 Sep 2020
-(^|\.|-)kunlue?a?n?g?r?(120)?(010)?\.((com)|((net)|(org))
 
 # 27 Sep 2020
 (^|\.|-)s-onetag\.com$
@@ -17,7 +14,6 @@
 (^|\.|-)icloud\.com\.akadns\.net
 (^|\.|-)wpc\.rncdn4\.com
 [a-z][a-z][a-z][a-z][a-z][0-9]-doh-[0-9][0-9][0-9]\.aaplimg\.com$
-(^|\.|-)kunlunar\.com
 
 ## 23 Oct 2020
 (^|\.|-)device\.marketingcloudapis\.com$
@@ -28,3 +24,5 @@
 ## 04 November 2020
 (^|\.|-)clickbank\.net$
 
+## 06 December 2020
+(^|\.|-)kunlue?a?n?a?g?r?(120)?(010)?\.((com)|((net)|(org))
