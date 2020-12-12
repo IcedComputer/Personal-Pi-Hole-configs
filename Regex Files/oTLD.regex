@@ -1,7 +1,9 @@
 ## Random Other TLD ##
-## Updated 04 November 2020 ##
+## Re-Organized: 03 July 2020
+## Last Updated: 12 December 2020
 ## oTLD.regex
 #####
+
 (^|\.)XN--11B4C3D$
 (^|\.)XN--1CK2E1B$
 (^|\.)XN--1QQW23A$
@@ -179,7 +181,10 @@
 (^|\.)basketball$
 (^|\.)bible$
 (^|\.)bid$
+(^|\.)biz$
+(^|\.)buzz$
 (^|\.)cab$
+(^|\.)cam$
 (^|\.)click$
 (^|\.)club$
 (^|\.)country$
@@ -193,6 +198,7 @@
 (^|\.)engineer(ing)?$
 (^|\.)enterprises?$
 (^|\.)fai((l)|(th))$
+(^|\.)fail$
 (^|\.)family$
 (^|\.)fans?$
 (^|\.)farm$
@@ -201,8 +207,10 @@
 (^|\.)fi((lm)|(nal)|(nish))s?$
 (^|\.)fina((cial)|(l)|(nces))$
 (^|\.)fish(ing)?$
+(^|\.)fit$
 (^|\.)gdn$
 (^|\.)ic\.gov$
+(^|\.)icu$
 (^|\.)info$
 (^|\.)jetzt$
 (^|\.)kim$
@@ -214,6 +222,7 @@
 (^|\.)men$
 (^|\.)mil$
 (^|\.)mil\.gov$
+(^|\.)mobi$
 (^|\.)mom$
 (^|\.)moscow$
 (^|\.)online$
@@ -225,6 +234,7 @@
 (^|\.)red$
 (^|\.)reise$
 (^|\.)republican$
+(^|\.)rest$
 (^|\.)review$
 (^|\.)rocks$
 (^|\.)scholarships$
@@ -238,11 +248,13 @@
 (^|\.)space$
 (^|\.)spy$
 (^|\.)stream$
+(^|\.)surf$
 (^|\.)tel$
 (^|\.)top$
 (^|\.)trade$
 (^|\.)tushu$
 (^|\.)unicom$
+(^|\.)viajes$
 (^|\.)vip$
 (^|\.)vodka$
 (^|\.)wang$

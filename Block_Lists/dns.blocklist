@@ -1,7 +1,8 @@
 # List of DNS servers
 # dns.blocklist
-# Last Modified: 04 Nov 2020
-#
+# Re-Organized: 03 July 2020
+# Last Updated: 12 December 2020
+
 
 a5ea368f454db4a59195b08644567074.clo.footprintdns.com
 dig.bdurl.net

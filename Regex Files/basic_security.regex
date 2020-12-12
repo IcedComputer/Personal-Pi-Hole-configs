@@ -1,8 +1,9 @@
 ## basic_security.regex
-## Last Updated 7/26/2020
+## Re-Organized: 03 July 2020
+## Last Updated: 12 December 2020
 
 (^|\.|-)(0+)?apple(s)?0+\.com$
-(^|\.|-)......\.drivefact.org$
+(^|\.|-)......\.drivefact\.org$
 (^|\.|-)...police\.((com)|(net))$
 (^|\.|-)0+apple(s)?(0+)?\.com$
 (^|\.|-)000webhostapp\.com$

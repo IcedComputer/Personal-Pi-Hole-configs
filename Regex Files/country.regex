@@ -1,5 +1,6 @@
 ## basic_country.regex
-## Last Updated 7/25/2020
+## Re-Organized: 03 July 2020
+## Last Updated: 12 December 2020
 
 #(^|\.)be$
 #(^|\.)ca$
