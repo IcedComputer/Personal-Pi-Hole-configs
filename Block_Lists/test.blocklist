@@ -1,25 +1,17 @@
 # A list of test items
 # test.blocklist
 # Re-Organized: 03 July 2020
-# Last Updated: 29 November 2020
+# Last Updated: 12 December 2020
 
 ## To adHosts.blocklist (tracking, advertising and other non-malicious hosts)
 
 
 ## To MalBlock.blocklist (malware, randsomware, spam, phishing, etc.)
-vsax21.com
-bin5y4muil.execute-api.us-east-1.amazonaws.com
-api.myendpoint.io
-xodick.com
-
 
 
 ## To custom.blocklist (Other)
-www.dpreview.com
-www.pillpack.com
-www.goodreads.com
-www.acx.com
-shops.myshopify.com
+cdn.opensourcefonts.org
+free.opensourcefonts.org 
 
 
 ## To fakenews.blocklist (Fake News)
@@ -30,8 +22,7 @@ shops.myshopify.com
 
 
 
-## Unknown
-#api-http2.tumblr.com
+
 
 
 

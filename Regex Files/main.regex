@@ -1,7 +1,9 @@
-## Last Updated 17 Sep 2020 ##
 ## Regex Blacklist ##
 ## main.regex
+## Re-Organized: 03 July 2020
+## Last Updated: 12 December 2020
 #########
+
 (.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
 (^|\.)ibs\.lgappstv\.com
 (^|\.)lgsmartad\.com
@@ -22,7 +24,7 @@
 (^|\.|-)(mobile)?apptrack(ing)?[-_\.]
 (^|\.|-)*mobile-?collect(s|er|or|ed|ing|ion)?.*\.
 (^|\.|-)..............\.w[a-z,0-9]*-?([a-z,0-9]*)?\........(.)?...
-(^|\.|-)......\.drivefact.org$
+(^|\.|-)......\.drivefact\.org$
 (^|\.|-)...police\.((com)|(net))$
 (^|\.|-)0+apple(s)?(0+)?\.com$
 (^|\.|-)000webhostapp\.com$
@@ -193,10 +195,11 @@
 (^|\.|-)dc-1\.net$
 (^|\.|-)de17a\.com$
 (^|\.|-)decibelinsight\.net$
-(^|\.|-)deltadna.com$
+(^|\.|-)deltadna\.com$
 (^|\.|-)deluxeoffer\.com?$
 (^|\.|-)demdex\.net$
 (^|\.|-)dev-ads-soft-web\.top$
+(^|\.|-)device\.marketingcloudapis\.com$
 (^|\.|-)dfhdsfhhfdhdf5s6h5\.blogspot[-_\.]
 (^|\.|-)digitalmarketing\.
 (^|\.|-)digitru\.st$
@@ -256,7 +259,7 @@
 (^|\.|-)geoycpi-uno[-_\.]
 (^|\.|-)get((chrome)|(jaco)|(tally))\.com$
 (^|\.|-)getpromo2[0-9][0-9][0-9]\.info$
-(^|\.|-)getsi((decar)|(tecontrol).com$
+(^|\.|-)getsi((decar)|(tecontrol)\.com$
 (^|\.|-)gigazu\.net$
 (^|\.|-)gigya\.com$
 (^|\.|-)gimbal\.com$
@@ -285,6 +288,7 @@
 (^|\.|-)i?((ris)|(spotx?))\.tv$
 (^|\.|-)ibm\.xtify\.com$
 (^|\.|-)ibyte((dtos)|(img))\.com(\.|-)?
+(^|\.|-)icloud\.com\.akadns\.net
 (^|\.|-)ifood\.tv$
 (^|\.|-)impressionmonster\.com$
 (^|\.|-)imprev\.net
@@ -320,6 +324,7 @@
 (^|\.|-)kingsoft-office-service\.com$
 (^|\.|-)konsumentenumfrage\.de$
 (^|\.|-)kontrolnaya-rabota\.ru$
+(^|\.|-)krxd\.net
 (^|\.|-)l2\.io$
 (^|\.|-)language\.herokuapp\.com$
 (^|\.|-)lapalingo\.com$
@@ -337,7 +342,7 @@
 (^|\.|-)linguotica\.com$
 (^|\.|-)litix\.io$
 (^|\.|-)live((fyre)|(jasmin)|(rail))\.com$
-(^|\.|-)livepersonk.akadns.net$
+(^|\.|-)livepersonk\.akadns\.net$
 (^|\.|-)localytics\.com$
 (^|\.|-)locations?(-services?)?[-_\.]
 (^|\.|-)locators?\.
@@ -441,7 +446,7 @@
 (^|\.|-)pushsissmc\.com$
 (^|\.|-)qlitics\.com$
 (^|\.|-)qualtrics\.com$
-(^|\.|-)quant((count)|(ummetric)).com$
+(^|\.|-)quant((count)|(ummetric))\.com$
 (^|\.|-)quasargaming?\.com$
 (^|\.|-)quebec-bin\.com$
 (^|\.|-)rayjump\.com$
@@ -461,6 +466,7 @@
 (^|\.|-)rsc\.cdn77\.org
 (^|\.|-)rubiconproject\.com$
 (^|\.|-)rxthdr\.com$
+(^|\.|-)s-onetag\.com$
 (^|\.|-)s?(eg)?metrics?[-_\.]
 (^|\.|-)salecycle\.com$
 (^|\.|-)salemove\.com$
@@ -535,7 +541,7 @@
 (^|\.|-)thruport\.com
 (^|\.|-)tidaltv\.com$
 (^|\.|-)tiktok((cdn)|(v))?\.((com)|(org))(\.|-)?
-(^|\.|-)tiktokv.com(\.|-)?
+(^|\.|-)tiktokv\.com(\.|-)?
 (^|\.|-)tipbet\.com$
 (^|\.|-)tipico\.((be)|(com)|(de))$
 (^|\.|-)titantv\.com$
@@ -584,6 +590,7 @@
 (^|\.|-)wistia\.net$
 (^|\.|-)wizardofodds\.com$
 (^|\.|-)worldfcdn(\.|-)
+(^|\.|-)wpc\.rncdn4\.com
 (^|\.|-)wsi\.com$
 (^|\.|-)wzrkt\.com$
 (^|\.|-)xdates18\.com$
@@ -603,6 +610,7 @@
 (^|\.|-)zopim\.com$
 (^|\.|-)zwtianshangm(\.|-)
 .*\.g[0-9]+\..*
+[a-z][a-z][a-z][a-z][a-z][0-9]-doh-[0-9][0-9][0-9]\.aaplimg\.com$
 \......................\.us$
 ^([a-z0-9]+[.])*(ads|captive|cloudservices|logs)\.roku\.com
 ^(www\.)?itunes-[:alnum:]*\.
