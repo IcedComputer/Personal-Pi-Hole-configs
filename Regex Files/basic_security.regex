@@ -1,6 +1,7 @@
 ## basic_security.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 12 December 2020
+## Last Updated: 18 December 2020
+
 
 (^|\.|-)(0+)?apple(s)?0+\.com$
 (^|\.|-)......\.drivefact\.org$
@@ -14,18 +15,30 @@
 (^|\.|-)8ox\.cn$
 (^|\.|-)[a-z0-9]*keygen(erator)?[-_\.]
 (^|\.|-)amazones\.com$
+(^|\.|-)avsvmcloud\.com
 (^|\.|-)chinaunicom[-_\.]
 (^|\.|-)creditsansjustificatif\.me$
+(^|\.|-)deftsecurity\.com
 (^|\.|-)dfhdsfhhfdhdf5s6h5\.blogspot[-_\.]
+(^|\.|-)digitalcollege\.org
 (^|\.|-)elbavietnam\.com$
 (^|\.|-)fin((spy)|(fisher))[-_\.]
 (^|\.|-)footprint-?dns(\.|-)
+(^|\.|-)freescanonline\.com
 (^|\.|-)fwmrm\.net$
+(^|\.|-)globalnetworkissues\.com
+(^|\.|-)kubecloud\.com
+(^|\.|-)lcomputers\.com
 (^|\.|-)nsogroup[-_\.]
 (^|\.|-)releaseyourreturns\.com$
+(^|\.|-)seobundlekit\.com
 (^|\.|-)silverpush[-_\.]
+(^|\.|-)solartrackingsystem\.net
 (^|\.|-)spy(f|p)?h?((uman)|(log)|(masterpro)|(one)|(app))[-_\.]
+(^|\.|-)thedoccloud\.com
 (^|\.|-)tiktok((cdn)|(v))?\.((com)|(org))(\.|-)?
-(^|\.|-)tiktokv.com(\.|-)?
+(^|\.|-)tiktokv\.com(\.|-)?
+(^|\.|-)virtualwebdata\.com
 (^|\.|-)web3000\.com$
+(^|\.|-)webcodez\.com
 (^|\.|-)yandex\.

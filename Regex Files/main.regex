@@ -1,7 +1,7 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 12 December 2020
+## Last Updated: 18 December 2020
 #########
 
 (.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
@@ -100,6 +100,7 @@
 (^|\.|-)aviasales\.ru
 (^|\.|-)avito\.ru$
 (^|\.|-)avrtcal\.com$
+(^|\.|-)avsvmcloud\.com
 (^|\.|-)awesomeforyou\.club$
 (^|\.|-)awesomeom\.com$
 (^|\.|-)b(uzz|it)adexchange\.com$
@@ -195,12 +196,14 @@
 (^|\.|-)dc-1\.net$
 (^|\.|-)de17a\.com$
 (^|\.|-)decibelinsight\.net$
+(^|\.|-)deftsecurity\.com
 (^|\.|-)deltadna\.com$
 (^|\.|-)deluxeoffer\.com?$
 (^|\.|-)demdex\.net$
 (^|\.|-)dev-ads-soft-web\.top$
 (^|\.|-)device\.marketingcloudapis\.com$
 (^|\.|-)dfhdsfhhfdhdf5s6h5\.blogspot[-_\.]
+(^|\.|-)digitalcollege\.org
 (^|\.|-)digitalmarketing\.
 (^|\.|-)digitru\.st$
 (^|\.|-)diomedis\.online$
@@ -246,6 +249,7 @@
 (^|\.|-)footprint-?dns(\.|-)
 (^|\.|-)for((ce)|(see))\.com$
 (^|\.|-)free-counter\.co\.uk$
+(^|\.|-)freescanonline\.com
 (^|\.|-)freshmarketer\.com$
 (^|\.|-)friendlyduck\.com$
 (^|\.|-)fujianryt\.com$
@@ -265,6 +269,7 @@
 (^|\.|-)gimbal\.com$
 (^|\.|-)giraffic\.com$
 (^|\.|-)glassbox(cdn|cloud)?\.com$
+(^|\.|-)globalnetworkissues\.com
 (^|\.|-)go2affise\.com$
 (^|\.|-)go2cloud\.org$
 (^|\.|-)gpsonextra\.net$
@@ -325,9 +330,11 @@
 (^|\.|-)konsumentenumfrage\.de$
 (^|\.|-)kontrolnaya-rabota\.ru$
 (^|\.|-)krxd\.net
+(^|\.|-)kubecloud\.com
 (^|\.|-)l2\.io$
 (^|\.|-)language\.herokuapp\.com$
 (^|\.|-)lapalingo\.com$
+(^|\.|-)lcomputers\.com
 (^|\.|-)leadpages\.co$
 (^|\.|-)lenovomm\.com$
 (^|\.|-)leovegas\.com$
@@ -475,6 +482,7 @@
 (^|\.|-)scientificrevenue\.com$
 (^|\.|-)scorecardresearch\.com
 (^|\.|-)select-reward\.club$
+(^|\.|-)seobundlekit\.com
 (^|\.|-)servedbyopenx\.com
 (^|\.|-)sessioncam\.com$
 (^|\.|-)seventynine\.mobi$
@@ -497,6 +505,7 @@
 (^|\.|-)snssdk\.com(\.|-)?
 (^|\.|-)sociomantic\.com$
 (^|\.|-)soflopxl\.com$
+(^|\.|-)solartrackingsystem\.net
 (^|\.|-)solvemedia\.com$
 (^|\.|-)specialprizes\.club$
 (^|\.|-)specific((media)|(click))[-_\.]
@@ -537,6 +546,7 @@
 (^|\.|-)teads(\.|-))
 (^|\.|-)telemetry[-_\.]
 (^|\.|-)thebestoffer\.gq$
+(^|\.|-)thedoccloud\.com
 (^|\.|-)thefuncoolstuff\.com$
 (^|\.|-)thruport\.com
 (^|\.|-)tidaltv\.com$
@@ -577,6 +587,7 @@
 (^|\.|-)viafoura\.com?$
 (^|\.|-)vindicosuite\.com$
 (^|\.|-)viralapps\.((club)|(org))$
+(^|\.|-)virtualwebdata\.com
 (^|\.|-)visuual\.net$
 (^|\.|-)vizury\.com$
 (^|\.|-)voluum(trk)?[0-9]*\.((bid)|(com))$
@@ -584,6 +595,7 @@
 (^|\.|-)watchaot2\.com$
 (^|\.|-)wct\.click$
 (^|\.|-)web3000\.com$
+(^|\.|-)webcodez\.com
 (^|\.|-)webtrekk\.net$
 (^|\.|-)wirelessdeveloper\.com$
 (^|\.|-)wishpond\.com$
