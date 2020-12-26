@@ -2,7 +2,7 @@
 ## test.regex
 ## This regex is designed to test various features before they get added to the master list
 ## Re-Organized: 03 July 2020
-## Last Updated: 12 December 2020
+## Last Updated: 26 December 2020
 #########
 
 ## October 2020
@@ -17,3 +17,7 @@
 ## 06 December 2020
 (^|\.|-)kunlue?a?n?a?g?r?(120)?(010)?\.((com)|((net)|(org))
 (^|\.|-)volstqkwmth\.com$
+
+##26 December 2020
+(\.)goog$
+

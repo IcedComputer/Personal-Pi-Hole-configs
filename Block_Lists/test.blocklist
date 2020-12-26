@@ -1,7 +1,7 @@
 # A list of test items
 # test.blocklist
 # Re-Organized: 03 July 2020
-# Last Updated: 12 December 2020
+# Last Updated: 26 December 2020
 
 ## To adHosts.blocklist (tracking, advertising and other non-malicious hosts)
 
@@ -20,7 +20,8 @@ free.opensourcefonts.org
 
 ## To dns.blocklist (DNS)
 
-
+## Unknown
+mqtt.2030.ltsapis.goog 
 
 
 
