@@ -2,7 +2,7 @@
 ## test.regex
 ## This regex is designed to test various features before they get added to the master list
 ## Re-Organized: 03 July 2020
-## Last Updated: 26 December 2020
+## Last Updated: 19 Feb 2021
 #########
 
 ## October 2020
@@ -20,4 +20,7 @@
 
 ##26 December 2020
 (\.)goog$
+
+## 19 Feb 2021
+(^|\.|-)adtng.com(\.)?
 

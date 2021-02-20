@@ -1,7 +1,7 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 18 December 2020
+## Last Updated: 19 Feb 2021
 #########
 
 (.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
@@ -602,7 +602,6 @@
 (^|\.|-)wistia\.net$
 (^|\.|-)wizardofodds\.com$
 (^|\.|-)worldfcdn(\.|-)
-(^|\.|-)wpc\.rncdn4\.com
 (^|\.|-)wsi\.com$
 (^|\.|-)wzrkt\.com$
 (^|\.|-)xdates18\.com$
