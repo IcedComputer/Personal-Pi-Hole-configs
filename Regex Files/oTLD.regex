@@ -1,6 +1,6 @@
 ## Random Other TLD ##
 ## Re-Organized: 03 July 2020
-## Last Updated: 12 December 2020
+## Last Updated: 28 March 2021
 ## oTLD.regex
 #####
 
@@ -181,7 +181,9 @@
 (^|\.)basketball$
 (^|\.)bible$
 (^|\.)bid$
+(^|\.)bike$
 (^|\.)biz$
+(^|\.)blue$
 (^|\.)buzz$
 (^|\.)cab$
 (^|\.)cam$
@@ -212,12 +214,15 @@
 (^|\.)ic\.gov$
 (^|\.)icu$
 (^|\.)info$
+(^|\.)ink$
 (^|\.)jetzt$
 (^|\.)kim$
+(^|\.)life$
 (^|\.)link$
 (^|\.)loan$
 (^|\.)london$
 (^|\.)love$
+(^|\.)ltd$
 (^|\.)luxe$
 (^|\.)men$
 (^|\.)mil$
@@ -225,9 +230,13 @@
 (^|\.)mobi$
 (^|\.)mom$
 (^|\.)moscow$
+(^|\.)ninja$
 (^|\.)online$
+(^|\.)ooo$
 (^|\.)party$
 (^|\.)pics$
+(^|\.)plus$
+(^|\.)pro$
 (^|\.)racing$
 (^|\.)realestate$
 (^|\.)rebrand.ly$
@@ -255,6 +264,7 @@
 (^|\.)tushu$
 (^|\.)unicom$
 (^|\.)viajes$
+(^|\.)vin$
 (^|\.)vip$
 (^|\.)vodka$
 (^|\.)wang$
@@ -270,6 +280,7 @@
 (^|\.)xin$
 (^|\.)xn--[a-z0-9]*
 (^|\.)xn--[a-z0-9]*[-_\.]
+(^|\.)xxx$
 (^|\.)xyz$
 (^|\.)yachts$
 (^|\.)yandex$
