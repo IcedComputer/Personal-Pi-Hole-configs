@@ -1,6 +1,6 @@
 # List of tracking, advertising and other non-malicious hosts
 # adHosts.blocklist
-# Last Modified: 14 November 2020
+# Last Modified: 08 May 2021
 #
 189229.measurementapi.com
 50analytics.secureserver.net
@@ -150,6 +150,7 @@ lib-eu-1.brilliantcollector.com
 lib-us-1.brilliantcollector.com
 lib-us-2.brilliantcollector.com
 link.trkngnow.com
+livehdcams.com
 log-1.samsungacr.com
 log-2.samsungacr.com
 log.internetat.tv
@@ -232,6 +233,7 @@ wetrackyourback.com
 www.dolro.club
 www.imglnke.com
 www.link.trkngnow.com
+www.livehdcams.com
 www.pstreetex.com
 www.samsungotn.net
 www.samsungrm.net

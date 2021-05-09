@@ -44,13 +44,13 @@ done < $file
 
 function allow()
 {
-# Purge existing regex list
-pihole -w --nuke
+# Purge existing allow list
+#pihole -w --nuke
 
-#adds regex from following file
-allow='$TEMPDIR/allow.temp'
+#adds allow list from following file
+file='$TEMPDIR/allow.temp'
 
-while read regex; do
+while read allow; do
 	pihole -w -nr $allow
 	wait
 done < $file
