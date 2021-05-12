@@ -1,4 +1,4 @@
-## Last Updated 29 Aug 2020
+## Last Updated 12 May 2021
 ## updates.sh
 ## This script is designed to keep the pihole updated and linked to any changes made
 ##
@@ -15,6 +15,7 @@ CONFIG=/scripts/Finished/CONFIG
 Type=$(<"$CONFIG/type.conf")
 test_system=$(<"$CONFIG/test.conf") 
 is_cloudflared=$(<"$CONFIG/dns_type.conf")
+is_v5=$(<"$CONFIG/ver.conf")
 
 #Some basic functions including updating the box & getting new configuration files
 function base()
@@ -118,11 +119,17 @@ function security_allowlist()
 function assemble()
 {
 	cat $TEMPDIR/*.allow.temp  | sort | uniq > $TEMPDIR/final.allow.temp
-	mv $TEMPDIR/final.allow.temp $PIDIR/whitelist.txt
+	cat $TEMPDIR/*.regex | grep -v '#' |sort | uniq > $TEMPDIR/regex.list
 	
-	cat $TEMPDIR/*.regex | grep -v '#' | sort | uniq > $TEMPDIR/regex.list
+	
+	
+	if [ $is_v5 = "yes" ]
+		then
+			sudo bash $FINISHED/DB_Updates.sh
+	fi
+	
 	mv $TEMPDIR/regex.list  $PIDIR/regex.list
-	
+	mv $TEMPDIR/final.allow.temp $PIDIR/whitelist.txt
 	mv $TEMPDIR/adlists.list $PIDIR/adlists.list
 	mv $TEMPDIR/CFconfig $FINISHED/cloudflared
 	mv $TEMPDIR/refresh.sh $FINISHED/refresh.sh
@@ -138,7 +145,7 @@ function clean()
  if [ $is_cloudflared = "cloudflared" ]
 	then
 		sudo systemctl restart cloudflared
-fi
+ fi
 }
 
 

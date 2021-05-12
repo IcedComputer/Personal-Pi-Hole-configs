@@ -1,7 +1,7 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 19 Feb 2021
+## Last Updated: 12 May 2021
 #########
 
 (.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
@@ -70,6 +70,7 @@
 (^|\.|-)adsrv\.rtbsuperhub\.com
 (^|\.|-)adsrvr\.org$
 (^|\.|-)adswizz\.com$
+(^|\.|-)adtng\.com(\.)?
 (^|\.|-)adventurefeeds\.com$
 (^|\.|-)adviva\.net$
 (^|\.|-)adzmedia\.com$
@@ -148,11 +149,13 @@
 (^|\.|-)chartb((eat)|(oost))\.((com)|(net))$
 (^|\.|-)chatango\.com$
 (^|\.|-)checkm8\.com$
+(^|\.|-)chicdn\.net
 (^|\.|-)chinaunicom[-_\.]
 (^|\.|-)cjt1\.net$
 (^|\.|-)ckk-45\.net$
 (^|\.|-)clearbit\.com$
 (^|\.|-)clevertap\.com$
+(^|\.|-)clickbank\.net$
 (^|\.|-)clicks?((iocdn)|(gear)|(tale)|(winks)|(tream))?[-_\.]
 (^|\.|-)clicks\.beap(.\*)?
 (^|\.|-)clientmetrics?[-_\.]
@@ -331,6 +334,7 @@
 (^|\.|-)kontrolnaya-rabota\.ru$
 (^|\.|-)krxd\.net
 (^|\.|-)kubecloud\.com
+(^|\.|-)kunlue?a?n?a?g?r?(120)?(010)?\.((com)|((net)|(org))
 (^|\.|-)l2\.io$
 (^|\.|-)language\.herokuapp\.com$
 (^|\.|-)lapalingo\.com$
@@ -590,6 +594,7 @@
 (^|\.|-)virtualwebdata\.com
 (^|\.|-)visuual\.net$
 (^|\.|-)vizury\.com$
+(^|\.|-)volstqkwmth\.com$
 (^|\.|-)voluum(trk)?[0-9]*\.((bid)|(com))$
 (^|\.|-)vosteran\.com$
 (^|\.|-)watchaot2\.com$

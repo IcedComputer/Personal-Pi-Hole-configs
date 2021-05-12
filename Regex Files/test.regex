@@ -2,28 +2,16 @@
 ## test.regex
 ## This regex is designed to test various features before they get added to the master list
 ## Re-Organized: 03 July 2020
-## Last Updated: 19 Feb 2021
+## Last Updated: 12 May 2021
 #########
 
 ## October 2020
 (^|\.|-)apple-dns\.net
 
-## 01 November 2020
-(^|\.|-)chicdn\.net
-
-## 04 November 2020
-(^|\.|-)clickbank\.net$
-
-## 06 December 2020
-(^|\.|-)kunlue?a?n?a?g?r?(120)?(010)?\.((com)|((net)|(org))
-(^|\.|-)volstqkwmth\.com$
-
 ##26 December 2020
 (\.)goog$
 
-## 19 Feb 2021
-(^|\.|-)adtng\.com(\.)?
-
-##08 May 2021
-(^|\.|-)ad1x\.com$ 
-
+##11 May 2021
+(^|\.|-)hyprmx\.com$
+(^|\.|-)oath\.cloud$
+(^|\.|-)ad1x\.com$

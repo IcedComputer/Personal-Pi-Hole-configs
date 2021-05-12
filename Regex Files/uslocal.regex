@@ -100,8 +100,6 @@
 (^|\.)angelfirenm\.gov$
 (^|\.)angelscamp\.gov$
 (^|\.)ankenyiowa\.gov$
-(^|\.)annapolis\.gov$
-(^|\.)annapolismd\.gov$
 (^|\.)annatexas\.gov$
 (^|\.)annistonal\.gov$
 (^|\.)anokacountymn\.gov$
@@ -336,12 +334,9 @@
 (^|\.)bacacountyco\.gov$
 (^|\.)badenpa\.gov$
 (^|\.)badriver-nsn\.gov$
-(^|\.)bainbridgewa\.gov$
 (^|\.)bakersfield-ca\.gov$
 (^|\.)baldwincountyal\.gov$
 (^|\.)balharbourfl\.gov$
-(^|\.)baltimorecity\.gov$
-(^|\.)baltimorecountymd\.gov$
 (^|\.)bambergcountysc\.gov$
 (^|\.)bangormaine\.gov$
 (^|\.)barharbormaine\.gov$
@@ -535,7 +530,6 @@
 (^|\.)burbankca\.gov$
 (^|\.)burbankil\.gov$
 (^|\.)bureaucounty-il\.gov$
-(^|\.)burienwa\.gov$
 (^|\.)burkecounty-ga\.gov$
 (^|\.)burkittsville-md\.gov$
 (^|\.)burlington((-wi)|(kansas)|(nc)|(nd)|(vt)|(wa))\.gov$
@@ -596,7 +590,6 @@
 (^|\.)carlisle-ia\.gov$
 (^|\.)carlislema\.gov$
 (^|\.)carlsbadca\.gov$
-(^|\.)carnationwa\.gov$
 (^|\.)carnegieok\.gov$
 (^|\.)carneyspointnj\.gov$
 (^|\.)carrboronc\.gov$
@@ -655,7 +648,6 @@
 (^|\.)chatsworthga\.gov$
 (^|\.)chattanooga\.gov$
 (^|\.)cheathamcountytn\.gov$
-(^|\.)chelancountywa\.gov$
 (^|\.)chelseama\.gov$
 (^|\.)cherokee-nsn\.gov$
 (^|\.)cherokeecounty-?((al)|(ks)|(nc))\.gov$
@@ -818,7 +810,6 @@
 (^|\.)cityofsunriseflorida\.gov$
 (^|\.)cityoftitusvillepa\.gov$
 (^|\.)cityoftorranceca\.gov$
-(^|\.)cityoftukwila-wa\.gov$
 (^|\.)cityoftyler-tx\.gov$
 (^|\.)cityoftylertx\.gov$
 (^|\.)cityofwarrenpa\.gov$
@@ -864,7 +855,6 @@
 (^|\.)collegedaletn\.gov$
 (^|\.)collegegoalarizona\.gov$
 (^|\.)collegegoaloregon\.gov$
-(^|\.)collegeparkmd\.gov$
 (^|\.)collegeville-pa\.gov$
 (^|\.)colliercountyfl\.gov$
 (^|\.)colliervilletn\.gov$
@@ -1098,7 +1088,6 @@
 (^|\.)durhamnc\.gov$
 (^|\.)dushorepa\.gov$
 (^|\.)dutchessny\.gov$
-(^|\.)duvallwa\.gov$
 (^|\.)dwgpa\.gov$
 (^|\.)dyersburgtn\.gov$
 (^|\.)eagaraz\.gov$
@@ -1220,7 +1209,6 @@
 (^|\.)fbciohio\.gov$
 (^|\.)fcp-nsn\.gov$
 (^|\.)fcpotawatomi-nsn\.gov$
-(^|\.)federalwaywa\.gov$
 (^|\.)fentresscountytn\.gov$
 (^|\.)ferndalemi\.gov$
 (^|\.)filelocal-wa\.gov$
@@ -1329,7 +1317,6 @@
 (^|\.)franklinwi\.gov$
 (^|\.)fredenbergtwp-mn\.gov$
 (^|\.)frederickco\.gov$
-(^|\.)frederickcountymd\.gov$
 (^|\.)frederickcountyva\.gov$
 (^|\.)fredericksburgva\.gov$
 (^|\.)freeportflorida\.gov$
@@ -1360,7 +1347,6 @@
 (^|\.)gadol\.gov$
 (^|\.)gadsdencountyfl\.gov$
 (^|\.)gahanna\.gov$
-(^|\.)gaithersburgmd\.gov$
 (^|\.)galesburg-il\.gov$
 (^|\.)gallatin-tn\.gov$
 (^|\.)gallawaytn\.gov$
@@ -1438,7 +1424,6 @@
 (^|\.)grandterrace-ca\.gov$
 (^|\.)grandview-in\.gov$
 (^|\.)grangeriowa\.gov$
-(^|\.)granitefallswa\.gov$
 (^|\.)granitequarrync\.gov$
 (^|\.)grantcounty-or\.gov$
 (^|\.)grantcountywa\.gov$
@@ -1449,7 +1434,6 @@
 (^|\.)grapevinetx\.gov$
 (^|\.)greeceny\.gov$
 (^|\.)greenbaywi\.gov$
-(^|\.)greenbeltmd\.gov$
 (^|\.)greencastlepa\.gov$
 (^|\.)greenecountyga\.gov$
 (^|\.)greenecountyms\.gov$
@@ -1624,8 +1608,6 @@
 (^|\.)horseshoe-bay-tx\.gov$
 (^|\.)houston-ak\.gov$
 (^|\.)houstontx\.gov$
-(^|\.)howardcountymaryland\.gov$
-(^|\.)howardcountymd\.gov$
 (^|\.)hpca\.gov$
 (^|\.)hrpdcva\.gov$
 (^|\.)huachucacityaz\.gov$
@@ -1799,13 +1781,11 @@
 (^|\.)kelso\.gov$
 (^|\.)kemah-tx\.gov$
 (^|\.)kenaitze-nsn\.gov$
-(^|\.)kenmorewa\.gov$
 (^|\.)kennebeccounty-me\.gov$
 (^|\.)kennebunkportme\.gov$
 (^|\.)kennesaw-ga\.gov$
 (^|\.)kentcountymi\.gov$
 (^|\.)kentucky\.gov$
-(^|\.)kentwa\.gov$
 (^|\.)kerncog-ca\.gov$
 (^|\.)kerrvilletx\.gov$
 (^|\.)keweenawbay-nsn\.gov$
@@ -1976,10 +1956,8 @@
 (^|\.)longlakemn\.gov$
 (^|\.)longmontcolorado\.gov$
 (^|\.)longportnj\.gov$
-(^|\.)longview-wa\.gov$
 (^|\.)longviewtexas\.gov$
 (^|\.)longviewtx\.gov$
-(^|\.)longviewwa\.gov$
 (^|\.)lorenatx\.gov$
 (^|\.)losaltosca\.gov$
 (^|\.)losangeles-ca\.gov$
@@ -2102,9 +2080,7 @@
 (^|\.)marshfield-ma\.gov$
 (^|\.)marshfieldmo\.gov$
 (^|\.)martinsville-va\.gov$
-(^|\.)marylandhealthconnection\.gov$
 (^|\.)marylandsos\.gov$
-(^|\.)marysvillewa\.gov$
 (^|\.)maryville-tn\.gov$
 (^|\.)masenate\.gov$
 (^|\.)mashantucket-nsn\.gov$
@@ -2263,7 +2239,6 @@
 (^|\.)montereyma\.gov$
 (^|\.)montgomeryal\.gov$
 (^|\.)montgomerycountyga\.gov$
-(^|\.)montgomerycountymd\.gov$
 (^|\.)montgomerycountyva\.gov$
 (^|\.)montgomeryohio\.gov$
 (^|\.)montgomerytexas\.gov$
@@ -2293,7 +2268,6 @@
 (^|\.)mountpocono-pa\.gov$
 (^|\.)mountprospect-il\.gov$
 (^|\.)mountprospectil\.gov$
-(^|\.)mountvernonwa\.gov$
 (^|\.)mpge-nsn\.gov$
 (^|\.)mptn-nsn\.gov$
 (^|\.)mquebradillaspr\.gov$
@@ -2533,7 +2507,6 @@
 (^|\.)north-dakota\.gov$
 (^|\.)northadams-ma\.gov$
 (^|\.)northamptonma\.gov$
-(^|\.)northbendwa\.gov$
 (^|\.)northborough-ma\.gov$
 (^|\.)northbrunswicknj\.gov$
 (^|\.)northcantonohio\.gov$
@@ -2608,7 +2581,6 @@
 (^|\.)oberlinkansas\.gov$
 (^|\.)occoquanva\.gov$
 (^|\.)oceanawv\.gov$
-(^|\.)oceancitymd\.gov$
 (^|\.)oceangate-nj\.gov$
 (^|\.)oceansprings-ms\.gov$
 (^|\.)ocfodc\.gov$
@@ -2900,7 +2872,6 @@
 (^|\.)preventhaiaz\.gov$
 (^|\.)priestriver-id\.gov$
 (^|\.)princegeorgecountyva\.gov$
-(^|\.)princegeorgescountymd\.gov$
 (^|\.)princetonnj\.gov$
 (^|\.)princetontx\.gov$
 (^|\.)proctormn\.gov$
@@ -2964,7 +2935,6 @@
 (^|\.)remington-va\.gov$
 (^|\.)reno\.gov$
 (^|\.)rensselaerny\.gov$
-(^|\.)rentonwa\.gov$
 (^|\.)reynoldscounty-mo\.gov$
 (^|\.)rheacountytn\.gov$
 (^|\.)rhinebeck-ny\.gov$
@@ -3168,7 +3138,6 @@
 (^|\.)seminolenation-nsn\.gov$
 (^|\.)senecasc\.gov$
 (^|\.)sequatchiecounty-tn\.gov$
-(^|\.)sequimwa\.gov$
 (^|\.)servealabama\.gov$
 (^|\.)serveidaho\.gov$
 (^|\.)serveohio\.gov$
@@ -3212,7 +3181,6 @@
 (^|\.)smithtownny\.gov$
 (^|\.)smyrnaga\.gov$
 (^|\.)sno-nsn\.gov$
-(^|\.)snohomishwa\.gov$
 (^|\.)snowflake-az\.gov$
 (^|\.)soboba-nsn\.gov$
 (^|\.)socorronm\.gov$

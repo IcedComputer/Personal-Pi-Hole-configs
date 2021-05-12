@@ -17,10 +17,10 @@ function adlist()
 sqlite3 "/etc/pihole/gravity.db" "DELETE FROM adlist"
 
 # Preps the adlist
-cat $TEMPDIR/adlist.list | grep -v '#' | grep "http" | sort | uniq > formatted_adlist.temp
+cat $TEMPDIR/adlist.list | grep -v '#' | grep "http" | sort | uniq > $TEMPDIR/formatted_adlist.temp
 
 # Inserts URLs into the adlist database
-file='$TEMPDIR/formatted_adlist.temp'
+file=$TEMPDIR/formatted_adlist.temp
 i=1
 while read line; do
         sqlite3 "/etc/pihole/gravity.db" "INSERT INTO adlist (id, address, enabled) VALUES($i, $line, 1)"
@@ -31,15 +31,15 @@ done < $file
 function regex()
 {
 # Purge existing regex list
-pihole --regex --nuke
+#pihole --regex --nuke
 
 #adds regex from following file
-regex='$TEMPDIR/formatted_regex.temp'
+file3=$TEMPDIR/regex.list
 
 while read -r regex; do
 	pihole --regex -nr $regex
 	wait
-done < $file
+done < $file3
 }
 
 function allow()
@@ -48,10 +48,36 @@ function allow()
 #pihole -w --nuke
 
 #adds allow list from following file
-file='$TEMPDIR/allow.temp'
+file1=$TEMPDIR/final.allow.temp
 
 while read allow; do
 	pihole -w -nr $allow
 	wait
-done < $file
+done < $file1
 }
+
+function allow_regex()
+{
+# Purge existing allow list
+pihole --white-regex --nuke
+
+#adds allow list from following file
+file2=$TEMPDIR/WL_regex.list
+
+while read -r WLallow; do
+	pihole --white-regex -nr $WLallow
+	wait
+done < $file2
+}
+
+function cleaup()
+{
+pihole restartdns
+}
+
+## Main Program
+allow
+#allow_regex
+adlist
+regex
+cleanup
