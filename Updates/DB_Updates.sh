@@ -9,7 +9,7 @@
 FINISHED=/scripts/Finished
 TEMPDIR=/scripts/temp
 PIDIR=/etc/pihole
-
+A='"'
 
 function adlist()
 {
@@ -17,13 +17,13 @@ function adlist()
 sqlite3 "/etc/pihole/gravity.db" "DELETE FROM adlist"
 
 # Preps the adlist
-cat $TEMPDIR/adlist.list | grep -v '#' | grep "http" | sort | uniq > $TEMPDIR/formatted_adlist.temp
+cat $PIDIR/adlists.list | grep -v '#' | grep "http" | sort | uniq > $TEMPDIR/formatted_adlist.temp
 
 # Inserts URLs into the adlist database
 file=$TEMPDIR/formatted_adlist.temp
 i=1
 while read line; do
-        sqlite3 "/etc/pihole/gravity.db" "INSERT INTO adlist (id, address, enabled) VALUES($i, $line, 1)"
+        sqlite3 "/etc/pihole/gravity.db" "INSERT INTO adlist (id, address, enabled) VALUES($i, $A$line$A, 1)"
         i=$((i+1))
 done < $file
 }
@@ -34,7 +34,7 @@ function regex()
 #pihole --regex --nuke
 
 #adds regex from following file
-file3=$TEMPDIR/regex.list
+file3=$PIDIR/regex.list
 
 while read -r regex; do
 	pihole --regex -nr $regex
@@ -48,7 +48,7 @@ function allow()
 #pihole -w --nuke
 
 #adds allow list from following file
-file1=$TEMPDIR/final.allow.temp
+file1=$PIDIR/whitelist.txt
 
 while read allow; do
 	pihole -w -nr $allow

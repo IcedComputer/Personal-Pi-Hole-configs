@@ -120,7 +120,11 @@ function assemble()
 {
 	cat $TEMPDIR/*.allow.temp  | sort | uniq > $TEMPDIR/final.allow.temp
 	cat $TEMPDIR/*.regex | grep -v '#' |sort | uniq > $TEMPDIR/regex.list
-	
+	mv $TEMPDIR/regex.list  $PIDIR/regex.list
+	mv $TEMPDIR/final.allow.temp $PIDIR/whitelist.txt
+	mv $TEMPDIR/adlists.list $PIDIR/adlists.list
+	mv $TEMPDIR/CFconfig $FINISHED/cloudflared
+	mv $TEMPDIR/refresh.sh $FINISHED/refresh.sh
 	
 	
 	if [ $is_v5 = "yes" ]
@@ -128,11 +132,7 @@ function assemble()
 			sudo bash $FINISHED/DB_Updates.sh
 	fi
 	
-	mv $TEMPDIR/regex.list  $PIDIR/regex.list
-	mv $TEMPDIR/final.allow.temp $PIDIR/whitelist.txt
-	mv $TEMPDIR/adlists.list $PIDIR/adlists.list
-	mv $TEMPDIR/CFconfig $FINISHED/cloudflared
-	mv $TEMPDIR/refresh.sh $FINISHED/refresh.sh
+
 }
 
 #cleanup
