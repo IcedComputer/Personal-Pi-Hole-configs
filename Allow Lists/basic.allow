@@ -1,4 +1,3 @@
-
 127.0.0.1
 1drv.ms
 accounts.google.com
@@ -8,6 +7,7 @@ adaway.org
 ads-e-darwin.hulustream.com
 angel.co
 api-global.netflix.com
+api.coinbase.com
 api.pro.coinbase.com
 appleid.apple.com
 archive.raspberrypi.org
@@ -90,6 +90,7 @@ redirector.gvt1.com
 s3.amazonaws.com
 scontent.xx.fbcdn.net
 security.ubuntu.com
+sessions.coinbase.com
 settings-win.data.microsoft.com
 spclient.wg.spotify.com
 spoprod-a.akamaihd.net
