@@ -1,6 +1,6 @@
 ## Random Other TLD ##
 ## Re-Organized: 03 July 2020
-## Last Updated: 28 March 2021
+## Last Updated: 17 July 2021
 ## oTLD.regex
 #####
 
@@ -231,6 +231,7 @@
 (^|\.)mom$
 (^|\.)moscow$
 (^|\.)ninja$
+(^|\.)nowhere$
 (^|\.)online$
 (^|\.)ooo$
 (^|\.)party$
