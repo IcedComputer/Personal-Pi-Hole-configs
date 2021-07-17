@@ -1,7 +1,7 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 12 May 2021
+## Last Updated: 16 July 2021
 #########
 
 (.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
@@ -281,6 +281,7 @@
 (^|\.|-)hdnux\.com$
 (^|\.|-)hearstnp\.com$
 (^|\.|-)heroacademia2\.com$
+(^|\.|-)herokudns\.com$
 (^|\.|-)herokussl\.com$
 (^|\.|-)heyzap\.com$
 (^|\.|-)hipstarclub\.com$
