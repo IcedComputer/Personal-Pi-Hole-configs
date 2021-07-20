@@ -1,6 +1,6 @@
 ## basic_security.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 18 December 2020
+## Last Updated: 20 July 2021
 
 
 (^|\.|-)(0+)?apple(s)?0+\.com$
@@ -42,3 +42,9 @@
 (^|\.|-)web3000\.com$
 (^|\.|-)webcodez\.com
 (^|\.|-)yandex\.
+
+# New
+(^|\.|-)arrowservice\.net$
+(^|\.|-)federalres\.org$
+(^|\.|-)businessconsults\.net$
+(^|\.|-)idahoanad\.org$
