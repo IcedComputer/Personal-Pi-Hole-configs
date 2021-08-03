@@ -1,6 +1,6 @@
 # List of tracking, advertising and other non-malicious hosts
 # adHosts.blocklist
-# Last Modified: 08 May 2021
+# Last Modified: 03 Aug 2021
 #
 189229.measurementapi.com
 50analytics.secureserver.net
@@ -139,6 +139,7 @@ gredgar-prevalid.com
 hw-cdn-ap.trafficjunky.net
 i.psmimg.com
 if.psmimg.com
+imp-lb-us2.jampp.com
 imp2.ads.linkedin.com
 infolink.pavv.co.kr
 kindepend.com
@@ -184,6 +185,7 @@ oempprd.samsungcloudsolution.com
 onetag-geo.s-onetag.com
 onsiterecs.api.boomtrain.com
 openapi.samsung.com
+peoplefun.helpshift.com
 premium-videos.telly.com
 rainydaymarketing.affise.com
 rainydaymarketing.g2afse.com
@@ -222,6 +224,7 @@ tracker-us.adsmoloco.com
 tracking-2.us-east-1.prod.intspot.com
 tracking-3.us-east-1.prod.intspot.com
 trackinglb-1826511868.us-east-1.elb.amazonaws.com
+use.trk.svr-algorix.com
 v.vfgtb.com
 v.vfgte.com
 vd.emp.prd.s3.amazonaws.com
