@@ -2,7 +2,7 @@
 ## test.regex
 ## This regex is designed to test various features before they get added to the master list
 ## Re-Organized: 03 July 2020
-## Last Updated: 03 Aug 2021
+## Last Updated: 18 Aug 2021
 #########
 
 ## October 2020
@@ -15,3 +15,11 @@
 # 03 Aug 2021
 (^|\.)glass$
 (^|\.)cloud$
+(^|\.|-)rings\.solutions$
+
+# 10 Aug 2021
+(^|\.|-)glance\.net$
+
+# 18 Aug 2021
+(^|\.|-)webrecorder-prod(\.|-)
+(^|\.|-)contentsquare\.net$

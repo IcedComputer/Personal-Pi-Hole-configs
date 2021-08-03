@@ -1,6 +1,6 @@
 ## basic_security.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 20 July 2021
+## Last Updated: 03 August 2021
 
 
 (^|\.|-)(0+)?apple(s)?0+\.com$
@@ -15,18 +15,22 @@
 (^|\.|-)8ox\.cn$
 (^|\.|-)[a-z0-9]*keygen(erator)?[-_\.]
 (^|\.|-)amazones\.com$
+(^|\.|-)arrowservice\.net$
 (^|\.|-)avsvmcloud\.com
+(^|\.|-)businessconsults\.net$
 (^|\.|-)chinaunicom[-_\.]
 (^|\.|-)creditsansjustificatif\.me$
 (^|\.|-)deftsecurity\.com
 (^|\.|-)dfhdsfhhfdhdf5s6h5\.blogspot[-_\.]
 (^|\.|-)digitalcollege\.org
 (^|\.|-)elbavietnam\.com$
+(^|\.|-)federalres\.org$
 (^|\.|-)fin((spy)|(fisher))[-_\.]
 (^|\.|-)footprint-?dns(\.|-)
 (^|\.|-)freescanonline\.com
 (^|\.|-)fwmrm\.net$
 (^|\.|-)globalnetworkissues\.com
+(^|\.|-)idahoanad\.org$
 (^|\.|-)kubecloud\.com
 (^|\.|-)lcomputers\.com
 (^|\.|-)nsogroup[-_\.]
@@ -42,9 +46,3 @@
 (^|\.|-)web3000\.com$
 (^|\.|-)webcodez\.com
 (^|\.|-)yandex\.
-
-# New
-(^|\.|-)arrowservice\.net$
-(^|\.|-)federalres\.org$
-(^|\.|-)businessconsults\.net$
-(^|\.|-)idahoanad\.org$
