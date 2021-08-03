@@ -1,7 +1,7 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 16 July 2021
+## Last Updated: 03 Aug 2021
 #########
 
 (.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
@@ -55,6 +55,7 @@
 (^|\.|-)aakit\.com$
 (^|\.|-)acrcloud\.com$
 (^|\.|-)ad(x|v|s)?([0-9]*)?k?((acts)|(blade)|(ups?)|(just)|(2x?)|(mob)|(colony)|(cale)|(cat)|(luxe)|(nxs)|(tech(us|jp)?))?[-_\.]
+(^|\.|-)ad1x\.com$
 (^|\.|-)adclickservices?[-_\.]
 (^|\.|-)addressinggifts\.in$
 (^|\.|-)adfo?(nic|rm|ront)[-_\.]
@@ -293,6 +294,7 @@
 (^|\.|-)hsleadflows\.net$
 (^|\.|-)hwcdn\.net
 (^|\.|-)hypestat\.com$
+(^|\.|-)hyprmx\.com$
 (^|\.|-)hypstarcdn(\.|-)
 (^|\.|-)i?((ris)|(spotx?))\.tv$
 (^|\.|-)ibm\.xtify\.com$
@@ -322,6 +324,7 @@
 (^|\.|-)itsup\.com
 (^|\.|-)ivwbox\.de$
 (^|\.|-)izatcloud\.net$
+(^|\.|-)jampp\.com$
 (^|\.|-)jmp9\.com$
 (^|\.|-)jsdelivr\.net$
 (^|\.|-)junctiontv\.net$
@@ -413,6 +416,7 @@
 (^|\.|-)o5o4o6\.com$
 (^|\.|-)o7jljpik9lqufe7n-m\.com$
 (^|\.|-)oascentral[-_\.]
+(^|\.|-)oath\.cloud$
 (^|\.|-)oceanbys\.com$
 (^|\.|-)ocn\.ne\.jp$
 (^|\.|-)oewabox\.at$
@@ -533,6 +537,7 @@
 (^|\.|-)superawesome\.tv$
 (^|\.|-)supergaminator[0-9]*\.com$
 (^|\.|-)supersonicads\.com$
+(^|\.|-)svr-algorix\.com$
 (^|\.|-)swappa\.com$
 (^|\.|-)swiship\.de$
 (^|\.|-)swrve\.com$
