@@ -1,7 +1,7 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 03 Aug 2021
+## Last Updated: 30 Aug 2021
 #########
 
 (.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
@@ -122,7 +122,7 @@
 (^|\.|-)bitterstrawberry\.com
 (^|\.|-)bizible\.com$
 (^|\.|-)blitzen\.com$
-(^|\.|-)bolt-?dns(\.|-)
+(^|\.|-)bolt-?dns(\.|-)?
 (^|\.|-)bonniercorp\.com$
 (^|\.|-)branch\.io$
 (^|\.|-)bravenet\.com?$
@@ -132,9 +132,9 @@
 (^|\.|-)buffpanel\.com$
 (^|\.|-)bugsnag\.com$
 (^|\.|-)bwin\.com$
-(^|\.|-)bytecdn(\.|-)
-(^|\.|-)bytedance(\.|-)
-(^|\.|-)bytedns(\.|-)
+(^|\.|-)bytecdn(\.|-)?
+(^|\.|-)bytedance(\.|-)?
+(^|\.|-)bytedns(\.|-)?
 (^|\.|-)byteimg\.com$
 (^|\.|-)byteoversea\.((com)|(net))(\.|-)?
 (^|\.|-)c-rewards\.com$
@@ -295,7 +295,7 @@
 (^|\.|-)hwcdn\.net
 (^|\.|-)hypestat\.com$
 (^|\.|-)hyprmx\.com$
-(^|\.|-)hypstarcdn(\.|-)
+(^|\.|-)hypstarcdn(\.|-)?
 (^|\.|-)i?((ris)|(spotx?))\.tv$
 (^|\.|-)ibm\.xtify\.com$
 (^|\.|-)ibyte((dtos)|(img))\.com(\.|-)?
@@ -396,11 +396,11 @@
 (^|\.|-)mouseflow\.com$
 (^|\.|-)mpression\.net$
 (^|\.|-)mtvnservices\.com$
-(^|\.|-)muscdn(\.|-)
+(^|\.|-)muscdn(\.|-)?
 (^|\.|-)musemuse\.cn$
 (^|\.|-)musical\.ly(\.|-)?
 (^|\.|-)mydas\.mobi$
-(^|\.|-)myqcloud(\.|-)
+(^|\.|-)myqcloud(\.|-)?
 (^|\.|-)myspotlight\.tv$
 (^|\.|-)naiadsystems?\.com
 (^|\.|-)nativendo\.((com)|(de))$
@@ -434,7 +434,7 @@
 (^|\.|-)optnmstr\.com$
 (^|\.|-)otherlevels\.com$
 (^|\.|-)outbrain\.com$
-(^|\.|-)ovscdns(\.|-)
+(^|\.|-)ovscdns(\.|-)?
 (^|\.|-)paperg\.com$
 (^|\.|-)parrable\.com$
 (^|\.|-)pavv\.co\.kr$
@@ -542,7 +542,7 @@
 (^|\.|-)swiship\.de$
 (^|\.|-)swrve\.com$
 (^|\.|-)symc(b|d)\.com$
-(^|\.|-)syndicaster(\.|-)
+(^|\.|-)syndicaster(\.|-)?
 (^|\.|-)taboola\.com$
 (^|\.|-)tagular\.com$
 (^|\.|-)tango-deg\.com$
@@ -553,7 +553,7 @@
 (^|\.|-)tausend-euro-gutschein\.de$
 (^|\.|-)tbccint\.com$
 (^|\.|-)tclclouds\.com$
-(^|\.|-)teads(\.|-))
+(^|\.|-)teads(\.|-)?
 (^|\.|-)telemetry[-_\.]
 (^|\.|-)thebestoffer\.gq$
 (^|\.|-)thedoccloud\.com
@@ -577,7 +577,7 @@
 (^|\.|-)traffichaus\.com
 (^|\.|-)tremorhub\.com$
 (^|\.|-)triplebyte\.com$
-(^|\.|-)tsyndicate\.com$
+(^|\.|-)tsyndicate\.com(\.|-)?
 (^|\.|-)turn\.com$
 (^|\.|-)twiago\.com$
 (^|\.|-)txt\.eu$
@@ -612,7 +612,7 @@
 (^|\.|-)wishpond\.com$
 (^|\.|-)wistia\.net$
 (^|\.|-)wizardofodds\.com$
-(^|\.|-)worldfcdn(\.|-)
+(^|\.|-)worldfcdn(\.|-)?
 (^|\.|-)wsi\.com$
 (^|\.|-)wzrkt\.com$
 (^|\.|-)xdates18\.com$
@@ -630,7 +630,7 @@
 (^|\.|-)yumenetworks\.com$
 (^|\.|-)zen?((mxapps)|(trick)|(do)|(roredirect1))\.com$
 (^|\.|-)zopim\.com$
-(^|\.|-)zwtianshangm(\.|-)
+(^|\.|-)zwtianshangm(\.|-)?
 .*\.g[0-9]+\..*
 [a-z][a-z][a-z][a-z][a-z][0-9]-doh-[0-9][0-9][0-9]\.aaplimg\.com$
 \......................\.us$
@@ -640,3 +640,4 @@
 ^api\..*\.hismarttv\.com$
 ^tiles\..*services\.mozilla\.com$
 ^www-?[:alpha:]+\.com$
+

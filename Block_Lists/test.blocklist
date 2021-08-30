@@ -1,13 +1,19 @@
 # A list of test items
 # test.blocklist
 # Re-Organized: 03 July 2020
-# Last Updated: 03 Aug 2021
+# Last Updated: 30 Aug 2021
 
 ## To adHosts.blocklist (tracking, advertising and other non-malicious hosts)
 nexus.ensighten.com
 nexus-test.ensighten.com
 
+
+
 ## To MalBlock.blocklist (malware, randsomware, spam, phishing, etc.)
+#8/30/21
+t.e2ma.net
+cdn.tsyndicate.com.fpbns.net
+
 
 
 ## To custom.blocklist (Other)
@@ -22,6 +28,12 @@ nexus-test.ensighten.com
 ## Unknown
 mqtt.2030.ltsapis.goog 
 gameplayapi.intel.com
+
+faphouse.com
+v.faphouse.com
+derepage-limmend.com
+afgtrwd1.com
+
 
 
 
