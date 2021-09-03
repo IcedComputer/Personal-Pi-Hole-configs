@@ -2,7 +2,7 @@
 ## test.regex
 ## This regex is designed to test various features before they get added to the master list
 ## Re-Organized: 03 July 2020
-## Last Updated: 30 Aug 2021
+## Last Updated: 03 Sep 2021
 #########
 
 ## October 2020
@@ -28,3 +28,9 @@
 (^|\.|-)strpst\.com(\.|-)?
 (^|\.|-)camsoda\.com(\.|-)?
 (^|\.|-)highwebmedia\.com(\.|-)?
+
+
+#03 Sep 2021
+(^|\.|-)agora\.io$
+(^|\.|-)meetme(cdna)?\.com$
+(^|\.|-)kik-live\.com$

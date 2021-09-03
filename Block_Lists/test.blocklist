@@ -1,27 +1,25 @@
 # A list of test items
 # test.blocklist
 # Re-Organized: 03 July 2020
-# Last Updated: 30 Aug 2021
+# Last Updated: 03 Sep 2021
 
 ## To adHosts.blocklist (tracking, advertising and other non-malicious hosts)
-nexus.ensighten.com
-nexus-test.ensighten.com
-go.goasrv.com
-
+firebaseremoteconfig.googleapis.com
+mobile-data.onetrust.io
 
 ## To MalBlock.blocklist (malware, randsomware, spam, phishing, etc.)
-#8/30/21
-t.e2ma.net
-cdn.tsyndicate.com.fpbns.net
 
 
 
 ## To custom.blocklist (Other)
-
+bots-api.kik.com
+tmg-stream.gateway.kik-live.com
 
 ## To fakenews.blocklist (Fake News)
 
 ## To ForeignHost.blocklist (Non-Malicious / Non-ad Foreign Hosts)
+www.baidu.com
+
 
 ## To dns.blocklist (DNS)
 
@@ -29,15 +27,9 @@ cdn.tsyndicate.com.fpbns.net
 mqtt.2030.ltsapis.goog 
 gameplayapi.intel.com
 
-faphouse.com
-v.faphouse.com
-derepage-limmend.com
-afgtrwd1.com
-camschat.net
 
 
-
-
-
-
-
+e10499.dsce9.akamaiedge.net
+huracan-936647329.us-east-1.elb.amazonaws.com
+a1799.dscapi2.akamai.net
+profilepics.cf.kik.com

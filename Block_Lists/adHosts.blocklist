@@ -1,6 +1,6 @@
 # List of tracking, advertising and other non-malicious hosts
 # adHosts.blocklist
-# Last Modified: 03 Aug 2021
+# Last Modified: 03 Sep 2021
 #
 189229.measurementapi.com
 50analytics.secureserver.net
@@ -66,6 +66,7 @@ advertise.foxnews.com
 advertisers.billymob.com
 advertising.amazon.com
 adx.districtm.ca
+afgtrwd1.com
 ai.phncdn.com.rncdn1.com
 api-tealeaf.goacoustic.com
 apple.comscoreresearch.com
@@ -83,6 +84,7 @@ beacons.extremereach.io
 beacons.gcp.gvt2.com
 beginads.com
 blkditsup.com
+camschat.net
 cdn.adswizz.com
 cdn.asf4f.us
 cdn.atlanticinsights.com
@@ -117,6 +119,7 @@ cpxy.a-mo.net.cdn.cloudflare.net
 creative-analytics.crossinstall.io
 dat.itsup.com
 dat3.its-up.com
+derepage-limmend.com
 device-messaging-na.amazon.com
 device-metrics-us-2.amazon.com
 device-metrics-us.amazon.com
@@ -129,12 +132,14 @@ dolro.club
 e4805.dsca.akamaiedge.net
 events.bouncex.net
 eventtracking.hubapi.com
+faphouse.com
 fkp.samsungcloudsolution.com
 fkp.samsungcloudsolution.net
 game.internetat.tv
 geoclue.smaato.net
 get.s-onetag.com
 gld.samsungosp.com
+go.goasrv.com
 gredgar-prevalid.com
 hw-cdn-ap.trafficjunky.net
 i.psmimg.com
@@ -177,6 +182,8 @@ metric-agent.i10c.net
 metrics1.citibank.com
 mparticle.map.fastly.net
 ms-trackingapi.phenompeople.com
+nexus-test.ensighten.com
+nexus.ensighten.com
 notice.samsungcloudsolution.com
 noticecdn.samsungcloudsolution.com
 noticefile.samsungcloudsolution.com
@@ -225,6 +232,7 @@ tracking-2.us-east-1.prod.intspot.com
 tracking-3.us-east-1.prod.intspot.com
 trackinglb-1826511868.us-east-1.elb.amazonaws.com
 use.trk.svr-algorix.com
+v.faphouse.com
 v.vfgtb.com
 v.vfgte.com
 vd.emp.prd.s3.amazonaws.com
