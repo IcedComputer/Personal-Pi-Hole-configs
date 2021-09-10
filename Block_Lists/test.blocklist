@@ -1,7 +1,7 @@
 # A list of test items
 # test.blocklist
 # Re-Organized: 03 July 2020
-# Last Updated: 09 Sep 2021
+# Last Updated: 10 Sep 2021
 
 ## To adHosts.blocklist (tracking, advertising and other non-malicious hosts)
 firebaseremoteconfig.googleapis.com
@@ -9,7 +9,7 @@ mobile-data.onetrust.io
 
 ## To MalBlock.blocklist (malware, randsomware, spam, phishing, etc.)
 bluepart.online
-
+nsasex.net
 
 ## To custom.blocklist (Other)
 bots-api.kik.com
