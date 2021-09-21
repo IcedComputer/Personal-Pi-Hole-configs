@@ -30,9 +30,6 @@ done < $file
 
 function regex()
 {
-# Purge existing regex list
-#pihole --regex --nuke
-
 #adds regex from following file
 file3=$PIDIR/regex.list
 
@@ -44,9 +41,6 @@ done < $file3
 
 function allow()
 {
-# Purge existing allow list
-#pihole -w --nuke
-
 #adds allow list from following file
 file1=$PIDIR/whitelist.txt
 
@@ -58,8 +52,6 @@ done < $file1
 
 function allow_regex()
 {
-# Purge existing allow list
-pihole --white-regex --nuke
 
 #adds allow list from following file
 file2=$TEMPDIR/WL_regex.list
