@@ -1,7 +1,7 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 30 Aug 2021
+## Last Updated: 21 Sep 2021
 #########
 
 (.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
@@ -208,7 +208,7 @@
 (^|\.|-)device\.marketingcloudapis\.com$
 (^|\.|-)dfhdsfhhfdhdf5s6h5\.blogspot[-_\.]
 (^|\.|-)digitalcollege\.org
-(^|\.|-)digitalmarketing\.
+(^|\.|-)digitalmarketing[-_\.]
 (^|\.|-)digitru\.st$
 (^|\.|-)diomedis\.online$
 (^|\.|-)distiltag\.com$
@@ -452,7 +452,7 @@
 (^|\.|-)plista\.com$
 (^|\.|-)polyfill\.io$
 (^|\.|-)poptm\.com$
-(^|\.|-)popupad\.
+(^|\.|-)popupad[-_\.]
 (^|\.|-)preisauswahl\.club$
 (^|\.|-)pro-market\.net$
 (^|\.|-)pstatp\.com$
@@ -577,7 +577,7 @@
 (^|\.|-)traffichaus\.com
 (^|\.|-)tremorhub\.com$
 (^|\.|-)triplebyte\.com$
-(^|\.|-)tsyndicate\.com(\.|-)?
+(^|\.|-)tsyndicate\.com[-_\.]?
 (^|\.|-)turn\.com$
 (^|\.|-)twiago\.com$
 (^|\.|-)txt\.eu$
@@ -612,7 +612,7 @@
 (^|\.|-)wishpond\.com$
 (^|\.|-)wistia\.net$
 (^|\.|-)wizardofodds\.com$
-(^|\.|-)worldfcdn(\.|-)?
+(^|\.|-)worldfcdn[-_\.]
 (^|\.|-)wsi\.com$
 (^|\.|-)wzrkt\.com$
 (^|\.|-)xdates18\.com$
@@ -621,7 +621,7 @@
 (^|\.|-)xpanama\.net$
 (^|\.|-)xpressunblock\.com$
 (^|\.|-)yahoodns\.net$
-(^|\.|-)yandex\.
+(^|\.|-)yandex[-_\.]
 (^|\.|-)yield((mo)|(optimizer))\.com$
 (^|\.|-)yieldify\.com$
 (^|\.|-)yimg\.com$
