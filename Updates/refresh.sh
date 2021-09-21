@@ -1,5 +1,5 @@
 ## Created 25 July 2020
-## Updated 12 May 2021
+## Updated 21 Sep 2021
 ## refresh.sh
 ## This script simply updates the "updates.sh" script to ensure the local copy on the machine is up to date
 ##
@@ -25,6 +25,9 @@ function download()
 	
 	## download an updated DB_updates.sh
 	curl --tlsv1.2 -o $TEMPDIR/DB_Updates.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/DB_Updates.sh'
+	
+	## download an updated purge.sh
+	curl --tlsv1.2 -o $TEMPDIR/purges.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/purge.sh'
 }
 
 
@@ -41,6 +44,9 @@ function move()
 	
 	chmod 777 $TEMPDIR/DB_Updates.sh
 	mv $TEMPDIR/DB_Updates.sh $FINISHED/DB_Updates.sh
+	
+	chmod 777 $TEMPDIR/purge.sh
+	mv $TEMPDIR/purge.sh $FINISHED/purge.sh
 }
 
 download
