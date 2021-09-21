@@ -2,11 +2,8 @@
 ## test.regex
 ## This regex is designed to test various features before they get added to the master list
 ## Re-Organized: 03 July 2020
-## Last Updated: 03 Sep 2021
+## Last Updated: 21 Sep 2021
 #########
-
-## October 2020
-(^|\.|-)apple-dns\.net
 
 ##26 December 2020
 (\.)goog$
