@@ -24,6 +24,7 @@ cdn.jsdelivr.net
 cert.mgt.xboxlive.com
 chrome.google.com
 coinbase.com
+content.fe.apple-dns.net
 corp.sts.microsoft.com
 ctldl.windowsupdate.com
 def-vef.xboxlive.com
@@ -60,6 +61,7 @@ instagram.com
 isc.sans.edu
 js.stripe.com
 keystone.mwbsys.com
+keyvalueservice.fe.apple-dns.net
 licensing.xboxlive.com
 limited-prod.giphy.map.fastly.net
 lists.malwarepatrol.net
