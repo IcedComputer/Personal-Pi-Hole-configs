@@ -1,4 +1,4 @@
-## Last Updated 08 May 2021
+## Last Updated 21 Sep 2021
 ## DB_Updates.sh
 ## This script is designed to keep the pihole updated and linked to any changes made
 ##
@@ -70,7 +70,7 @@ while read -r WLallow; do
 done < $file2
 }
 
-function cleaup()
+function cleanup()
 {
 pihole restartdns
 }
