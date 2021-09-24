@@ -25,7 +25,7 @@ function base()
 	 apt autoremove -y
 	 wait
 	 
-	 download new cloudflared configs
+	#download new cloudflared configs
 	curl --tlsv1.2 -o $TEMPDIR/CFconfig 'https://raw.githubusercontent.com/IcedComputer/Azure-Pihole-VPN-setup/master/Configuration%20Files/CFconfig'
 		
 	#download a new refresh.sh
