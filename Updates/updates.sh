@@ -60,7 +60,7 @@ function security()
 	curl --tlsv1.2 -o $TEMPDIR/adlists.list 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/adlists/security_basic_adlist.list'
 
 	# Regex Lists
-	curl --tlsv1.2 -o $TEMPDIR/basic_security.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic)security.regex'
+	curl --tlsv1.2 -o $TEMPDIR/basic_security.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_security.regex'
 	wait
 	curl --tlsv1.2 -o $TEMPDIR/basic_country.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_country.regex'
 	wait
@@ -107,6 +107,7 @@ function security_allowlist()
 	##Get Whitelists
 	#Public
 	curl --tlsv1.2 -o $TEMPDIR/security_only.allow.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/security_only.allow'
+
 }
 
 #function encrypted_allowlist()
