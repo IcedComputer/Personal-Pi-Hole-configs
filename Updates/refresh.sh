@@ -27,7 +27,7 @@ function download()
 	curl --tlsv1.2 -o $TEMPDIR/DB_Updates.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/DB_Updates.sh'
 	
 	## download an updated purge.sh
-	curl --tlsv1.2 -o $TEMPDIR/purges.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/purge.sh'
+	curl --tlsv1.2 -o $TEMPDIR/purge.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/purge.sh'
 }
 
 
