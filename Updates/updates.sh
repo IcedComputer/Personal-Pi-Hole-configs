@@ -98,7 +98,7 @@ function public_allowlist()
 	#On System
 	cp $PIDIR/whitelist.txt $TEMPDIR/current.allow.temp
 	echo " " >> $TEMPDIR/current.allow.temp
-	cp $CONFIG/perm_allow.conf $TEMPDIR/perm_allow.temp
+	cp $CONFIG/perm_allow.conf $TEMPDIR/perm.allow.temp
 	
 }
 
