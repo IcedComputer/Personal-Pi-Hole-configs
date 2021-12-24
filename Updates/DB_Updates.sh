@@ -7,6 +7,7 @@
 
 #Vars
 FINISHED=/scripts/Finished
+CONFIG=/scripts/Finished/CONFIG
 TEMPDIR=/scripts/temp
 PIDIR=/etc/pihole
 A='"'
@@ -54,7 +55,7 @@ function allow_regex()
 {
 
 #adds allow list from following file
-file2=$TEMPDIR/WL_regex.list
+file2=$CONFIG/allow_wild.conf
 
 while read -r WLallow; do
 	pihole --white-regex -nr $WLallow
@@ -69,7 +70,7 @@ pihole restartdns
 
 ## Main Program
 allow
-#allow_regex
+allow_regex
 adlist
 regex
 cleanup
