@@ -55,7 +55,7 @@ function allow_regex()
 {
 
 #adds allow list from following file
-file2=$CONFIG/allow_wild.conf
+file2=$TEMPDIR/final.regex.allow.temp
 
 while read -r WLallow; do
 	pihole --white-regex -nr $WLallow

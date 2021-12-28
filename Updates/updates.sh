@@ -103,6 +103,7 @@ function public_allowlist()
 	chmod 777 $TEMPDIR/current.allow.temp
 	echo " " >> $TEMPDIR/current.allow.temp
 	cp $CONFIG/perm_allow.conf $TEMPDIR/perm.allow.temp
+	cp $CONFIG/allow_wild.conf $TEMPDIR/allow_wild.allow.regex.temp
 	
 }
 
@@ -122,8 +123,16 @@ function security_allowlist()
 	#gpg $TEMPDIR/encrypt.allow.temp.gpg
 #}
 
+function regex_allowlist()
+{
+
+	curl --tlsv1.2 -o $TEMPDIR/regex.allow.regex.tmp 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Allow%20Lists/regex.allow'
+	
+}
+
 function assemble()
 {
+	cat $TEMPDIR/*.allow.regex.temp| sort | uniq > $TEMPDIR/final.regex.allow.temp
 	cat $TEMPDIR/*.allow.temp  | sort | uniq > $TEMPDIR/final.allow.temp
 	cat $TEMPDIR/*.regex | grep -v '#' |sort | uniq > $TEMPDIR/regex.list
 	mv $TEMPDIR/regex.list  $PIDIR/regex.list
@@ -173,6 +182,7 @@ fi
 
 
 public_allowlist
+regex_allowlist
 #encrypted_allowlist
 assemble
 scripts
