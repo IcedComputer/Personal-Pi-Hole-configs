@@ -1,7 +1,7 @@
 # A list of test items
 # test.blocklist
 # Re-Organized: 03 July 2020
-# Last Updated: 15 Oct 2021
+# Last Updated: 28 Dec 2021
 
 ## To adHosts.blocklist (tracking, advertising and other non-malicious hosts)
 firebaseremoteconfig.googleapis.com
@@ -28,7 +28,6 @@ gameplayapi.intel.com
 
 
 
-e10499.dsce9.akamaiedge.net
 huracan-936647329.us-east-1.elb.amazonaws.com
 a1799.dscapi2.akamai.net
 profilepics.cf.kik.com
