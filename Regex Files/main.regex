@@ -1,7 +1,7 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 21 Sep 2021
+## Last Updated: 28 Dec 2021
 #########
 
 (.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
@@ -23,7 +23,6 @@
 (^|\.|-)(mobile)?analytics?[-_\.]
 (^|\.|-)(mobile)?apptrack(ing)?[-_\.]
 (^|\.|-)*mobile-?collect(s|er|or|ed|ing|ion)?.*\.
-(^|\.|-)..............\.w[a-z,0-9]*-?([a-z,0-9]*)?\........(.)?...
 (^|\.|-)......\.drivefact\.org$
 (^|\.|-)...police\.((com)|(net))$
 (^|\.|-)0+apple(s)?(0+)?\.com$
