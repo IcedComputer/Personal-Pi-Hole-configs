@@ -1,6 +1,6 @@
 # This adlist is a bit more lax than the standard list used
 ## This is largely just security
-## Last Updated 27 AUG 2020
+## Last Updated 31 DEC 2021
 
 ## TikTok (State Sponsored Malware & RAT)
 https://raw.githubusercontent.com/blocklistproject/Lists/master/tiktok.txt
@@ -19,12 +19,21 @@ https://raw.githubusercontent.com/blocklistproject/Lists/master/malware.txt
 https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt
 https://v.firebog.net/hosts/Prigent-Malware.txt
 https://www.malwaredomainlist.com/hostslist/hosts.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-12-16_cytrox/domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-10-07_donot/domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-05-28_qatar/domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/0adde9aba7765c1708626e0afdec6b0a751ed817/2020-06-15_india/domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/cd273e0a68abedbeee0ce7fc410fbc9be883ca0c/2020-03-12_uzbekistan/domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/43ebc2e9ec536f53aaecc1d7ce9e386f5ddbc4c3/2019-03-06_egypt_oauth/domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/8f4bde00435d98b96638f18b299441501c54bacd/2018-12-19_best_practice/domains.txt
+
 
 ## Phishing
 https://phishing.army/download/phishing_army_blocklist_extended.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/phishing.txt
 https://raw.githubusercontent.com/hectorm/hmirror/master/data/eth-phishing-detect/list.txt
 https://v.firebog.net/hosts/Prigent-Phishing.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/ced17db13b47bee7bebdeb1faa606a1d174eedf0/2019-08-16_evolving_phishing/domains.txt
 
 ## Ransomware
 https://raw.githubusercontent.com/blocklistproject/Lists/master/ransomware.txt
@@ -64,3 +73,10 @@ https://raw.githubusercontent.com/blocklistproject/Lists/master/crypto.txt
 ## DNS
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/dns.blocklist
 
+## NSO
+https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-07-18_nso/domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-07-18_nso/v2_domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-07-18_nso/v3_domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-07-18_nso/v4_domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-07-18_nso/v4_validation_domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/ced17db13b47bee7bebdeb1faa606a1d174eedf0/2019-10-10_nso_morocco/domains.txt
