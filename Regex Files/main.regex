@@ -1,7 +1,7 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 28 Dec 2021
+## Last Updated: 10 Feb 2022
 #########
 
 (.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
@@ -630,6 +630,7 @@
 (^|\.|-)[a-z]*advert(s|is(ing|ements?))?[0-9]*[-_\.]
 (^|\.|-)[a-z]*cannabis[a-z]*[-_\.]
 (^|\.|-)[a-z]*[-_\.]?adserver[-_\.]
+*xn--[a-z0-9]*[-_\.]
 .*\.g[0-9]+\..*
 [a-z][a-z][a-z][a-z][a-z][0-9]-doh-[0-9][0-9][0-9]\.aaplimg\.com$
 \......................\.us$
