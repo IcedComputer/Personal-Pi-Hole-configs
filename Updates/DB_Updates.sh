@@ -31,29 +31,59 @@ done < $file
 
 function regex()
 {
+
+ echo "********************************************"
+ echo "********************************************"
+ echo Starting Regex
+ echo "********************************************"
+ echo "********************************************"
+ 
 #adds regex from following file
 file3=$PIDIR/regex.list
-
 while read -r regex; do
 	pihole --regex -nr $regex
 	wait
 done < $file3
+
+ echo "********************************************"
+ echo "********************************************"
+ echo Ending Regex
+ echo "********************************************"
+ echo "********************************************"
 }
 
 function allow()
 {
-#adds allow list from following file
+ echo "********************************************"
+ echo "********************************************"
+ echo Start Allow List
+ echo "********************************************"
+ echo "********************************************"
+ 
+ #adds allow list from following file
 file1=$PIDIR/whitelist.txt
+
 
 while read allow; do
 	pihole -w -nr $allow
 	wait
 done < $file1
+
+ echo "********************************************"
+ echo "********************************************"
+ echo End Allow List
+ echo "********************************************"
+ echo "********************************************"
 }
 
 function allow_regex()
 {
-
+ echo "********************************************"
+ echo "********************************************"
+ echo Start Allow Regex
+ echo "********************************************"
+ echo "********************************************"
+ 
 #adds allow list from following file
 file2=$TEMPDIR/final.regex.allow.temp
 
@@ -61,6 +91,12 @@ while read -r WLallow; do
 	pihole --white-regex -nr $WLallow
 	wait
 done < $file2
+
+ echo "********************************************"
+ echo "********************************************"
+ echo End Allow List
+ echo "********************************************"
+ echo "********************************************"
 }
 
 function cleanup()
