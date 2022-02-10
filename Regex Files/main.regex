@@ -3,7 +3,6 @@
 ## Re-Organized: 03 July 2020
 ## Last Updated: 10 Feb 2022
 #########
-
 (.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
 (^|\.)ibs\.lgappstv\.com
 (^|\.)lgsmartad\.com
