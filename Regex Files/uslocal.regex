@@ -1,10 +1,10 @@
 # file encoding: 						utf-8 dos/windows 1252
 # license:								mit license (mit)
 # original source before modficiation	chef-koch
-# Updated 25 July 2020
+# Updated 12 Feb 2022
 # uslocal.regex
+(^|\.)((az)|(tx)|(texas))?511((ny)|(tx)|(maine)|(wi))?\.gov$
 (^|\.)29palmsbomi-nsn\.gov$
-(^|\.)511((ny)|(tx)|(maine)|(wi))\.gov$
 (^|\.)abilityone\.gov$
 (^|\.)abingdon-va\.gov$
 (^|\.)abingtonma\.gov$
@@ -166,9 +166,7 @@
 (^|\.)avondaleaz\.gov$
 (^|\.)az-acoihc\.gov$
 (^|\.)az-fhsd\.gov$
-(^|\.)az511\.gov$
 (^|\.)az529\.gov$
-(^|\.)az911\.gov$
 (^|\.)azabrc\.gov$
 (^|\.)azaccountancy\.gov$
 (^|\.)azactic\.gov$
@@ -347,7 +345,6 @@
 (^|\.)battlefieldmo\.gov$
 (^|\.)baxtermn\.gov$
 (^|\.)baycounty-mi\.gov$
-(^|\.)baycounty911-mi\.gov$
 (^|\.)baycountyfl\.gov$
 (^|\.)bayside-wi\.gov$
 (^|\.)baystlouis-ms\.gov$
@@ -1000,8 +997,6 @@
 (^|\.)dccode\.gov$
 (^|\.)dccouncil\.gov$
 (^|\.)dccourtsnews\.gov$
-(^|\.)dccourts\.gov$
-(^|\.)dccourt\.gov$
 (^|\.)dconc\.gov$
 (^|\.)dc\.gov$
 (^|\.)decatur-al\.gov$
@@ -3345,7 +3340,6 @@
 (^|\.)testohio\.gov$
 (^|\.)tetoncountyidaho\.gov$
 (^|\.)tewksbury-ma\.gov$
-(^|\.)texas511\.gov$
 (^|\.)texasagriculture\.gov$
 (^|\.)texasattorneygeneral\.gov$
 (^|\.)texaschildrenscommission\.gov$
@@ -3477,7 +3471,6 @@
 (^|\.)tuxedopark-ny\.gov$
 (^|\.)twentyninepalmsbomi-nsn\.gov$
 (^|\.)twpoceannj\.gov$
-(^|\.)tx511\.gov$
 (^|\.)txag\.gov$
 (^|\.)txcourts\.gov$
 (^|\.)txdmv\.gov$
