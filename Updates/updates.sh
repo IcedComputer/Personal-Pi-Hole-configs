@@ -132,7 +132,7 @@ function regex_allowlist()
 
 function assemble()
 {
-	cat $TEMPDIR/*.allow.regex.temp| sort | uniq > $TEMPDIR/final.regex.allow.temp
+	cat $TEMPDIR/*.allow.regex.temp| sort | uniq > $TEMPDIR/final.allow.regex.temp
 	cat $TEMPDIR/*.allow.temp  | sort | uniq > $TEMPDIR/final.allow.temp
 	cat $TEMPDIR/*.regex | grep -v '#' |sort | uniq > $TEMPDIR/regex.list
 	mv $TEMPDIR/regex.list  $PIDIR/regex.list

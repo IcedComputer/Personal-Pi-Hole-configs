@@ -85,7 +85,7 @@ function allow_regex()
  echo "********************************************"
  
 #adds allow list from following file
-file2=$TEMPDIR/final.regex.allow.temp
+file2=$TEMPDIR/final.allow.regex.temp
 
 while read -r WLallow; do
 	pihole --white-regex -nr $WLallow
