@@ -1,7 +1,7 @@
 # file encoding: 						utf-8 dos/windows 1252
 # license:								mit license (mit)
 # original source before modficiation	chef-koch
-# Updated 12 Feb 2022
+# Updated 20 Feb 2022
 # uslocal.regex
 (^|\.)((az)|(tx)|(texas))?511((ny)|(tx)|(maine)|(wi))?\.gov$
 (^|\.)29palmsbomi-nsn\.gov$
@@ -16,8 +16,7 @@
 (^|\.)actonma\.gov$
 (^|\.)adak-ak\.gov$
 (^|\.)adamn\.gov$
-(^|\.)adamscountyms\.gov$
-(^|\.)adamscountyoh\.gov$
+(^|\.)adamscounty((ms)|(oh))\.gov$
 (^|\.)addisontx\.gov$
 (^|\.)adrcnj\.gov$
 (^|\.)adrianmi\.gov$
@@ -379,9 +378,7 @@
 (^|\.)bensalempa\.gov$
 (^|\.)bensonaz\.gov$
 (^|\.)bentonchartertownship-mi\.gov$
-(^|\.)bentoncountyar\.gov$
-(^|\.)bentoncountyms\.gov$
-(^|\.)bentoncountytn\.gov$
+(^|\.)bentoncounty((ms)|(ar)|(tn))\.gov$
 (^|\.)bereadyutah\.gov$
 (^|\.)bereaky\.gov$
 (^|\.)berkeleycountysc\.gov$
@@ -392,8 +389,7 @@
 (^|\.)berryvilleva\.gov$
 (^|\.)berwyn-il\.gov$
 (^|\.)bethanybeach-de\.gov$
-(^|\.)bethel-ct\.gov$
-(^|\.)bethel-oh\.gov$
+(^|\.)bethel-((ct)|(oh))\.gov$
 (^|\.)bethlehem-pa\.gov$
 (^|\.)beverlyhills-ca\.gov$
 (^|\.)beverlyhillsca\.gov$
@@ -442,8 +438,7 @@
 (^|\.)boston\.gov$
 (^|\.)botetourtva\.gov$
 (^|\.)boulder-co\.gov$
-(^|\.)bouldercity-nv\.gov$
-(^|\.)bouldercitynv\.gov$
+(^|\.)bouldercity-?nv\.gov$
 (^|\.)bouldercolorado\.gov$
 (^|\.)bouldercounty-co\.gov$
 (^|\.)bouldercountycolorado\.gov$
@@ -474,10 +469,7 @@
 (^|\.)brb-nsn\.gov$
 (^|\.)breckenridgetx\.gov$
 (^|\.)bremenga\.gov$
-(^|\.)brentwood-tn\.gov$
-(^|\.)brentwoodca\.gov$
-(^|\.)brentwoodmd\.gov$
-(^|\.)brentwoodnh\.gov$
+(^|\.)brentwood-?((ca)|(md)|(nh)|(tn))\.gov$
 (^|\.)brewermaine\.gov$
 (^|\.)brewster-ma\.gov$
 (^|\.)brewstervillage-ny\.gov$
@@ -544,8 +536,7 @@
 (^|\.)calaisvermont\.gov$
 (^|\.)caldwelltx\.gov$
 (^|\.)caledoniamn\.gov$
-(^|\.)calhouncountyal\.gov$
-(^|\.)calhouncountymi\.gov$
+(^|\.)calhouncounty((al)|(mi))\.gov$
 (^|\.)californiadesert\.gov$
 (^|\.)californiavalleymiwoktribe-nsn\.gov$
 (^|\.)california\.gov$
@@ -1282,9 +1273,7 @@
 (^|\.)fortmyersbeachfl\.gov$
 (^|\.)fortsillapache-nsn\.gov$
 (^|\.)fortsmithar\.gov$
-(^|\.)fortworth-texas\.gov$
-(^|\.)fortworth-tx\.gov$
-(^|\.)fortworthtexas\.gov$
+(^|\.)fortworth-?((tx)|(texas))\.gov$
 (^|\.)fostoriaohio\.gov$
 (^|\.)foxboroughma\.gov$
 (^|\.)frames\.gov$
@@ -1292,19 +1281,7 @@
 (^|\.)francestown-nh\.gov$
 (^|\.)frankfort-in\.gov$
 (^|\.)frankfort-ky\.gov$
-(^|\.)franklin-in\.gov$
-(^|\.)franklin-nj\.gov$
-(^|\.)franklin-tn\.gov$
-(^|\.)franklincountyga\.gov$
-(^|\.)franklincountyil\.gov$
-(^|\.)franklincountymaine\.gov$
-(^|\.)franklincountyohio\.gov$
-(^|\.)franklincountypa\.gov$
-(^|\.)franklincountyva\.gov$
-(^|\.)franklinnj\.gov$
-(^|\.)franklinpa\.gov$
-(^|\.)franklintn\.gov$
-(^|\.)franklinwi\.gov$
+(^|\.)franklin-?(county)?((in)|(nj)|(tn)|(ga)|(maine)|(il)|(ohio)|(pa)|(va)|(wi))?\.gov$
 (^|\.)fredenbergtwp-mn\.gov$
 (^|\.)frederickcountyva\.gov$
 (^|\.)frederickco\.gov$
@@ -1625,14 +1602,9 @@
 (^|\.)iasimpleabate\.gov$
 (^|\.)iavoters\.gov$
 (^|\.)ia\.gov$
+(^|\.)id(aho)?((votes)|(works)|(prepares))?\.gov$
 (^|\.)idabel-ok\.gov$
-(^|\.)idahobyways\.gov$
 (^|\.)idahofallsidaho\.gov$
-(^|\.)idahoprepares\.gov$
-(^|\.)idahovotes\.gov$
-(^|\.)idahoworks\.gov$
-(^|\.)idaho\.gov$
-(^|\.)id\.gov$
 (^|\.)ihaveaplaniowa\.gov$
 (^|\.)iipaynation-nsn\.gov$
 (^|\.)ijobsiowa\.gov$
@@ -1727,14 +1699,7 @@
 (^|\.)jaspercountyin\.gov$
 (^|\.)jaspercountysc\.gov$
 (^|\.)jasperindiana\.gov$
-(^|\.)jeffersoncitymo\.gov$
-(^|\.)jeffersoncounty-mt\.gov$
-(^|\.)jeffersoncountyfl\.gov$
-(^|\.)jeffersoncountyga\.gov$
-(^|\.)jeffersoncountyms\.gov$
-(^|\.)jeffersoncountytn\.gov$
-(^|\.)jeffersoncountywi\.gov$
-(^|\.)jeffersontownky\.gov$
+(^|\.)jefferson((city)|(town)|(county))-?..\.gov$
 (^|\.)jenningscounty-in\.gov$
 (^|\.)jerichovt\.gov$
 (^|\.)jerome-oh\.gov$
@@ -3490,11 +3455,7 @@
 (^|\.)unioncity-in\.gov$
 (^|\.)unioncitynj\.gov$
 (^|\.)unioncitytn\.gov$
-(^|\.)unioncounty-fl\.gov$
-(^|\.)unioncountyga\.gov$
-(^|\.)unioncountyil\.gov$
-(^|\.)unioncountyin\.gov$
-(^|\.)unioncountync\.gov$
+(^|\.)unioncounty-?((fl)|(ga)|(il)|(in)|(nc))\.gov$
 (^|\.)unionspringsal\.gov$
 (^|\.)uniontwp-hcnj\.gov$
 (^|\.)unitynh\.gov$
@@ -3594,21 +3555,16 @@
 (^|\.)warnerrobinsga\.gov$
 (^|\.)warracres-ok\.gov$
 (^|\.)warren-ma\.gov$
-(^|\.)warrencountync\.gov$
-(^|\.)warrencountyny\.gov$
-(^|\.)warrencountytn\.gov$
+(^|\.)warrencounty((nc)|(ny)|(tn))\.gov$
 (^|\.)warrenpa\.gov$
 (^|\.)warrentonva\.gov$
 (^|\.)warrickcounty\.gov$
 (^|\.)warwickri\.gov$
-(^|\.)washington-nc\.gov$
+(^|\.)washington-?((nj)|(pa)|(va)|(nc))\.gov$
 (^|\.)washingtonboro-nj\.gov$
 (^|\.)washingtoncountyga\.gov$
 (^|\.)washingtondc\.gov$
 (^|\.)washingtonisland-wi\.gov$
-(^|\.)washingtonnc\.gov$
-(^|\.)washingtonpa\.gov$
-(^|\.)washingtonva\.gov$
 (^|\.)washingtonville-ny\.gov$
 (^|\.)washingtonvirginia\.gov$
 (^|\.)washtenawcounty-mi\.gov$
@@ -3817,9 +3773,7 @@
 (^|\.)ydsp-nsn\.gov$
 (^|\.)yochadehe-nsn\.gov$
 (^|\.)yonkersny\.gov$
-(^|\.)yorkcountyme\.gov$
-(^|\.)yorkcountypa\.gov$
-(^|\.)yorkcounty\.gov$
+(^|\.)yorkcounty((me)|(pa))?\.gov$
 (^|\.)yorktowntx\.gov$
 (^|\.)youngsvillela\.gov$
 (^|\.)ypt-nsn\.gov$
