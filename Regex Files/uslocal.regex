@@ -39,7 +39,6 @@
 (^|\.)alabpp\.gov$
 (^|\.)alachuacountyfl\.gov$
 (^|\.)alacop\.gov$
-(^|\.)alacourt\.gov$
 (^|\.)alada\.gov$
 (^|\.)aladna\.gov$
 (^|\.)alamedaca\.gov$
@@ -197,8 +196,6 @@
 (^|\.)azcorpcomm\.gov$
 (^|\.)azcorpcom\.gov$
 (^|\.)azcorrections\.gov$
-(^|\.)azcourtdocs\.gov$
-(^|\.)azcourts\.gov$
 (^|\.)azcvd\.gov$
 (^|\.)azdaars\.gov$
 (^|\.)azda\.gov$
@@ -1202,7 +1199,6 @@
 (^|\.)flagstaffaz\.gov$
 (^|\.)flboardofmedicine\.gov$
 (^|\.)flcensus\.gov$
-(^|\.)flcourts1\.gov$
 (^|\.)fldoi\.gov$
 (^|\.)flhealth125\.gov$
 (^|\.)flhealthsource\.gov$
@@ -1309,7 +1305,6 @@
 (^|\.)fulsheartexas\.gov$
 (^|\.)fultoncountyga\.gov$
 (^|\.)fultoncountyny\.gov$
-(^|\.)gacourts\.gov$
 (^|\.)gadol\.gov$
 (^|\.)gadsdencountyfl\.gov$
 (^|\.)gahanna\.gov$
@@ -1647,7 +1642,6 @@
 (^|\.)iowacollegeaiddatacenter\.gov$
 (^|\.)iowacollegeaid\.gov$
 (^|\.)iowacore\.gov$
-(^|\.)iowacourts\.gov$
 (^|\.)iowaculture\.gov$
 (^|\.)iowadivisionoflabor\.gov$
 (^|\.)iowadnr\.gov$
@@ -2162,7 +2156,6 @@
 (^|\.)missouri\.gov$
 (^|\.)mitchell-in\.gov$
 (^|\.)mi\.gov$
-(^|\.)mncourts\.gov$
 (^|\.)mndisability\.gov$
 (^|\.)mndnr\.gov$
 (^|\.)mndot\.gov$
@@ -2328,7 +2321,6 @@
 (^|\.)nc\.gov$
 (^|\.)ndcensus\.gov$
 (^|\.)ndcloud\.gov$
-(^|\.)ndcourts\.gov$
 (^|\.)nddatacenter\.gov$
 (^|\.)nddohpressroom\.gov$
 (^|\.)ndhan\.gov$
@@ -2440,7 +2432,6 @@
 (^|\.)njstart\.gov$
 (^|\.)nj\.gov$
 (^|\.)nmag\.gov$
-(^|\.)nmcourts\.gov$
 (^|\.)nmlegis\.gov$
 (^|\.)nmsto\.gov$
 (^|\.)nm\.gov$
@@ -2488,7 +2479,6 @@
 (^|\.)nottingham-nh\.gov$
 (^|\.)nsidfl\.gov$
 (^|\.)nvb-nsn\.gov$
-(^|\.)nvcourts\.gov$
 (^|\.)nvdpspub\.gov$
 (^|\.)nvease\.gov$
 (^|\.)nvggms\.gov$
@@ -2503,7 +2493,6 @@
 (^|\.)nyassembly\.gov$
 (^|\.)nyc-ny\.gov$
 (^|\.)nycourthelp\.gov$
-(^|\.)nycourts\.gov$
 (^|\.)nyc\.gov$
 (^|\.)nygovoffice\.gov$
 (^|\.)nyhallofgovernors\.gov$
@@ -2553,7 +2542,6 @@
 (^|\.)ohiocountyky\.gov$
 (^|\.)ohiocountywv\.gov$
 (^|\.)ohiocourtofclaims\.gov$
-(^|\.)ohiocourts\.gov$
 (^|\.)ohiodnr\.gov$
 (^|\.)ohioheretohelp\.gov$
 (^|\.)ohiohouse\.gov$
@@ -3339,7 +3327,6 @@
 (^|\.)tisburyma\.gov$
 (^|\.)tmdci-nsn\.gov$
 (^|\.)tnag\.gov$
-(^|\.)tncourts\.gov$
 (^|\.)tnecd\.gov$
 (^|\.)tnedu\.gov$
 (^|\.)tniis\.gov$
@@ -3437,7 +3424,6 @@
 (^|\.)twentyninepalmsbomi-nsn\.gov$
 (^|\.)twpoceannj\.gov$
 (^|\.)txag\.gov$
-(^|\.)txcourts\.gov$
 (^|\.)txdmv\.gov$
 (^|\.)txdot\.gov$
 (^|\.)txdps\.gov$
@@ -3472,7 +3458,6 @@
 (^|\.)utahlake\.gov$
 (^|\.)utahtrust\.gov$
 (^|\.)utah\.gov$
-(^|\.)utcourts\.gov$
 (^|\.)utica-il\.gov$
 (^|\.)uvaldetx\.gov$
 (^|\.)uxbridge-ma\.gov$
@@ -3656,7 +3641,6 @@
 (^|\.)wichitafallstx\.gov$
 (^|\.)wichita\.gov$
 (^|\.)wiconnections2030\.gov$
-(^|\.)wicourts\.gov$
 (^|\.)wigrants\.gov$
 (^|\.)wilawlibrary\.gov$
 (^|\.)wilbraham-ma\.gov$
