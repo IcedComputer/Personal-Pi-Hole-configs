@@ -1,7 +1,7 @@
-## Last Updated: 21 Sep 2021
+## Last Updated: 23 Feb 2022
 ## oTLD.regex
 ## Random Other TLD ##
-## Re-Organized: 10 Feb 2022
+## Re-Organized: 23 Feb 2022
 #####
 (^|\.)abogado$
 (^|\.)academy$
@@ -280,7 +280,6 @@
 (^|\.)XN--YFRO4I67O$
 (^|\.)XN--YGBI2AMMX$
 (^|\.)XN--ZFR164B$
-(^|\.)xn--[a-z0-9]*
 (^|\.)xn--[a-z0-9]*[-_\.]
 (^|\.)xxx$
 (^|\.)xyz$
@@ -294,3 +293,4 @@
 (^|\.)zero$
 (^|\.)zip$
 (^|\.)zone$
+xn--[a-z0-9]*
