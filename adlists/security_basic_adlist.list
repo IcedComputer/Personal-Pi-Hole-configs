@@ -1,6 +1,6 @@
 # This adlist is a bit more lax than the standard list used
 ## This is largely just security
-## Last Updated 31 DEC 2021
+## Last Updated 27 FEB 2022
 
 ## TikTok (State Sponsored Malware & RAT)
 https://raw.githubusercontent.com/blocklistproject/Lists/master/tiktok.txt
@@ -10,22 +10,22 @@ https://raw.githubusercontent.com/superover/TikTok-Blocklist/master/tiktok.txt
 
 ## Malware 
 https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt
-https://mirror.cedia.org.ec/malwaredomains/immortal_domains.txt
-https://mirror1.malwaredomains.com/files/justdomains
+https://raw.githubusercontent.com/0xsentinel/CHEF-KOCH/master/HOSTS/CK's-Malware-HOSTS-FilterList.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/0adde9aba7765c1708626e0afdec6b0a751ed817/2020-06-15_india/domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/43ebc2e9ec536f53aaecc1d7ce9e386f5ddbc4c3/2019-03-06_egypt_oauth/domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/8f4bde00435d98b96638f18b299441501c54bacd/2018-12-19_best_practice/domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/cd273e0a68abedbeee0ce7fc410fbc9be883ca0c/2020-03-12_uzbekistan/domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-05-28_qatar/domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-10-07_donot/domains.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-12-16_cytrox/domains.txt
+https://raw.githubusercontent.com/blocklistproject/Lists/master/malware.txt
 https://raw.githubusercontent.com/Firestorrrm/Minimal-Hosts-Blocker/master/malwarelist.txt
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/MalBlock.blocklist
 https://raw.githubusercontent.com/Ultimate-Hosts-Blacklist/quidsup_malicious-sites/master/domains.list
-https://raw.githubusercontent.com/blocklistproject/Lists/master/malware.txt
 https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt
 https://v.firebog.net/hosts/Prigent-Malware.txt
 https://www.malwaredomainlist.com/hostslist/hosts.txt
-https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-12-16_cytrox/domains.txt
-https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-10-07_donot/domains.txt
-https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-05-28_qatar/domains.txt
-https://raw.githubusercontent.com/AmnestyTech/investigations/0adde9aba7765c1708626e0afdec6b0a751ed817/2020-06-15_india/domains.txt
-https://raw.githubusercontent.com/AmnestyTech/investigations/cd273e0a68abedbeee0ce7fc410fbc9be883ca0c/2020-03-12_uzbekistan/domains.txt
-https://raw.githubusercontent.com/AmnestyTech/investigations/43ebc2e9ec536f53aaecc1d7ce9e386f5ddbc4c3/2019-03-06_egypt_oauth/domains.txt
-https://raw.githubusercontent.com/AmnestyTech/investigations/8f4bde00435d98b96638f18b299441501c54bacd/2018-12-19_best_practice/domains.txt
+
 
 
 ## Phishing
