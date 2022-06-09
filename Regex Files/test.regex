@@ -2,25 +2,12 @@
 ## test.regex
 ## This regex is designed to test various features before they get added to the master list
 ## Re-Organized: 03 July 2020
-## Last Updated: 21 Sep 2021
+## Last Updated: 09 June 2022
 #########
-##26 December 2020
-(\.)goog$
-# 03 Aug 2021
-(^|\.)glass$
-(^|\.)cloud$
-(^|\.|-)rings\.solutions$
-# 10 Aug 2021
-(^|\.|-)glance\.net$
-# 18 Aug 2021
-(^|\.|-)webrecorder-prod(\.|-)?
-(^|\.|-)contentsquare\.net$
-#30 Aug 2021
-(^|\.|-)strpst\.com(\.|-)?
-(^|\.|-)camsoda\.com(\.|-)?
-(^|\.|-)highwebmedia\.com(\.|-)?
-#03 Sep 2021
-(^|\.|-)agora\.io$
-(^|\.|-)meetme(cdna)?\.com$
-(^|\.|-)kik-live\.com$
-(^|\.|-)gateway\.kik-live\.com
+
+
+##20 Feb 2022
+uemm((\.)|(-))dynatrace\.ford\.com
+
+##09 June 2022
+(^|\.|-)doppiocdn\.com$

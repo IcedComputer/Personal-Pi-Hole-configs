@@ -1,7 +1,7 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 10 Feb 2022
+## Last Updated: 09 June 2022
 #########
 (.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
 (^|\.)ibs\.lgappstv\.com
@@ -71,6 +71,7 @@
 (^|\.|-)agarioskins\.pw$
 (^|\.|-)agkn\.com$
 (^|\.|-)agof\.de$
+(^|\.|-)agora\.io$
 (^|\.|-)aliyuncs\.com$
 (^|\.|-)alljoyn\.org$
 (^|\.|-)alphonso\.tv$
@@ -129,6 +130,7 @@
 (^|\.|-)byteoversea\.((com)|(net))(\.|-)?
 (^|\.|-)c-rewards\.com$
 (^|\.|-)c1exchange\.com$
+(^|\.|-)camsoda\.com(\.|-)?
 (^|\.|-)carambo\.la$
 (^|\.|-)casalemedia\.com$
 (^|\.|-)cash-code-system\.com$
@@ -167,6 +169,7 @@
 (^|\.|-)connect\.facebook\.
 (^|\.|-)consensu\.org
 (^|\.|-)contentabc\.com
+(^|\.|-)contentsquare\.net$
 (^|\.|-)content\.ad$
 (^|\.|-)convertro\.com$
 (^|\.|-)convio\.net$
@@ -251,6 +254,7 @@
 (^|\.|-)fwmrm\.net$
 (^|\.|-)fyber\.com$
 (^|\.|-)g2a\.com$
+(^|\.|-)gateway\.kik-live\.com
 (^|\.|-)gemius\.pl$
 (^|\.|-)geomob+ad24\.com$
 (^|\.|-)geovisite\.com
@@ -262,6 +266,7 @@
 (^|\.|-)gigya\.com$
 (^|\.|-)gimbal\.com$
 (^|\.|-)giraffic\.com$
+(^|\.|-)glance\.net$
 (^|\.|-)glassbox(cdn|cloud)?\.com$
 (^|\.|-)globalnetworkissues\.com
 (^|\.|-)go2affise\.com$
@@ -275,6 +280,7 @@
 (^|\.|-)herokudns\.com$
 (^|\.|-)herokussl\.com$
 (^|\.|-)heyzap\.com$
+(^|\.|-)highwebmedia\.com(\.|-)?
 (^|\.|-)hipstarclub\.com$
 (^|\.|-)hit((box)|(tail))\.com$
 (^|\.|-)hotjar\.com$
@@ -323,6 +329,7 @@
 (^|\.|-)justclick\.ru$
 (^|\.|-)kaffnet\.com$
 (^|\.|-)kargo\.com$
+(^|\.|-)kik-live\.com$
 (^|\.|-)kingsoft-office-service\.com$
 (^|\.|-)konsumentenumfrage\.de$
 (^|\.|-)kontrolnaya-rabota\.ru$
@@ -371,6 +378,7 @@
 (^|\.|-)mediasmart\.es$
 (^|\.|-)mediatrk\.in$
 (^|\.|-)mee?trics\.net$
+(^|\.|-)meetme(cdna)?\.com$
 (^|\.|-)midasplayer\.com
 (^|\.|-)mitlukashermann\.com$
 (^|\.|-)mktoresp\.com$
@@ -466,6 +474,7 @@
 (^|\.|-)retina-?x[-_\.]
 (^|\.|-)returnpath\.net$
 (^|\.|-)rfihub\.net$
+(^|\.|-)rings\.solutions$
 (^|\.|-)rlcontrol\.de$
 (^|\.|-)royalvegascasino\.com$
 (^|\.|-)rqtrk\.eu$
@@ -522,6 +531,7 @@
 (^|\.|-)stkfree\.xyz$
 (^|\.|-)stripchat\.com$
 (^|\.|-)stroeerdigitalgroup\.de$
+(^|\.|-)strpst\.com(\.|-)?
 (^|\.|-)sunmaker\.com$
 (^|\.|-)sunnyplayer\.com$
 (^|\.|-)superawesome\.tv$
@@ -597,6 +607,7 @@
 (^|\.|-)wct\.click$
 (^|\.|-)web3000\.com$
 (^|\.|-)webcodez\.com
+(^|\.|-)webrecorder-prod(\.|-)?
 (^|\.|-)webtrekk\.net$
 (^|\.|-)wirelessdeveloper\.com$
 (^|\.|-)wishpond\.com$
