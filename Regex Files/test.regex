@@ -11,4 +11,4 @@ uemm((\.)|(-))dynatrace\.ford\.com
 
 ##09 June 2022
 (^|\.|-)doppiocdn\.((com)|(net))$
-(^|\.|-)stripst/.com$
+(^|\.|-)stripst\.com$
