@@ -106,7 +106,7 @@ pihole restartdns
 
 ## Main Program
 allow
-allow_regex
 adlist
 regex
+allow_regex
 cleanup
