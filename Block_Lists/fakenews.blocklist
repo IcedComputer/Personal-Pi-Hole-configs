@@ -1,14 +1,49 @@
-## Last Updated 03 MAR 2022 ##
+## Last Updated 10 Sep 2022 ##
 ## Blacklist Fake News Websites ##
 ## fakenews.blocklist
 #########
 
 ## State Run Propaganda
 rt.com
+rt.ru
+
 
 ## political Spam / US propaganda
 winin2022.co
 gopwin.us
+us-here.com
+22-rep.com
+join.gop
+
+
+##Science.org article / BuzzFeed
+abcnews.com.co
+americanmilitarynews.com
+bizstandardnews.com
+burrardstreetjournal.com
+conservativedailypost.com
+conservativestate.com
+dcclothesline.com
+denverguardian.com
+departed.co
+donaldtrumpnews.co.
+endingthefed.com
+everynewshere.com
+libertynews.com
+libertywritersnews.com
+redstatewatcher.com
+rickwells.us
+subjectpolitics.com
+thepoliticalinsider.com
+tmzhiphop.com
+truepundit.com
+twitchy.com
+usanewsflash.com
+winningdemocrats.com
+worldnewsdailyreport.com
+worldpoliticus.com
+yesimright.com
+
 
 ## From 3.218.216.245
 annarbortimes.com

@@ -1,4 +1,4 @@
-## Last Updated: 23 Feb 2022
+## Last Updated: 10 Sep 2022
 ## oTLD.regex
 ## Random Other TLD ##
 ## Re-Organized: 09 June 2022
@@ -61,6 +61,7 @@
 (^|\.)fit$
 (^|\.)gdn$
 (^|\.)glass$
+(^|\.)gop$
 (^|\.)icu$
 (^|\.)ic\.gov$
 (^|\.)info$
@@ -291,6 +292,7 @@
 (^|\.)yoga$
 (^|\.)yokohama$
 (^|\.)you$
+(^|\.)yt$
 (^|\.)ytT$
 (^|\.)za(\.com)?
 (^|\.)zero$
