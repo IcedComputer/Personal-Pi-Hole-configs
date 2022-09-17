@@ -1,6 +1,9 @@
 # This adlist is a bit more lax than the standard list used
 ## This is largely just security
-## Last Updated 27 FEB 2022
+## Last Updated 17 SEP 2022
+
+##GQP/GOP/Republican Propaganda, Spam and Funraising
+https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/GQP.propaganda.blocklist
 
 ## TikTok (State Sponsored Malware & RAT)
 https://raw.githubusercontent.com/blocklistproject/Lists/master/tiktok.txt
