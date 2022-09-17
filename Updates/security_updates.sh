@@ -78,6 +78,8 @@ function scripts()
 {
  killall -SIGHUP pihole-FTL
  wait
+ pihole restartdns
+ wait
  pihole -g
 }
 
