@@ -1,4 +1,4 @@
-## Last Updated 10 Sep 2022 ##
+## Last Updated 17 Sep 2022 ##
 ## Blacklist Fake News Websites ##
 ## fakenews.blocklist
 #########
@@ -8,12 +8,31 @@ rt.com
 rt.ru
 
 
-## political Spam / US propaganda
-winin2022.co
-gopwin.us
-us-here.com
-22-rep.com
-join.gop
+## Assocaited IPs of Fake news and political spam
+007media.co.uk
+00973.click
+0100.consulting
+4th.fr
+bnent.eu
+bonfirerecs.co
+booo.ms
+brnsn.co
+cavnesshr.co
+cbpartner.co
+ccpnews.link
+cldnry.com
+cmeo.co
+cnvr.eu
+dranna.com
+electrabike.com
+exair.co
+frcpnt.com
+fzo.io
+glytone-usa.com
+huntsmancancer.org
+ncss.org
+nptp.us
+autocallnow.net
 
 
 ##Science.org article / BuzzFeed
