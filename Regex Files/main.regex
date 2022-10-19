@@ -1,8 +1,9 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 09 June 2022
+## Last Updated: 19 OCT 2022
 #########
+
 (.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
 (^|\.)ibs\.lgappstv\.com
 (^|\.)lgsmartad\.com
@@ -403,6 +404,7 @@
 (^|\.|-)naiadsystems?\.com
 (^|\.|-)nativendo\.((com)|(de))$
 (^|\.|-)net-?(dna|dns|doh)(\.|-)?
+(^|\.|-)net\.daraz\.com$
 (^|\.|-)new-free-offer\.in$
 (^|\.|-)nextage\.com$
 (^|\.|-)nikopik\.com$

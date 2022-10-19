@@ -1,5 +1,5 @@
 # This adlist is the full blocking list
-# Last Updated 17 SEP 2022
+# Last Updated 19 OCT 2022
 
 
 ##GQP/GOP/Republican Propaganda, Spam and Funraising
@@ -67,17 +67,17 @@ https://raw.githubusercontent.com/Ultimate-Hosts-Blacklist/quidsup_malicious-sit
 https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt
 https://v.firebog.net/hosts/Airelle-hrsk.txt
 https://v.firebog.net/hosts/Prigent-Malware.txt
-https://v.firebog.net/hosts/Shalla-mal.txt
+https://v.firebog.net/hosts/RPiList-Malware.txt
 https://www.malwaredomainlist.com/hostslist/hosts.txt
 
 
 
 ## Phishing
 https://phishing.army/download/phishing_army_blocklist_extended.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/ced17db13b47bee7bebdeb1faa606a1d174eedf0/2019-08-16_evolving_phishing/domains.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/phishing.txt
 https://raw.githubusercontent.com/hectorm/hmirror/master/data/eth-phishing-detect/list.txt
-https://v.firebog.net/hosts/Prigent-Phishing.txt
-https://raw.githubusercontent.com/AmnestyTech/investigations/ced17db13b47bee7bebdeb1faa606a1d174eedf0/2019-08-16_evolving_phishing/domains.txt
+https://v.firebog.net/hosts/RPiList-Phishing.txt
 
 ## Ransomware
 https://raw.githubusercontent.com/blocklistproject/Lists/master/ransomware.txt
@@ -91,7 +91,6 @@ https://raw.githubusercontent.com/blocklistproject/Lists/master/fraud.txt
 ## Smart TV
 https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/SmartTV/smarttvblocklist.txt
 https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/SmartTV.txt
-https://v.firebog.net/hosts/static/SamsungSmart.txt
 
 
 ## Spam
@@ -148,6 +147,5 @@ https://raw.githubusercontent.com/mitchellkrogza/Ultimate.Hosts.Blacklist/master
 https://raw.githubusercontent.com/vokins/yhosts/master/hosts
 https://raw.githubusercontent.com/yous/YousList/master/hosts.txt
 https://v.firebog.net/hosts/AdguardDNS.txt
-https://v.firebog.net/hosts/Airelle-trc.txt
 https://v.firebog.net/hosts/Easyprivacy.txt
 https://v.firebog.net/hosts/static/w3kbl.txt

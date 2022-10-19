@@ -1,6 +1,6 @@
 # This adlist is a bit more lax than the standard list used
 ## This is largely just security
-## Last Updated 17 SEP 2022
+## Last Updated 19 OCT 2022
 
 ##GQP/GOP/Republican Propaganda, Spam and Funraising
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/GQP.propaganda.blocklist
@@ -27,16 +27,17 @@ https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/B
 https://raw.githubusercontent.com/Ultimate-Hosts-Blacklist/quidsup_malicious-sites/master/domains.list
 https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt
 https://v.firebog.net/hosts/Prigent-Malware.txt
+https://v.firebog.net/hosts/RPiList-Malware.txt
 https://www.malwaredomainlist.com/hostslist/hosts.txt
 
 
 
 ## Phishing
 https://phishing.army/download/phishing_army_blocklist_extended.txt
+https://raw.githubusercontent.com/AmnestyTech/investigations/ced17db13b47bee7bebdeb1faa606a1d174eedf0/2019-08-16_evolving_phishing/domains.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/phishing.txt
 https://raw.githubusercontent.com/hectorm/hmirror/master/data/eth-phishing-detect/list.txt
-https://v.firebog.net/hosts/Prigent-Phishing.txt
-https://raw.githubusercontent.com/AmnestyTech/investigations/ced17db13b47bee7bebdeb1faa606a1d174eedf0/2019-08-16_evolving_phishing/domains.txt
+https://v.firebog.net/hosts/RPiList-Phishing.txt
 
 ## Ransomware
 https://raw.githubusercontent.com/blocklistproject/Lists/master/ransomware.txt
@@ -58,7 +59,7 @@ https://isc.sans.edu/feeds/suspiciousdomains_High.txt
 https://isc.sans.edu/feeds/suspiciousdomains_Medium.txt
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/Static/f2bblocks
 https://raw.githubusercontent.com/StevenBlack/hosts/master/data/add.Risk/hosts
-https://v.firebog.net/hosts/Shalla-mal.txt
+
 
 
 ## Fake News
