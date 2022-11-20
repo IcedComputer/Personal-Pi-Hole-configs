@@ -19,4 +19,4 @@ uemm((\.)|(-))dynatrace\.ford\.com
 
 
 ## 20 Nov 2022
-(^|\.|-)emarsys\.((com)|(net))$
+(^|\.|-)emarsys\.net$
