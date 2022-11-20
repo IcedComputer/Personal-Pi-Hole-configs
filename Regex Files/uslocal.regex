@@ -1,7 +1,7 @@
 # file encoding: 						utf-8 dos/windows 1252
 # license:								mit license (mit)
 # original source before modficiation	chef-koch
-# Updated 20 Feb 2022
+# Updated 20 Nov 2022
 # uslocal.regex
 (^|\.)((az)|(tx)|(texas))?511((ny)|(tx)|(maine)|(wi))?\.gov$
 (^|\.)29palmsbomi-nsn\.gov$
@@ -3769,3 +3769,6 @@
 (^|\.)zeroinwisconsin\.gov$
 (^|\.)zilwaukeemichigan\.gov$
 (^|\.)zionsville-in\.gov$
+
+## end
+

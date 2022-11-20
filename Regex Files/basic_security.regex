@@ -1,6 +1,6 @@
 ## basic_security.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 21 Sep 2021
+## Last Updated: 20 Nov 2022
 (^|\.|-)(0+)?apple(s)?0+\.com$
 (^|\.|-)......\.drivefact\.org$
 (^|\.|-)...police\.((com)|(net))$
@@ -44,3 +44,6 @@
 (^|\.|-)web3000\.com$
 (^|\.|-)webcodez\.com
 (^|\.|-)yandex[-_\.]
+
+## end
+

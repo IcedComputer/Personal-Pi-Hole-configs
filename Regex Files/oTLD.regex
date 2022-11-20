@@ -1,7 +1,7 @@
 ## Last Updated: 10 Sep 2022
 ## oTLD.regex
 ## Random Other TLD ##
-## Re-Organized: 09 June 2022
+## Re-Organized: 20 Nov 2022
 #####
 (\.)goog$
 (^|\.)abogado$
@@ -299,3 +299,6 @@
 (^|\.)zip$
 (^|\.)zone$
 xn--[a-z0-9]*
+
+## end
+

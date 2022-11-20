@@ -1,6 +1,6 @@
 ## basic_country.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 21 Sep 2021
+## Last Updated: 20 Nov 2021
 #(^|\.)au$
 #(^|\.)be$
 #(^|\.)ca$
@@ -266,3 +266,5 @@
 (^|\.)za$
 (^|\.)zm$
 (^|\.)zw$
+## end
+
