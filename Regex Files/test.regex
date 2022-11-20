@@ -2,7 +2,7 @@
 ## test.regex
 ## This regex is designed to test various features before they get added to the master list
 ## Re-Organized: 03 July 2020
-## Last Updated: 09 June 2022
+## Last Updated: 20 Nov 2022
 #########
 
 
@@ -16,3 +16,7 @@ uemm((\.)|(-))dynatrace\.ford\.com
 (^|\.|-)flixcdn\.com$
 (^|\.|-)crajack\.com$
 (^|\.|-)ahcdn\.com$
+
+
+## 20 Nov 2022
+(^|\.|-)emarsys\.((com)|(net))$
