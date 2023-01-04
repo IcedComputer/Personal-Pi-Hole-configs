@@ -128,7 +128,7 @@ function security_allowlist()
 function regex_allowlist()
 {
 
-	curl --tlsv1.2 -o $TEMPDIR/regex.allow.regex.temp 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Allow%20Lists/regex.allow'
+	curl --tlsv1.2 -o $TEMPDIR/regex.allow.regex.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/regex.allow'
 	
 }
 
