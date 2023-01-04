@@ -1,13 +1,11 @@
 # List of tracking, advertising and other non-malicious hosts
 # adHosts.blocklist
-# Last Modified: 03 Sep 2021
+# Last Modified: 04 Jan 2023
 #
 189229.measurementapi.com
 50analytics.secureserver.net
 5490.engine.mobileapptracking.com
 69784.measurementapi.com
-Coordinator-Production-28516768.us-east-1.elb.amazonaws.com
-Trkngnow.com
 aax.amazon-adsystem.amazon.com
 acr0.samsungcloudsolution.com
 ad.admitad.com
@@ -114,6 +112,7 @@ connect.facebook.com
 connect.facebook.net
 console.adpushup.com
 consumer.krxd.net
+Coordinator-Production-28516768.us-east-1.elb.amazonaws.com
 corp-mktg.s3.amazonaws.com
 cpxy.a-mo.net.cdn.cloudflare.net
 creative-analytics.crossinstall.io
@@ -180,6 +179,7 @@ mediabarterexchange.com
 mediadirectx.com
 metric-agent.i10c.net
 metrics1.citibank.com
+mobile-data.onetrust.io
 mparticle.map.fastly.net
 ms-trackingapi.phenompeople.com
 nexus-test.ensighten.com
@@ -231,6 +231,7 @@ tracker-us.adsmoloco.com
 tracking-2.us-east-1.prod.intspot.com
 tracking-3.us-east-1.prod.intspot.com
 trackinglb-1826511868.us-east-1.elb.amazonaws.com
+Trkngnow.com
 use.trk.svr-algorix.com
 v.faphouse.com
 v.vfgtb.com

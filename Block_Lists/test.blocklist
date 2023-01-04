@@ -1,20 +1,16 @@
 # A list of test items
 # test.blocklist
 # Re-Organized: 03 July 2020
-# Last Updated: 26 Sep 2022
+# Last Updated: 04 Jan 2023
 
 ## To adHosts.blocklist (tracking, advertising and other non-malicious hosts)
 firebaseremoteconfig.googleapis.com
-mobile-data.onetrust.io
-
 evtubescms.phncdn.com
 
 ## To MalBlock.blocklist (malware, randsomware, spam, phishing, etc.)
 
 
 ## To custom.blocklist (Other)
-bots-api.kik.com
-tmg-stream.gateway.kik-live.com
 
 ## To fakenews.blocklist (Fake News)
 
@@ -40,3 +36,11 @@ mtipv6.v.trpcdn.net
 
 ## new amazon?
 web.diagnostic.networking.aws.dev
+
+
+## unknown (04 Jan 2023)
+static-lvlt.xhcdn.com
+xh.video 
+html.contact
+xhamsterlive.com
+sni.star.xhcdn.com.fpbns.net 

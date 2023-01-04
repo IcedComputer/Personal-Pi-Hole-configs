@@ -1,7 +1,7 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 03 July 2020
-## Last Updated: 19 OCT 2022
+## Last Updated: 04 Jan 2023
 #########
 
 (.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
@@ -73,6 +73,7 @@
 (^|\.|-)agkn\.com$
 (^|\.|-)agof\.de$
 (^|\.|-)agora\.io$
+(^|\.|-)ahcdn\.com$
 (^|\.|-)aliyuncs\.com$
 (^|\.|-)alljoyn\.org$
 (^|\.|-)alphonso\.tv$
@@ -180,6 +181,7 @@
 (^|\.|-)countreg\.com$
 (^|\.|-)cpy-crack\.ne$
 (^|\.|-)cqcounter\.com$
+(^|\.|-)crajack\.com$
 (^|\.|-)crashlytics\.com$
 (^|\.|-)creditsansjustificatif\.me$
 (^|\.|-)criteo\.com
@@ -208,6 +210,7 @@
 (^|\.|-)distiltag\.com$
 (^|\.|-)dmndtrk\.com$
 (^|\.|-)dns-leaks[-_\.]
+(^|\.|-)doppiocdn\.((com)|(net))$
 (^|\.|-)double((pimp)|(verify))\.com$
 (^|\.|-)doubleclick(bygoogle)?\.
 (^|\.|-)dsipsw\.net$
@@ -235,6 +238,7 @@
 (^|\.|-)exelator\.com$
 (^|\.|-)exosrv\.com$
 (^|\.|-)ezcybersearch\.com$
+(^|\.|-)faphouse\.com$
 (^|\.|-)fastclick\.net$
 (^|\.|-)fin((spy)|(fisher))[-_\.]
 (^|\.|-)firebaseinstallations[-_\.]
@@ -242,6 +246,7 @@
 (^|\.|-)flashtalking\.
 (^|\.|-)flexispy[-_\.]
 (^|\.|-)flirtcafe\.de$
+(^|\.|-)flixcdn\.com$
 (^|\.|-)flurry\.com$
 (^|\.|-)focalink\.com$
 (^|\.|-)footprint-?dns(\.|-)
@@ -533,6 +538,7 @@
 (^|\.|-)stkfree\.xyz$
 (^|\.|-)stripchat\.com$
 (^|\.|-)stroeerdigitalgroup\.de$
+(^|\.|-)strpst\.com(\.|-)?
 (^|\.|-)sunmaker\.com$
 (^|\.|-)sunnyplayer\.com$
 (^|\.|-)superawesome\.tv$

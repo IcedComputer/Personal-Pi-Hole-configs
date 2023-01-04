@@ -1,6 +1,6 @@
 # Trial Blocklists Included 
 # trial.adlist.list
-## Last Updated 27 FEB 2022
+## Last Updated 04 Jan 2023
 ## Items that are still in testing
 #########
 
@@ -8,10 +8,11 @@
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/test.blocklist
 
 
-## 15 August 2020
-http://someonewhocares.org/hosts/hosts
-
-
 ## temp off until I can investigate
 #https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/Windows/windowstelemetryblocklist.txt
 
+
+
+## 04 Jan 2023
+https://blocklistproject.github.io/Lists/vaping.txt
+https://blocklistproject.github.io/Lists/smart-tv.txt

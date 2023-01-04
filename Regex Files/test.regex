@@ -9,13 +9,6 @@
 ##20 Feb 2022
 uemm((\.)|(-))dynatrace\.ford\.com
 
-##09 June 2022
-(^|\.|-)doppiocdn\.((com)|(net))$
-(^|\.|-)strpst\.com(\.|-)?
-(^|\.|-)faphouse\.com$
-(^|\.|-)flixcdn\.com$
-(^|\.|-)crajack\.com$
-(^|\.|-)ahcdn\.com$
 
 
 ## 20 Nov 2022
