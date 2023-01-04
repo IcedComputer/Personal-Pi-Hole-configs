@@ -1,4 +1,4 @@
-## Last Updated 28 December 2021
+## Last Updated 04 Jan 2023
 ## updates.sh
 ## This script is designed to keep the pihole updated and linked to any changes made
 ##
@@ -128,7 +128,7 @@ function security_allowlist()
 function regex_allowlist()
 {
 
-	curl --tlsv1.2 -o $TEMPDIR/regex.allow.regex.tmp 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Allow%20Lists/regex.allow'
+	curl --tlsv1.2 -o $TEMPDIR/regex.allow.regex.temp 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Allow%20Lists/regex.allow'
 	
 }
 
