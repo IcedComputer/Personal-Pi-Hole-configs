@@ -33,12 +33,15 @@ coinbase.com
 content.fe.apple-dns.net
 corp.sts.microsoft.com
 ctldl.windowsupdate.com
+current.cvd.clamav.net
+database.clamav.net
 def-vef.xboxlive.com
 device.auth.xboxlive.com
 discord.gg
 displaycatalog.mp.microsoft.com
 dl.delivery.mp.microsoft.com
 dl.ubnt.com
+docs.clamav.net
 docs.google.com
 drive.google.com
 dropbox.com
@@ -170,4 +173,3 @@ xkms.xbolive.com
 xsts.auth.xboxlive.com
 youtu.be
 youtube.com
-
