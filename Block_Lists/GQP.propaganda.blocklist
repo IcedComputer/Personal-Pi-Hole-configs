@@ -1,5 +1,6 @@
 ## Last Updated 17 Sep 2022 ##
-## Blacklist Sites assocaited with the US GOP/GQP/Republican Party and its associated propaganda and Fundraising Efforts ##
+## Blacklist Sites assocaited with the US GOP/GQP/Republican Party and its associated propaganda and Fundraising Efforts ####
+## Includes Christian-Nationalists
 ## GQP.propaganda.blocklist
 #########
 
@@ -75,6 +76,7 @@ goptxt.org
 goptxtme.com
 gridborgamerica.com
 haventodaytext.org
+hegetsus.com
 helpm1.com
 helptpa.org
 hero-tix.com
