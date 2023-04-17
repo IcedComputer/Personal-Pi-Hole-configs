@@ -117,13 +117,14 @@ function security_allowlist()
 
 }
 
-#function encrypted_allowlist()
-#{
+function encrypted_allowlist()
+{
 
-	#curl --tlsv1.2 -o $TEMPDIR/encrypt.allow.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Allow%20Lists/encrypt.allow.gpg'
+	wget -O $TEMPDIR/encrypt.allow.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Allow%20Lists/encrypt.allow.gpg'
+	gpg $TEMPDIR/encrypt.allow.temp.gpg
 	
-	#gpg $TEMPDIR/encrypt.allow.temp.gpg
-#}
+		
+}
 
 function regex_allowlist()
 {
@@ -134,8 +135,8 @@ function regex_allowlist()
 
 function assemble()
 {
-	cat $TEMPDIR/*.allow.regex.temp| sort | uniq > $TEMPDIR/final.allow.regex.temp
-	cat $TEMPDIR/*.allow.temp  | sort | uniq > $TEMPDIR/final.allow.temp
+	cat $TEMPDIR/*.allow.regex.temp | sort | uniq > $TEMPDIR/final.allow.regex.temp
+	cat $TEMPDIR/*.allow.temp | grep -v '#' | sort | uniq > $TEMPDIR/final.allow.temp
 	cat $TEMPDIR/*.regex | grep -v '#' |sort | uniq > $TEMPDIR/regex.list
 	mv $TEMPDIR/regex.list  $PIDIR/regex.list
 	mv $TEMPDIR/final.allow.temp $PIDIR/whitelist.txt
