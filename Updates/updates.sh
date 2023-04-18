@@ -1,4 +1,4 @@
-## Last Updated 04 Jan 2023
+## Last Updated 18 April 2023
 ## updates.sh
 ## This script is designed to keep the pihole updated and linked to any changes made
 ##
@@ -105,7 +105,7 @@ function public_allowlist()
 	chmod 777 $TEMPDIR/current.allow.temp
 	echo " " >> $TEMPDIR/current.allow.temp
 	cp $CONFIG/perm_allow.conf $TEMPDIR/perm.allow.temp
-	cp $CONFIG/allow_wild.conf $TEMPDIR/allow_wild.allow.regex.temp
+	
 	
 }
 
@@ -130,6 +130,14 @@ function regex_allowlist()
 {
 
 	curl --tlsv1.2 -o $TEMPDIR/regex.allow.regex.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/regex.allow'
+	cp $CONFIG/allow_wild.conf $TEMPDIR/allow_wild.allow.regex.temp
+}
+
+function encrypted_regex_allowlist()
+{
+
+	wget -O $TEMPDIR/encrypt.regex.allow.regex.temp.gpg 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/encrypt.regex.allow.gpg'
+	gpg $TEMPDIR/encrypt.regex.allow.regex.temp.gpg
 	
 }
 
@@ -187,6 +195,7 @@ fi
 public_allowlist
 regex_allowlist
 #encrypted_allowlist
+#encrypted_regex_allowlist
 assemble
 scripts
 clean
