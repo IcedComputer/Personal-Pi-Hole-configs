@@ -194,8 +194,8 @@ fi
 
 public_allowlist
 regex_allowlist
-#encrypted_allowlist
-#encrypted_regex_allowlist
+encrypted_allowlist
+encrypted_regex_allowlist
 assemble
 scripts
 clean
