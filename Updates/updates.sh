@@ -122,7 +122,8 @@ function encrypted_allowlist()
 
 	wget -O $TEMPDIR/encrypt.allow.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Allow%20Lists/encrypt.allow.gpg'
 	gpg $TEMPDIR/encrypt.allow.temp.gpg
-	
+	wait
+	sed -i -e "s/\r//g" encrypt.allow.temp
 		
 }
 
@@ -138,6 +139,8 @@ function encrypted_regex_allowlist()
 
 	wget -O $TEMPDIR/encrypt.regex.allow.regex.temp.gpg 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/encrypt.regex.allow.gpg'
 	gpg $TEMPDIR/encrypt.regex.allow.regex.temp.gpg
+	wait
+	sed -i -e "s/\r//g" $TEMPDIR/encrypt.regex.allow.regex.temp
 	
 }
 
@@ -191,7 +194,7 @@ if [ $Type = "security" ]
 		fi
 fi
 
-
+clean
 public_allowlist
 regex_allowlist
 encrypted_allowlist
