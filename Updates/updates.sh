@@ -179,6 +179,7 @@ function clean()
 
 
 ## Main Script
+clean
 base
 
 if [ $Type = "security" ]
@@ -194,7 +195,7 @@ if [ $Type = "security" ]
 		fi
 fi
 
-clean
+
 public_allowlist
 regex_allowlist
 encrypted_allowlist
