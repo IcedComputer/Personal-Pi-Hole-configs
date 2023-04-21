@@ -123,7 +123,7 @@ function encrypted_allowlist()
 	wget -O $TEMPDIR/encrypt.allow.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Allow%20Lists/encrypt.allow.gpg'
 	gpg $TEMPDIR/encrypt.allow.temp.gpg
 	wait
-	sed -i -e "s/\r//g" encrypt.allow.temp
+	sed -i -e "s/\r//g" $TEMPDIR/encrypt.allow.temp
 		
 }
 
