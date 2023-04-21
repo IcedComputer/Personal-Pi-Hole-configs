@@ -146,7 +146,7 @@ function encrypted_regex_allowlist()
 
 function assemble()
 {
-	cat $TEMPDIR/*.allow.regex.temp | sort | uniq > $TEMPDIR/final.allow.regex.temp
+	cat $TEMPDIR/*.allow.regex.temp | grep -v '#' |sort | uniq > $TEMPDIR/final.allow.regex.temp
 	cat $TEMPDIR/*.allow.temp | grep -v '#' | sort | uniq > $TEMPDIR/final.allow.temp
 	cat $TEMPDIR/*.regex | grep -v '#' |sort | uniq > $TEMPDIR/regex.list
 	mv $TEMPDIR/regex.list  $PIDIR/regex.list
