@@ -1,6 +1,6 @@
 # List of tracking, advertising and other non-malicious hosts
 # adHosts.blocklist
-# Last Modified: 2023-04-24
+# Last Modified: 2023-04-25
 #
 189229.measurementapi.com
 50analytics.secureserver.net
@@ -130,7 +130,9 @@ dlt-beacon.dynatrace-managed.com
 dolro.club
 events.bouncex.net
 eventtracking.hubapi.com
+evtubescms.phncdn.com
 faphouse.com
+firebaseremoteconfig.googleapis.com
 fkp.samsungcloudsolution.com
 fkp.samsungcloudsolution.net
 game.internetat.tv
@@ -242,6 +244,7 @@ vdterms.samsungcloudsolution.com
 vfthr.com
 viglink.go2cloud.org
 vz-cdn.trafficjunky.net
+web.diagnostic.networking.aws.dev
 wetrackyourback.com
 www.dolro.club
 www.imglnke.com

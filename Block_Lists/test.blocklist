@@ -1,45 +1,32 @@
 # A list of test items
 # test.blocklist
-# Re-Organized: 03 July 2020
-# Last Updated: 04 Jan 2023
+# Re-Organized: 2023-04-25
+# Last Updated: 2023-04-25
 
 ## To adHosts.blocklist (tracking, advertising and other non-malicious hosts)
-firebaseremoteconfig.googleapis.com
-evtubescms.phncdn.com
+# 2023-04-25
+profilepics.cf.kik.com
+profilepics.kik.com
+report.dfs.glassboxdigital.io
+
+
 
 ## To MalBlock.blocklist (malware, randsomware, spam, phishing, etc.)
-
 
 ## To custom.blocklist (Other)
 
 ## To fakenews.blocklist (Fake News)
 
 ## To ForeignHost.blocklist (Non-Malicious / Non-ad Foreign Hosts)
-www.baidu.com
-
 
 ## To dns.blocklist (DNS)
 
 ## Unknown
-mqtt.2030.ltsapis.goog 
-gameplayapi.intel.com
-
-
-
-huracan-936647329.us-east-1.elb.amazonaws.com
 a1799.dscapi2.akamai.net
-profilepics.cf.kik.com
-profilepics.kik.com
-
-
+gameplayapi.intel.com
+huracan-936647329.us-east-1.elb.amazonaws.com
+mqtt.2030.ltsapis.goog 
 mtipv6.v.trpcdn.net
 
-## new amazon?
-web.diagnostic.networking.aws.dev
 
 
-## unknown (04 Jan 2023)
-xh.video 
-html.contact
-xhamsterlive.com
-sni.star.xhcdn.com.fpbns.net 
