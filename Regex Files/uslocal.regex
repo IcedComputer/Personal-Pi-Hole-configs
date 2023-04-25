@@ -1,9 +1,10 @@
 # file encoding: 						utf-8 dos/windows 1252
 # license:								mit license (mit)
 # original source before modficiation	chef-koch
-# Updated 20 Nov 2022
+# Updated 2023-04-25
 # uslocal.regex
 (^|\.)((az)|(tx)|(texas))?511((ny)|(tx)|(maine)|(wi))?\.gov$
+(^|\.)(cityof)?sugar-?land-?(city)?-?tx\.gov$
 (^|\.)29palmsbomi-nsn\.gov$
 (^|\.)abilityone\.gov$
 (^|\.)abingdon-va\.gov$
@@ -783,9 +784,6 @@
 (^|\.)cityofspartanburg-sc\.gov$
 (^|\.)cityofstmaryspa\.gov$
 (^|\.)cityofstockbridge-ga\.gov$
-(^|\.)cityofsugar-landtx\.gov$
-(^|\.)cityofsugarland-tx\.gov$
-(^|\.)cityofsugarlandtx\.gov$
 (^|\.)cityofsunriseflorida\.gov$
 (^|\.)cityofsunrisefl\.gov$
 (^|\.)cityoftitusvillepa\.gov$
@@ -3220,16 +3218,8 @@
 (^|\.)sudbury-ma\.gov$
 (^|\.)suffolk-va\.gov$
 (^|\.)suffolkcountyny\.gov$
-(^|\.)sugar-landcitytx\.gov$
-(^|\.)sugar-landtx\.gov$
 (^|\.)sugarcityidaho\.gov$
-(^|\.)sugarland-citytx\.gov$
-(^|\.)sugarland-tx\.gov$
-(^|\.)sugarlandcity-tx\.gov$
-(^|\.)sugarlandcitytx\.gov$
-(^|\.)sugarlandtx\.gov$
-(^|\.)sullivancountynh\.gov$
-(^|\.)sullivancountytn\.gov$
+(^|\.)sullivancounty((nh)|(tn))\.gov$
 (^|\.)sullivanohio\.gov$
 (^|\.)summervillesc\.gov$
 (^|\.)sumtercountyfl\.gov$
@@ -3438,9 +3428,7 @@
 (^|\.)ulstercountyny\.gov$
 (^|\.)underhillvt\.gov$
 (^|\.)unicoicountytn\.gov$
-(^|\.)unioncity-in\.gov$
-(^|\.)unioncitynj\.gov$
-(^|\.)unioncitytn\.gov$
+(^|\.)unioncity-?((in)|(nj)|(tn))\.gov$
 (^|\.)unioncounty-?((fl)|(ga)|(il)|(in)|(nc))\.gov$
 (^|\.)unionspringsal\.gov$
 (^|\.)uniontwp-hcnj\.gov$
@@ -3604,9 +3592,7 @@
 (^|\.)westhaven-ct\.gov$
 (^|\.)westlinnoregon\.gov$
 (^|\.)westmiltonohio\.gov$
-(^|\.)westminster-ca\.gov$
-(^|\.)westminster-ma\.gov$
-(^|\.)westminstermd\.gov$
+(^|\.)westminster-?((ca)|(md)|(ma))\.gov$
 (^|\.)westmorelandtn\.gov$
 (^|\.)westonct\.gov$
 (^|\.)westonwi\.gov$
@@ -3617,15 +3603,10 @@
 (^|\.)westtisbury-ma\.gov$
 (^|\.)westutx\.gov$
 (^|\.)westvalleycity-ut\.gov$
-(^|\.)westwood-ma\.gov$
-(^|\.)westwoodma\.gov$
-(^|\.)westwoodnj\.gov$
+(^|\.)westwood-?((ma)|(nj))\.gov$
 (^|\.)wethersfieldct\.gov$
-(^|\.)wheelingil\.gov$
-(^|\.)wheelingwv\.gov$
-(^|\.)whitecounty-il\.gov$
-(^|\.)whitecountyga\.gov$
-(^|\.)whitecountytn\.gov$
+(^|\.)wheeling((il)|(wv))\.gov$
+(^|\.)whitecounty-?((il)|(ga)|(tn))\.gov$
 (^|\.)whiteearth-nsn\.gov$
 (^|\.)whitehouseoh\.gov$
 (^|\.)whitepinecountynv\.gov$
@@ -3651,22 +3632,16 @@
 (^|\.)willcounty-il\.gov$
 (^|\.)williamsaz\.gov$
 (^|\.)williamsburgva\.gov$
-(^|\.)williamsoncounty-tn\.gov$
-(^|\.)williamsoncountyil\.gov$
+(^|\.)williamsoncounty-?((tn)|(il))\.gov$
 (^|\.)williamsportmd\.gov$
 (^|\.)willingboronj\.gov$
 (^|\.)willistonfl\.gov$
 (^|\.)willmarmn\.gov$
 (^|\.)willoughbyhills-oh\.gov$
 (^|\.)willowsprings-il\.gov$
-(^|\.)wilmington-nc\.gov$
-(^|\.)wilmingtonde\.gov$
-(^|\.)wilmingtonma\.gov$
-(^|\.)wilmingtonnc\.gov$
+(^|\.)wilmington-?((de)|(ma)|(nc))\.gov$
 (^|\.)wiltonrancheria-nsn\.gov$
-(^|\.)winchester-in\.gov$
-(^|\.)winchester-nh\.gov$
-(^|\.)winchesterva\.gov$
+(^|\.)winchester-?((in)|(nh)|(va))\.gov$
 (^|\.)windcrest-tx\.gov$
 (^|\.)windgap-pa\.gov$
 (^|\.)windsor-va\.gov$
@@ -3692,9 +3667,7 @@
 (^|\.)woodburn-or\.gov$
 (^|\.)woodfin-nc\.gov$
 (^|\.)woodheights-mo\.gov$
-(^|\.)woodstockct\.gov$
-(^|\.)woodstockga\.gov$
-(^|\.)woodstockil\.gov$
+(^|\.)woodstock((ct)|(ga)|(il))\.gov$
 (^|\.)woodville-tx\.gov$
 (^|\.)worcestercountymd\.gov$
 (^|\.)worcesterma\.gov$
