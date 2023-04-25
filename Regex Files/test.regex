@@ -1,17 +1,19 @@
 ## Regex Blacklist ##
 ## test.regex
 ## This regex is designed to test various features before they get added to the master list
-## Re-Organized: 03 July 2020
-## Last Updated: 20 Nov 2022
+## Re-Organized: 2023-04-23
+## Last Updated: 2023-04-23
 #########
 
 
-##20 Feb 2022
+##2022-02-20
 uemm((\.)|(-))dynatrace\.ford\.com
 
-
-
-## 20 Nov 2022
+## 2022-11-20
 (^|\.|-)emarsys\.net
 
+##2023-04-23
+(^|\.|-)medallia\.com$
+
 ## end
+
