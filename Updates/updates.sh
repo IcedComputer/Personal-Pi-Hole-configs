@@ -49,8 +49,9 @@ function full()
 	curl --tlsv1.2 -o $TEMPDIR/uslocal.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/uslocal.regex'
 	wait
 	
-	wget -O $TEMPDIR/country.regex.gpg 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/country.regex.gpg'
-	gpg $TEMPDIR/country.regex.gpg
+	wget -O $TEMPDIR/country.regex.temp.gpg 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/country.regex.gpg'
+	gpg $TEMPDIR/country.regex.temp.gpg
+	sed -i -e "s/\r//g" $TEMPDIR/country.regex.temp
 	wait
 	## replaced from above
 	#curl --tlsv1.2 -o $TEMPDIR/country.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/country.regex'
@@ -72,9 +73,9 @@ function security()
 	wait
 	
 	wget -O $TEMPDIR/basic_country.regex.gpg 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_country.regex.gpg'
-	gpg $TEMPDIR/basic_country.regex.gpg
+	gpg $TEMPDIR/basic_country.regex.temp.gpg
 	wait
-	sed -i -e "s/\r//g" $TEMPDIR/basic_country.regex
+	sed -i -e "s/\r//g" $TEMPDIR/basic_country.regex.temp
 	## replaced from above
 	#curl --tlsv1.2 -o $TEMPDIR/basic_country.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_country.regex'
 	#wait
