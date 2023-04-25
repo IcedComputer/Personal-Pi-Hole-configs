@@ -1,7 +1,7 @@
 ## Regex Blacklist ##
 ## main.regex
-## Re-Organized: 03 July 2020
-## Last Updated: 04 Jan 2023
+## Re-Organized: 2020-07-03
+## Last Updated: 2023-04-24
 #########
 
 (.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
@@ -19,6 +19,7 @@
 (^|\.|-)((pay)|(quant))?count(ers?)?[0-9]*[-_\.]
 (^|\.|-)((pub)|(pcm))?clks\.com$
 (^|\.|-)(0+)?apple(s)?0+\.com$
+(^|\.|-)(fw)?pixels?[-_\.]
 (^|\.|-)(info|ads)\.yahoo\.
 (^|\.|-)(mobile)?analytics?[-_\.]
 (^|\.|-)(mobile)?apptrack(ing)?[-_\.]
@@ -245,6 +246,7 @@
 (^|\.|-)firebaseio\.com$
 (^|\.|-)flashtalking\.
 (^|\.|-)flexispy[-_\.]
+(^|\.|-)flirt4free\.com$
 (^|\.|-)flirtcafe\.de$
 (^|\.|-)flixcdn\.com$
 (^|\.|-)flurry\.com$
@@ -258,6 +260,7 @@
 (^|\.|-)fujianryt\.com$
 (^|\.|-)fullstory\.com$
 (^|\.|-)fwmrm\.net$
+(^|\.|-)fwpixel\.com$
 (^|\.|-)fyber\.com$
 (^|\.|-)g2a\.com$
 (^|\.|-)gateway\.kik-live\.com
@@ -451,7 +454,6 @@
 (^|\.|-)pick-up-rewards\.club$
 (^|\.|-)pinterest\.com$
 (^|\.|-)pipelinemarketing\.com$
-(^|\.|-)pixels?[-_\.]
 (^|\.|-)plarium\.com$
 (^|\.|-)pleasedontslaymy\.download$
 (^|\.|-)plista\.com$

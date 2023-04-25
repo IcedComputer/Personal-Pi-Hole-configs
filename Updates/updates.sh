@@ -44,12 +44,17 @@ function full()
 	# Regex Lists
 	curl --tlsv1.2 -o $TEMPDIR/main.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/main.regex'
 	wait
-	curl --tlsv1.2 -o $TEMPDIR/country.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/country.regex'
-	wait
 	curl --tlsv1.2 -o $TEMPDIR/oTLD.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/oTLD.regex'
 	wait
 	curl --tlsv1.2 -o $TEMPDIR/uslocal.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/uslocal.regex'
 	wait
+	
+	wget -O $TEMPDIR/country.regex.gpg 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/country.regex.gpg'
+	gpg $TEMPDIR/country.regex.gpg
+	wait
+	## replaced from above
+	#curl --tlsv1.2 -o $TEMPDIR/country.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/country.regex'
+	#wait
 
 }
 
@@ -62,10 +67,18 @@ function security()
 	# Regex Lists
 	curl --tlsv1.2 -o $TEMPDIR/basic_security.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_security.regex'
 	wait
-	curl --tlsv1.2 -o $TEMPDIR/basic_country.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_country.regex'
-	wait
+	
 	curl --tlsv1.2 -o $TEMPDIR/oTLD.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/oTLD.regex'
 	wait
+	
+	wget -O $TEMPDIR/basic_country.regex.gpg 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_country.regex.gpg'
+	gpg $TEMPDIR/basic_country.regex.gpg
+	wait
+	sed -i -e "s/\r//g" $TEMPDIR/basic_country.regex
+	## replaced from above
+	#curl --tlsv1.2 -o $TEMPDIR/basic_country.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_country.regex'
+	#wait
+
 
 }
 
