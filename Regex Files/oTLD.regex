@@ -1,7 +1,7 @@
-## Last Updated: 10 Sep 2022
+## Last Updated: 2023-05-15
 ## oTLD.regex
 ## Random Other TLD ##
-## Re-Organized: 20 Nov 2022
+## Re-Organized: 2023-05-15
 #####
 (\.)goog$
 (^|\.)abogado$
@@ -48,6 +48,7 @@
 (^|\.)energy$
 (^|\.)engineer(ing)?$
 (^|\.)enterprises?$
+(^|\.)exe$
 (^|\.)fai((l)|(th))$
 (^|\.)fail$
 (^|\.)family$
@@ -104,6 +105,7 @@
 (^|\.)services$
 (^|\.)shop$
 (^|\.)shouji$
+(^|\.)sip$
 (^|\.)site$
 (^|\.)social$
 (^|\.)space$
