@@ -1,14 +1,17 @@
 # A list of test items
 # test.blocklist
 # Re-Organized: 2023-04-25
-# Last Updated: 2023-04-25
+# Last Updated: 2023-05-31
 
 ## To adHosts.blocklist (tracking, advertising and other non-malicious hosts)
 # 2023-04-25
 profilepics.cf.kik.com
 profilepics.kik.com
 report.dfs.glassboxdigital.io
-
+wl.hpyrdr.com
+cdn.stripcash.com
+#static-lvlt.xhcdn.com
+#sni.star.xhcdn.com.fpbns.net
 
 
 ## To MalBlock.blocklist (malware, randsomware, spam, phishing, etc.)
@@ -27,6 +30,8 @@ gameplayapi.intel.com
 huracan-936647329.us-east-1.elb.amazonaws.com
 mqtt.2030.ltsapis.goog 
 mtipv6.v.trpcdn.net
+
+
 
 
 
