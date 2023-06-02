@@ -1,4 +1,4 @@
-## Last Updated 17 Sep 2022 ##
+## Last Updated 2023-06-02 ##
 ## Blacklist Fake News Websites ##
 ## fakenews.blocklist
 #########
@@ -13,6 +13,7 @@ rt.ru
 00973.click
 0100.consulting
 4th.fr
+autocallnow.net
 bnent.eu
 bonfirerecs.co
 booo.ms
@@ -32,10 +33,9 @@ glytone-usa.com
 huntsmancancer.org
 ncss.org
 nptp.us
-autocallnow.net
 
 
-##Science.org article / BuzzFeed
+## Info obtained from Science.org article / BuzzFeed
 abcnews.com.co
 americanmilitarynews.com
 bizstandardnews.com

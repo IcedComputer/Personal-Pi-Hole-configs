@@ -1,7 +1,7 @@
-## Last Updated: 2023-05-15
 ## oTLD.regex
 ## Random Other TLD ##
 ## Re-Organized: 2023-05-15
+## Last Updated: 2023-06-02
 #####
 (\.)goog$
 (^|\.)abogado$
@@ -82,6 +82,7 @@
 (^|\.)mobi$
 (^|\.)mom$
 (^|\.)moscow$
+(^|\.)news$
 (^|\.)ninja$
 (^|\.)nowhere$
 (^|\.)online$
