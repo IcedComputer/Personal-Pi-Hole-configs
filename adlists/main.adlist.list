@@ -1,5 +1,5 @@
 # This adlist is the full blocking list
-# Last Updated 04 Jan 2023
+# Last Updated 2023-06-19
 
 
 ##GQP/GOP/Republican Propaganda, Spam and Funraising
@@ -12,11 +12,9 @@ https://gist.githubusercontent.com/Shujito/b7a8f8f971b22f49b4313d7d3e8e6931/raw/
 https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts;showintro=0
 https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/ads.txt
-https://raw.githubusercontent.com/blocklistproject/Lists/master/facebook.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/tracking.txt
 https://raw.githubusercontent.com/craiu/mobiletrackers/master/list.txt
 https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/Android/androidblocklist.txt
-https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/Facebook/facebookblocklist.txt
 https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/MobileAppAds/appadsblocklist.txt
 https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/Tracking/trackingblocklist.txt
 https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/WhatsAppblocklist/whatsappblocklist.txt
@@ -31,6 +29,15 @@ https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
 https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
 https://v.firebog.net/hosts/Prigent-Ads.txt
 https://www.github.developerdan.com/hosts/lists/ads-and-tracking-extended.txt
+
+## Social
+https://raw.githubusercontent.com/blocklistproject/Lists/master/facebook.txt
+https://raw.githubusercontent.com/blocklistproject/Lists/master/tiktok.txt
+https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/Facebook/facebookblocklist.txt
+https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/MiFitXiaomi/mifitxiaomiblocklist.txt
+https://raw.githubusercontent.com/llacb47/mischosts/master/social/tiktok-block
+https://raw.githubusercontent.com/llacb47/mischosts/master/tiktok-hosts
+https://raw.githubusercontent.com/superover/TikTok-Blocklist/master/tiktok.txt
 
 ## Crypto
 https://gitlab.com/ZeroDot1/CoinBlockerLists/raw/master/list.txt
@@ -96,11 +103,7 @@ https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/SmartTV.txt
 https://raw.githubusercontent.com/StevenBlack/hosts/master/data/add.Spam/hosts
 https://www.stopforumspam.com/downloads/toxic_domains_whole.txt
 
-## TikTok
-https://raw.githubusercontent.com/blocklistproject/Lists/master/tiktok.txt
-https://raw.githubusercontent.com/llacb47/mischosts/master/social/tiktok-block
-https://raw.githubusercontent.com/llacb47/mischosts/master/tiktok-hosts
-https://raw.githubusercontent.com/superover/TikTok-Blocklist/master/tiktok.txt
+
 
 ## NSO
 https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-07-18_nso/domains.txt

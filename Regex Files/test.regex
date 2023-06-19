@@ -2,7 +2,7 @@
 ## test.regex
 ## This regex is designed to test various features before they get added to the master list
 ## Re-Organized: 2023-04-23
-## Last Updated: 2023-04-23
+## Last Updated: 2023-06-19
 #########
 
 
@@ -14,6 +14,10 @@ uemm((\.)|(-))dynatrace\.ford\.com
 
 ##2023-04-23
 (^|\.|-)medallia\.com$
+
+##2023-06-19
+mkt[0-9]*\.com$
+messages[0-9]*\.com
 
 ## end
 
