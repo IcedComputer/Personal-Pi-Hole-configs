@@ -1,4 +1,4 @@
-## Updated 2023-07-06
+## Updated 2023-07-24
 
 127.0.0.1
 1drv.ms
@@ -10,6 +10,7 @@ ads-e-darwin.hulustream.com
 aka.ms
 amp-api-edge.apps.apple.com
 api-global.netflix.com
+api2.branch.io
 appleid.apple.com
 attestation.xboxlive.com
 audio4-fa.scdn.co
@@ -19,6 +20,7 @@ bbc.com
 bitbucket.org
 browser.pipe.aria.microsoft.com
 c.apple.news
+cdn.branch.io
 cdn.jsdelivr.net
 cert.mgt.xboxlive.com
 chrome.google.com
@@ -58,6 +60,7 @@ help.ui.xboxlive.com
 hosts-file.net
 hostsfile.org
 i.imgur.com
+i.scdn.co
 i.vimeocdn.com
 icedcomputer.github.io
 ichnaea.netflix.com
@@ -107,6 +110,7 @@ settings-win.data.microsoft.com
 sharedstreams.fe.apple-dns.net
 spclient.wg.spotify.com
 spoprod-a.akamaihd.net
+spotify.link
 stats.slimcd.com
 steamcdn-a.akamaihd.net
 stitcher.prod.ateam.acast.cloud
