@@ -97,7 +97,7 @@ https://raw.githubusercontent.com/blocklistproject/Lists/master/fraud.txt
 ## Smart TV
 https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/SmartTV/smarttvblocklist.txt
 https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/SmartTV.txt
-
+https://blocklistproject.github.io/Lists/smart-tv.txt
 
 ## Spam
 https://raw.githubusercontent.com/StevenBlack/hosts/master/data/add.Spam/hosts
@@ -152,3 +152,4 @@ https://raw.githubusercontent.com/yous/YousList/master/hosts.txt
 https://v.firebog.net/hosts/AdguardDNS.txt
 https://v.firebog.net/hosts/Easyprivacy.txt
 https://v.firebog.net/hosts/static/w3kbl.txt
+https://blocklistproject.github.io/Lists/vaping.txt
