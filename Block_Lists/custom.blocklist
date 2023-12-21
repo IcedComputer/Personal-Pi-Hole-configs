@@ -1,20 +1,24 @@
 ## A list of tracking sites, malicious sites and other things that likely need to be blocked
 ## custom.blocklist
 ## Re-Organized: 2020-07-04
-## Last Updated: 2023-10-17
+## Last Updated: 2023-12-21
 
 an0malys1x.com
 an0malysix.com
 anomalys1x.com
 anomalysix.com
+api.amplitude.com 
 bluepart.online
 bots-api.kik.com
+brand-messenger.app.khoros.com
 buildingourmovement.com
 cdn.asf4f.us
 cdn.opensourcefonts.org
 cdn.zblkqa.com
+clarity-ingest-eus2-f-sc.eastus2.cloudapp.azure.com
 conservativedirect.com
 domestic-static.duolingo.cn.w.kunlungr.com
+en.rageagainstthesoap.com
 entrance.flirt4free.com
 free.opensourcefonts.org 
 gaylads.net
@@ -43,3 +47,4 @@ www.pillpack.com
 xh.video 
 xhamsterlive.com
 xlivesex.com
+z.clarity.ms
