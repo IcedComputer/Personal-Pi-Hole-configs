@@ -2,7 +2,7 @@
 ## A list of likely valid domains (non-ad / non-malicious)
 ## I just do not want them on my network(s)
 ## Re-Organized: 2020-07-20
-## Last Updated: 2023-07-24
+## Last Updated: 2024-01-10
 
 ac.opentable.com
 af-music-prod.betc.fr
@@ -145,6 +145,9 @@ miami.cbslocal.com
 mx.linkedin.com
 newyork.cbslocal.com
 nl.linkedin.com
+ntp.aliyun.com
+ntp1.aliyun.com
+ntp2.aliyun.com
 nz.m.yelp.com
 nz.yelp.com
 opentable.ae
