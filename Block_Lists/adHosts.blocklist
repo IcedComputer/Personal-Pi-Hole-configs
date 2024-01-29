@@ -1,6 +1,6 @@
 # List of tracking, advertising and other non-malicious hosts
 # adHosts.blocklist
-# Last Modified: 2023-06-29
+# Last Modified: 2024-01-29
 #
 189229.measurementapi.com
 50analytics.secureserver.net
@@ -48,6 +48,7 @@ ads.viber.com
 ads.www.amazon.com
 ads2live.com
 adsapi.adsymptotic.com
+adsassets-ipv6.waze.com
 adsassets.waze.com
 adserver.umb.com
 adserver.xpanama.net
