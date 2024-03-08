@@ -1,5 +1,5 @@
 # This adlist is the full blocking list
-# Last Updated 2023-06-19
+# Last Updated 2024-03-08
 
 
 ##GQP/GOP/Republican Propaganda, Spam and Funraising
@@ -48,6 +48,9 @@ https://raw.githubusercontent.com/blocklistproject/Lists/master/crypto.txt
 
 ## DNS
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/dns.blocklist
+
+## Adult
+https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/adult.blocklist
 
 ## Fake News
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/fakenews.blocklist
