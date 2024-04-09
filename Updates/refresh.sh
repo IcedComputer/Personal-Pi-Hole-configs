@@ -20,8 +20,6 @@ function download()
 	#download an updated update.sh
 	curl --tlsv1.2 -o $TEMPDIR/updates.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/updates.sh'
 	
-	## download an updated ListUpdater
-	curl --tlsv1.2 -o $TEMPDIR/ListUpdater.sh 'https://raw.githubusercontent.com/IcedComputer/Azure-Pihole-VPN-setup/master/ListUpdater.sh'
 	
 	## download an updated DB_updates.sh
 	curl --tlsv1.2 -o $TEMPDIR/DB_Updates.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/DB_Updates.sh'
