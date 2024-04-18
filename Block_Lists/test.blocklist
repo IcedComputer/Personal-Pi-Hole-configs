@@ -1,7 +1,7 @@
 # A list of test items
 # test.blocklist
 # Re-Organized: 2023-04-25
-# Last Updated: 2023-05-31
+# Last Updated: 2024-04-18
 
 ## To adHosts.blocklist (tracking, advertising and other non-malicious hosts)
 # 2023-04-25
@@ -17,6 +17,10 @@ partner.ads.js
 pagead.js
 ads.js
 
+
+## 2024-04-18
+#gtq6.sct.sc-prod.net
+#bolt-gcdn.sc-cdn.net
 
 ## To MalBlock.blocklist (malware, randsomware, spam, phishing, etc.)
 

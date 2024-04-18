@@ -30,6 +30,7 @@ https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
 https://v.firebog.net/hosts/Prigent-Ads.txt
 https://www.github.developerdan.com/hosts/lists/ads-and-tracking-extended.txt
 
+
 ## Social
 https://raw.githubusercontent.com/blocklistproject/Lists/master/facebook.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/tiktok.txt
@@ -116,6 +117,11 @@ https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-07-18_n
 https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-07-18_nso/v4_validation_domains.txt
 https://raw.githubusercontent.com/AmnestyTech/investigations/ced17db13b47bee7bebdeb1faa606a1d174eedf0/2019-10-10_nso_morocco/domains.txt
 
+##Lifestyle - Vaping & Drugs
+https://blocklistproject.github.io/Lists/vaping.txt
+https://raw.githubusercontent.com/jaykepeters/Blocklists/master/Drugs/vaping.txt
+https://raw.githubusercontent.com/blocklistproject/Lists/master/drugs.txt
+
 
 ## Other & Hosts
 http://127.0.0.1/alist.txt
@@ -131,7 +137,6 @@ https://icedcomputer.github.io/Personal-Pi-Hole-configs/Block_Lists/Static/Other
 https://pastebin.com/raw/a1TPEPfP
 https://raw.githubusercontent.com/AdAway/adaway.github.io/master/hosts.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/abuse.txt
-https://raw.githubusercontent.com/blocklistproject/Lists/master/drugs.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/gambling.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/piracy.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/torrent.txt
@@ -155,4 +160,4 @@ https://raw.githubusercontent.com/yous/YousList/master/hosts.txt
 https://v.firebog.net/hosts/AdguardDNS.txt
 https://v.firebog.net/hosts/Easyprivacy.txt
 https://v.firebog.net/hosts/static/w3kbl.txt
-https://blocklistproject.github.io/Lists/vaping.txt
+
