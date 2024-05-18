@@ -19,17 +19,28 @@ ads.js
 
 
 ## 2024-04-18
-#bolt-gcdn.sc-cdn.net
-#cf-st.sc-cdn.net
-#gtq6.sct.sc-prod.net
 analytics.snapchat.com
 app-analytics-v2.snapchat.com
 app-analytics.snapchat.com
 gcp.api.snapchat.com
 gtq6.sct.sc-prod.net
 snapchat-proxy.appspot.com
-us-east1-aws.api.snapchat.com
 usc.adserver.snapads.com 
+
+##2024-05-17
+adsapi.snapchat.com
+asia-southeast1-gcp.api.snapchat.com
+aws-cf.api.snapchat.com
+app-analytics.snapchat.com
+app-analytics-v2.snapchat.com
+euw.adserver.snapads.com
+ads-interfaces.sc-cdn.net
+ase.adserver.snapads.com
+usc.adserver.snapads.com
+usc.adserver.snapads.com
+use.adserver.snapads.com
+snapads.com
+us-east1-aws.api.snapchat.com 
 
 ## To MalBlock.blocklist (malware, randsomware, spam, phishing, etc.)
 
