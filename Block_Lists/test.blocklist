@@ -40,7 +40,18 @@ usc.adserver.snapads.com
 usc.adserver.snapads.com
 use.adserver.snapads.com
 snapads.com
-us-east1-aws.api.snapchat.com 
+us-east1-aws.api.snapchat.com
+gcs.sc-cdn.net
+www.temu.com
+aimg.kwcdn.com
+static.kwcdn.com
+us.pftk.temu.com
+d3aqntjehoyiyc.cloudfront.net
+www.knotch-cdn.com
+
+
+03:27:31: query[HTTPS] reports.crashlytics.com from 10.121.14.2
+
 
 ## To MalBlock.blocklist (malware, randsomware, spam, phishing, etc.)
 
