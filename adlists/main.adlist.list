@@ -1,5 +1,5 @@
 # This adlist is the full blocking list
-# Last Updated 2024-03-08
+# Last Updated 2024-05-31
 
 
 ##GQP/GOP/Republican Propaganda, Spam and Funraising
@@ -49,6 +49,7 @@ https://raw.githubusercontent.com/blocklistproject/Lists/master/crypto.txt
 
 ## DNS
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/dns.blocklist
+https://raw.githubusercontent.com/hagezi/dns-blocklists/main/hosts/doh.txt
 
 ## Adult
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/adult.blocklist
@@ -163,4 +164,5 @@ https://raw.githubusercontent.com/yous/YousList/master/hosts.txt
 https://v.firebog.net/hosts/AdguardDNS.txt
 https://v.firebog.net/hosts/Easyprivacy.txt
 https://v.firebog.net/hosts/static/w3kbl.txt
+https://www.github.developerdan.com/hosts/lists/hate-and-junk-extended.txt
 
