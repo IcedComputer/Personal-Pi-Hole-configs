@@ -1,5 +1,5 @@
 # This adlist is the full blocking list
-# Last Updated 2024-05-31
+# Last Updated 2024-07-01
 
 
 ##GQP/GOP/Republican Propaganda, Spam and Funraising
@@ -38,8 +38,6 @@ https://raw.githubusercontent.com/blocklistproject/Lists/master/facebook.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/tiktok.txt
 https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/Facebook/facebookblocklist.txt
 https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/MiFitXiaomi/mifitxiaomiblocklist.txt
-https://raw.githubusercontent.com/llacb47/mischosts/master/social/tiktok-block
-https://raw.githubusercontent.com/llacb47/mischosts/master/tiktok-hosts
 https://raw.githubusercontent.com/superover/TikTok-Blocklist/master/tiktok.txt
 
 ## Crypto
@@ -135,7 +133,6 @@ https://raw.githubusercontent.com/blocklistproject/Lists/master/drugs.txt
 ## Other & Hosts
 http://someonewhocares.org/hosts/hosts
 https://adaway.org/hosts.txt
-https://blocklist.cyberthreatcoalition.org/vetted/domain.txt
 https://gist.githubusercontent.com/r0ckarong/36140c95bc105ee13cdc672baa940ab0/raw/87378f77179722c227b7813faddab53df6a38708/blacklist.txt
 https://hostsfile.org/Downloads/hosts.txt
 https://icedcomputer.github.io/Personal-Pi-Hole-configs/Block_Lists/ForeignHost.blocklist
