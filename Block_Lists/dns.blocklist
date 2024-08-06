@@ -1,9 +1,10 @@
 # List of DNS servers
 # dns.blocklist
-# Re-Organized: 03 July 2020
-# Last Updated: 21 Sep 2021
+# Re-Organized: 2020-07-03
+# Last Updated: 2024-08-06
 
 
+_dns.resolver.arpa
 a5ea368f454db4a59195b08644567074.clo.footprintdns.com
 dig.bdurl.net
 dns-family.adguard.com
