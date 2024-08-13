@@ -1,6 +1,6 @@
 # List of tracking, advertising and other non-malicious hosts
 # adHosts.blocklist
-# Last Modified: 2024-01-29
+# Last Modified: 2024-08-13
 #
 189229.measurementapi.com
 50analytics.secureserver.net
@@ -61,18 +61,15 @@ adtech.de
 adtechjp.com
 adtechus.com
 adtekmedia.com
-adultdates.com
 advertise.foxnews.com
 advertisers.billymob.com
 advertising.amazon.com
 adx.districtm.ca
 afgtrwd1.com
-ai.phncdn.com.rncdn1.com
 api-tealeaf.goacoustic.com
 apple.comscoreresearch.com
 as.2020mustang.com
 as.catsnbootsncats2020.com
-as.sexad.net
 assets.track.easypost.com
 auth.samsungosp.com
 az43064.vo.msecnd.net
@@ -91,7 +88,6 @@ cdn.atlanticinsights.com
 cdn.comparecards.com
 cdn.contactatonce.com
 cdn.digitalmarketing.citibankonline.com
-cdn.doublepimpssl.com
 cdn.engine.addroplet.com
 cdn.fosterwebmarketing.com
 cdn.itsup.com
@@ -133,7 +129,6 @@ dlt-beacon.dynatrace-managed.com
 dolro.club
 events.bouncex.net
 eventtracking.hubapi.com
-evtubescms.phncdn.com
 faphouse.com
 firebaseremoteconfig.googleapis.com
 fkp.samsungcloudsolution.com
