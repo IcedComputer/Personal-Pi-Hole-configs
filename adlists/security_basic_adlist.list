@@ -26,13 +26,14 @@ https://raw.githubusercontent.com/AmnestyTech/investigations/master/2023-03-29_a
 https://raw.githubusercontent.com/AmnestyTech/investigations/master/2024-05-02_wintego_helios/domains.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/malware.txt
 https://raw.githubusercontent.com/Firestorrrm/Minimal-Hosts-Blocker/master/malwarelist.txt
+https://raw.githubusercontent.com/hagezi/dns-blocklists/main/hosts/tif.txt
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/MalBlock.blocklist
+https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/malware
 https://raw.githubusercontent.com/Ultimate-Hosts-Blacklist/quidsup_malicious-sites/master/domains.list
 https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt
 https://v.firebog.net/hosts/Prigent-Malware.txt
 https://v.firebog.net/hosts/RPiList-Malware.txt
 https://www.malwaredomainlist.com/hostslist/hosts.txt
-https://raw.githubusercontent.com/hagezi/dns-blocklists/main/hosts/tif.txt
 
 
 

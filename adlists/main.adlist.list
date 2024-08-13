@@ -5,6 +5,17 @@
 ##GQP/GOP/Republican Propaganda, Spam and Funraising
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/GQP.propaganda.blocklist
 
+## International Propaganda / Fake News 
+https://raw.githubusercontent.com/dnsblocklistnet/blocklists/master/conspiracy.list
+https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/fakenews.blocklist
+https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/Fake-Science
+https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/SupportingRussia
+https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts
+
+## Domain Squatting
+https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/DomainSquatting1
+https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/DomainSquatting2
+
 
 ## Ads & Tracking
 https://gist.githubusercontent.com/opus-x/3e673a9d5db2a214df05929a4eee6a57/raw/8b9085ea74be4a36aa1348bfe6af7135bafb6ea1/Spotify_Eliminate_Advertisements
@@ -54,10 +65,6 @@ https://raw.githubusercontent.com/hagezi/dns-blocklists/main/hosts/doh.txt
 ## Adult
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/adult.blocklist
 
-## Fake News
-https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/fakenews.blocklist
-https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts
-https://raw.githubusercontent.com/dnsblocklistnet/blocklists/master/conspiracy.list
 
 ## Malware
 https://bitbucket.org/ethanr/dns-blacklists/raw/8575c9f96e5b4a1308f2f12394abd86d0927a4a0/bad_lists/Mandiant_APT1_Report_Appendix_D.txt
@@ -79,13 +86,14 @@ https://raw.githubusercontent.com/AmnestyTech/investigations/master/2023-03-29_a
 https://raw.githubusercontent.com/AmnestyTech/investigations/master/2024-05-02_wintego_helios/domains.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/malware.txt
 https://raw.githubusercontent.com/Firestorrrm/Minimal-Hosts-Blocker/master/malwarelist.txt
+https://raw.githubusercontent.com/hagezi/dns-blocklists/main/hosts/tif.txt
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/MalBlock.blocklist
+https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/malware
 https://raw.githubusercontent.com/Ultimate-Hosts-Blacklist/quidsup_malicious-sites/master/domains.list
 https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt
 https://v.firebog.net/hosts/Prigent-Malware.txt
 https://v.firebog.net/hosts/RPiList-Malware.txt
 https://www.malwaredomainlist.com/hostslist/hosts.txt
-https://raw.githubusercontent.com/hagezi/dns-blocklists/main/hosts/tif.txt
 
 
 
