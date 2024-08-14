@@ -18,7 +18,7 @@ function adlist()
 sqlite3 "/etc/pihole/gravity.db" "DELETE FROM adlist"
 
 # Preps the adlist
-cat $PIDIR/adlists.list | grep -v '#' | grep "http" | sort | uniq > $TEMPDIR/formatted_adlist.temp
+cat $PIDIR/adlists.list | grep -v '#' | grep "/" | sort | uniq > $TEMPDIR/formatted_adlist.temp
 
 # Inserts URLs into the adlist database
 file=$TEMPDIR/formatted_adlist.temp
