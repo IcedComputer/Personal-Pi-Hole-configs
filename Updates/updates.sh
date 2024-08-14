@@ -164,7 +164,6 @@ function encrypted_block_list()
 	gpg $TEMPDIR/encrypt.block.addlist.temp.gpg
 	wait
 	sed -i -e "s/\r//g" $TEMPDIR/encrypt.block.addlist.temp
-	rm $CONF/encrypt.list
 	mv $TEMPDIR/encrypt.block.addlist.temp $CONF/encrypt.list
 		
 }
