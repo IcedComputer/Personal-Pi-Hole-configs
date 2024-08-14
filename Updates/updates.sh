@@ -36,7 +36,7 @@ function base()
 }
 
 function full()
-{
+
 
 	#adlists.list 
 	curl --tlsv1.2 -o $TEMPDIR/adlists.list 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/adlists/main.adlist.list'
@@ -157,6 +157,18 @@ function encrypted_regex_allowlist()
 	sed -i -e "s/\r//g" $TEMPDIR/encrypt.regex.allow.regex.temp
 	
 }
+function encrypted_block_list()
+{
+
+	wget -O $TEMPDIR/encrypt.block.addlist.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Block_Lists/encryted.blocklist.gpg'
+	gpg $TEMPDIR/encrypt.block.addlist.temp.gpg
+	wait
+	sed -i -e "s/\r//g" $TEMPDIR/encrypt.block.addlist.temp
+	rm $CONF/encrypt.list
+	mv $TEMPDIR/encrypt.block.addlist.temp $CONF/encrypt.list
+		
+}
+
 
 function assemble()
 {
@@ -192,7 +204,7 @@ function clean()
 }
 
 
-## Main Script
+## Main Script ############################################################################################################################################
 clean
 base
 
@@ -214,6 +226,9 @@ public_allowlist
 regex_allowlist
 encrypted_allowlist
 encrypted_regex_allowlist
+encrypted_block_list
 assemble
 scripts
 clean
+
+###########################################################################################################################################################
