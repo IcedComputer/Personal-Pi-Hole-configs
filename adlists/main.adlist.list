@@ -2,7 +2,7 @@
 # Last Updated 2024-08-14
 
 ## Local Lists
-http://127.0.0.1/encrypt.list
+file:///scripts/Finished/CONFIG/encrypt.list
 
 ##GQP/GOP/Republican Propaganda, Spam and Funraising
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/GQP.propaganda.blocklist
