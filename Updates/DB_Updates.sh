@@ -1,4 +1,4 @@
-## Last Updated 21 Sep 2021
+## Last Updated 2024-08-14
 ## DB_Updates.sh
 ## This script is designed to keep the pihole updated and linked to any changes made
 ##
