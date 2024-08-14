@@ -1,4 +1,4 @@
-## Last Updated 20 April 2023
+## Last Updated 2024-08-14
 ## updates.sh
 ## This script is designed to keep the pihole updated and linked to any changes made
 ##
@@ -164,7 +164,7 @@ function encrypted_block_list()
 	gpg $TEMPDIR/encrypt.block.addlist.temp.gpg
 	wait
 	sed -i -e "s/\r//g" $TEMPDIR/encrypt.block.addlist.temp
-	mv $TEMPDIR/encrypt.block.addlist.temp $CONF/encrypt.list
+	mv $TEMPDIR/encrypt.block.addlist.temp /var/www/html/encrypt.list
 		
 }
 
