@@ -1,5 +1,5 @@
-# This adlist is the full blocking list
-# Last Updated 2024-08-14
+## This adlist is the full blocking list
+## Last Updated 2024-08-14
 
 ## Local Lists
 file:///scripts/Finished/CONFIG/encrypt.list
@@ -140,7 +140,7 @@ https://raw.githubusercontent.com/blocklistproject/Lists/master/drugs.txt
 
 
 ## Other & Hosts
-http://someonewhocares.org/hosts/hosts
+https://someonewhocares.org/hosts/hosts
 https://adaway.org/hosts.txt
 https://gist.githubusercontent.com/r0ckarong/36140c95bc105ee13cdc672baa940ab0/raw/87378f77179722c227b7813faddab53df6a38708/blacklist.txt
 https://hostsfile.org/Downloads/hosts.txt
