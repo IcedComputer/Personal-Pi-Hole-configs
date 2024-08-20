@@ -1,6 +1,6 @@
 # This adlist is a bit more lax than the standard list used
 ## This is largely just security
-## Last Updated 2024-07-01
+## Last Updated 2024-08-20
 
 ##GQP/GOP/Republican Propaganda, Spam and Funraising
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/GQP.propaganda.blocklist
@@ -33,8 +33,6 @@ https://raw.githubusercontent.com/Ultimate-Hosts-Blacklist/quidsup_malicious-sit
 https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt
 https://v.firebog.net/hosts/Prigent-Malware.txt
 https://v.firebog.net/hosts/RPiList-Malware.txt
-https://www.malwaredomainlist.com/hostslist/hosts.txt
-
 
 
 ## Phishing
