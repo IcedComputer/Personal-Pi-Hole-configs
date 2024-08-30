@@ -114,9 +114,9 @@ function public_allowlist()
 	chmod 777 $TEMPDIR/basic.allow.temp
 	echo " " >> $TEMPDIR/adlist.allow.temp
 	#On System
-	cp $PIDIR/whitelist.txt $TEMPDIR/current.allow.temp
-	chmod 777 $TEMPDIR/current.allow.temp
-	echo " " >> $TEMPDIR/current.allow.temp
+	#cp $PIDIR/whitelist.txt $TEMPDIR/current.allow.temp
+	#chmod 777 $TEMPDIR/current.allow.temp
+	#echo " " >> $TEMPDIR/current.allow.temp
 	cp $CONFIG/perm_allow.conf $TEMPDIR/perm.allow.temp
 	
 	
@@ -171,9 +171,9 @@ function encrypted_block_list()
 
 function assemble()
 {
-	cat $TEMPDIR/*.allow.regex.temp | grep -v '#' |sort | uniq > $TEMPDIR/final.allow.regex.temp
-	cat $TEMPDIR/*.allow.temp | grep -v '#' | sort | uniq > $TEMPDIR/final.allow.temp
-	cat $TEMPDIR/*.regex | grep -v '#' |sort | uniq > $TEMPDIR/regex.list
+	cat $TEMPDIR/*.allow.regex.temp | grep -v '#' | grep -v '^$' | grep -v '^[[:space:]]*$' |sort | uniq > $TEMPDIR/final.allow.regex.temp
+	cat $TEMPDIR/*.allow.temp | grep -v '#' | grep -v '^$' | grep -v '^[[:space:]]*$' | sort | uniq > $TEMPDIR/final.allow.temp
+	cat $TEMPDIR/*.regex | grep -v '#' | grep -v '^$' | grep -v '^[[:space:]]*$' | sort | uniq > $TEMPDIR/regex.list
 	mv $TEMPDIR/regex.list  $PIDIR/regex.list
 	mv $TEMPDIR/final.allow.temp $PIDIR/whitelist.txt
 	mv $TEMPDIR/adlists.list $PIDIR/adlists.list
