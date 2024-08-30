@@ -18,13 +18,13 @@ function download()
 {
 
 	#download an updated update.sh
-	curl --tlsv1.2 -o $TEMPDIR/updates.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/updates.sh'
+	curl --tlsv1.3 -o $TEMPDIR/updates.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/updates.sh'
 	
 	## download an updated DB_updates.sh
-	curl --tlsv1.2 -o $TEMPDIR/DB_Updates.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/DB_Updates.sh'
+	curl --tlsv1.3 -o $TEMPDIR/DB_Updates.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/DB_Updates.sh'
 	
 	## download an updated purge.sh
-	curl --tlsv1.2 -o $TEMPDIR/purge.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/purge.sh'
+	curl --tlsv1.3 -o $TEMPDIR/purge.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/purge.sh'
 }
 
 

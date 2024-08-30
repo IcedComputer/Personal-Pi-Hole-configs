@@ -26,10 +26,10 @@ function base()
 	 wait
 	 
 	#download new cloudflared configs
-	curl --tlsv1.2 -o $TEMPDIR/CFconfig 'https://raw.githubusercontent.com/IcedComputer/Azure-Pihole-VPN-setup/master/Configuration%20Files/CFconfig'
+	curl --tlsv1.3 -o $TEMPDIR/CFconfig 'https://raw.githubusercontent.com/IcedComputer/Azure-Pihole-VPN-setup/master/Configuration%20Files/CFconfig'
 		
 	#download a new refresh.sh
-	curl --tlsv1.2 -o $TEMPDIR/refresh.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/refresh.sh'
+	curl --tlsv1.3 -o $TEMPDIR/refresh.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/refresh.sh'
 	
 	#refresh.sh
 	chmod 777 $TEMPDIR/refresh.sh
@@ -38,14 +38,14 @@ function base()
 function full()
 {
 	#adlists.list 
-	curl --tlsv1.2 -o $TEMPDIR/adlists.list 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/adlists/main.adlist.list'
+	curl --tlsv1.3 -o $TEMPDIR/adlists.list 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/adlists/main.adlist.list'
 
 	# Regex Lists
-	curl --tlsv1.2 -o $TEMPDIR/main.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/main.regex'
+	curl --tlsv1.3 -o $TEMPDIR/main.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/main.regex'
 	wait
-	curl --tlsv1.2 -o $TEMPDIR/oTLD.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/oTLD.regex'
+	curl --tlsv1.3 -o $TEMPDIR/oTLD.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/oTLD.regex'
 	wait
-	curl --tlsv1.2 -o $TEMPDIR/uslocal.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/uslocal.regex'
+	curl --tlsv1.3 -o $TEMPDIR/uslocal.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/uslocal.regex'
 	wait
 	
 	wget -O $TEMPDIR/country.regex.gpg 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/country.regex.gpg'
@@ -53,7 +53,7 @@ function full()
 	sed -i -e "s/\r//g" $TEMPDIR/country.regex
 	wait
 	## replaced from above
-	#curl --tlsv1.2 -o $TEMPDIR/country.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/country.regex'
+	#curl --tlsv1.3 -o $TEMPDIR/country.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/country.regex'
 	#wait
 
 }
@@ -62,13 +62,13 @@ function security()
 {
 
 	#adlists.list 
-	curl --tlsv1.2 -o $TEMPDIR/adlists.list 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/adlists/security_basic_adlist.list'
+	curl --tlsv1.3 -o $TEMPDIR/adlists.list 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/adlists/security_basic_adlist.list'
 
 	# Regex Lists
-	curl --tlsv1.2 -o $TEMPDIR/basic_security.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_security.regex'
+	curl --tlsv1.3 -o $TEMPDIR/basic_security.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_security.regex'
 	wait
 	
-	curl --tlsv1.2 -o $TEMPDIR/oTLD.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/oTLD.regex'
+	curl --tlsv1.3 -o $TEMPDIR/oTLD.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/oTLD.regex'
 	wait
 	
 	wget -O $TEMPDIR/basic_country.regex.gpg 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_country.regex.gpg'
@@ -76,7 +76,7 @@ function security()
 	wait
 	sed -i -e "s/\r//g" $TEMPDIR/basic_country.regex
 	## replaced from above
-	#curl --tlsv1.2 -o $TEMPDIR/basic_country.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_country.regex'
+	#curl --tlsv1.3 -o $TEMPDIR/basic_country.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_country.regex'
 	#wait
 
 
@@ -86,11 +86,11 @@ function test_list()
 {
 
 echo "******This is test server********"
- curl --tlsv1.2 -o $TEMPDIR/adlists.list.trial.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/adlists/trial.adlist.list'
+ curl --tlsv1.3 -o $TEMPDIR/adlists.list.trial.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/adlists/trial.adlist.list'
  cat $TEMPDIR/adlists.list.trial.temp $TEMPDIR/adlists.list | grep -v "##" | sort | uniq > $TEMPDIR/adlists.list.temp
  mv $TEMPDIR/adlists.list.temp $TEMPDIR/adlists.list
  
- curl --tlsv1.2 -o $TEMPDIR/test.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/test.regex'
+ curl --tlsv1.3 -o $TEMPDIR/test.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/test.regex'
 }
 
 function scripts()
@@ -106,11 +106,11 @@ function public_allowlist()
 {
 	##Get allowlist
 	#Public
-	curl --tlsv1.2 -o $TEMPDIR/basic.allow.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/basic.allow'
+	curl --tlsv1.3 -o $TEMPDIR/basic.allow.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/basic.allow'
 	chmod 777 $TEMPDIR/basic.allow.temp
 	echo " " >> $TEMPDIR/basic.allow.temp
 	wait
-	curl --tlsv1.2 -o $TEMPDIR/adlist.allow.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/adlist.allow'
+	curl --tlsv1.3 -o $TEMPDIR/adlist.allow.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/adlist.allow'
 	chmod 777 $TEMPDIR/basic.allow.temp
 	echo " " >> $TEMPDIR/adlist.allow.temp
 	#On System
@@ -126,7 +126,7 @@ function security_allowlist()
 {
 	##Get Whitelists
 	#Public
-	curl --tlsv1.2 -o $TEMPDIR/security_only.allow.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/security_only.allow'
+	curl --tlsv1.3 -o $TEMPDIR/security_only.allow.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/security_only.allow'
 
 }
 
@@ -143,7 +143,7 @@ function encrypted_allowlist()
 function regex_allowlist()
 {
 
-	curl --tlsv1.2 -o $TEMPDIR/regex.allow.regex.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/regex.allow'
+	curl --tlsv1.3 -o $TEMPDIR/regex.allow.regex.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/regex.allow'
 	cp $CONFIG/allow_wild.conf $TEMPDIR/allow_wild.allow.regex.temp
 }
 
