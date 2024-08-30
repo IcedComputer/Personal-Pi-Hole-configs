@@ -71,11 +71,10 @@ done < $file3
 
 function allow()
 {
- echo "********************************************"
- echo "********************************************"
+ Start_Banner
  echo Start Allow List
- echo "********************************************"
- echo "********************************************"
+ Start_Banner
+
  
  #adds allow list from following file
 file1=$PIDIR/whitelist.txt
@@ -86,20 +85,16 @@ while read allow; do
 	wait
 done < $file1
 
- echo "********************************************"
- echo "********************************************"
+ End_Banner
  echo End Allow List
- echo "********************************************"
- echo "********************************************"
+ End_Banner
 }
 
 function allow_regex()
 {
- echo "********************************************"
- echo "********************************************"
+ Start_Banner
  echo Start Allow Regex
- echo "********************************************"
- echo "********************************************"
+ Start_Banner
  
 #adds allow list from following file
 file2=$TEMPDIR/final.allow.regex.temp
@@ -109,11 +104,9 @@ while read -r WLallow; do
 	wait
 done < $file2
 
- echo "********************************************"
- echo "********************************************"
+ End_Banner
  echo End Allow List
- echo "********************************************"
- echo "********************************************"
+ End_Banner
 }
 
 function cleanup()
@@ -124,6 +117,6 @@ pihole restartdns
 ## Main Program
 allow
 adlist
-regex
 allow_regex
+regex
 cleanup
