@@ -47,6 +47,7 @@ function End_Banner()
  bash -c 'echo -e "\033[0;31m********************************************\x1b[39m"'
  bash -c 'echo -e "\\033[0;31m********************************************\x1b[39m"'
  bash -c 'echo -e "\\033[0;31m********************************************\x1b[39m"'
+ sleep 2
 
 }
 
@@ -72,7 +73,7 @@ done < $file3
 function allow()
 {
  Start_Banner
- echo Start Allow List
+ bash -c 'echo -e "\033[1;32mStarting Allow List\x1b[39m"'
  Start_Banner
 
  
@@ -86,14 +87,14 @@ while read allow; do
 done < $file1
 
  End_Banner
- echo End Allow List
+ bash -c 'echo -e "\033[1;33mEnd Allow List\x1b[39m"'
  End_Banner
 }
 
 function allow_regex()
 {
  Start_Banner
- echo Start Allow Regex
+ bash -c 'echo -e "\033[1;32mStarting Allow Regex List\x1b[39m"'
  Start_Banner
  
 #adds allow list from following file
@@ -105,7 +106,7 @@ while read -r WLallow; do
 done < $file2
 
  End_Banner
- echo End Allow List
+ bash -c 'echo -e "\033[1;33mEnd Allow Regex List\x1b[39m"'
  End_Banner
 }
 
