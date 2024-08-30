@@ -12,6 +12,7 @@ TEMPDIR=/scripts/temp
 PIDIR=/etc/pihole
 A='"'
 
+
 function adlist()
 {
 # Clears the existing adlist database
@@ -29,14 +30,32 @@ while read line; do
 done < $file
 }
 
+function Start_Banner()
+{
+## Prints Green
+ bash -c 'echo -e "\033[0;32m********************************************\x1b[39m"'
+ bash -c 'echo -e "\033[0;32m********************************************\x1b[39m"'
+ bash -c 'echo -e "\033[0;32m********************************************\x1b[39m"'
+ bash -c 'echo -e "\033[0;32m********************************************\x1b[39m"'
+
+}
+
+function End_Banner()
+{
+## Prints Red
+ bash -c 'echo -e "\033[0;31m********************************************\x1b[39m"'
+ bash -c 'echo -e "\033[0;31m********************************************\x1b[39m"'
+ bash -c 'echo -e "\\033[0;31m********************************************\x1b[39m"'
+ bash -c 'echo -e "\\033[0;31m********************************************\x1b[39m"'
+
+}
+
 function regex()
 {
 
- echo "********************************************"
- echo "********************************************"
- echo Starting Regex
- echo "********************************************"
- echo "********************************************"
+ Start_Banner
+ bash -c 'echo -e "\033[1;32mStarting Regex Block List\x1b[39m"'
+ Start_Banner
  
 #adds regex from following file
 file3=$PIDIR/regex.list
@@ -45,11 +64,9 @@ while read -r regex; do
 	wait
 done < $file3
 
- echo "********************************************"
- echo "********************************************"
- echo Ending Regex
- echo "********************************************"
- echo "********************************************"
+ End_Banner
+ bash -c 'echo -e "\033[1;33mEnding Regex Block List\x1b[39m"'
+ End_Banner
 }
 
 function allow()
