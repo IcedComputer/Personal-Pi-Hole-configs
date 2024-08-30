@@ -47,7 +47,6 @@ function End_Banner()
  bash -c 'echo -e "\033[0;31m********************************************\x1b[39m"'
  bash -c 'echo -e "\\033[0;31m********************************************\x1b[39m"'
  bash -c 'echo -e "\\033[0;31m********************************************\x1b[39m"'
- sleep 2
 
 }
 
@@ -68,6 +67,7 @@ done < $file3
  End_Banner
  bash -c 'echo -e "\033[1;33mEnding Regex Block List\x1b[39m"'
  End_Banner
+ sleep 2
 }
 
 function allow()
@@ -89,6 +89,7 @@ done < $file1
  End_Banner
  bash -c 'echo -e "\033[1;33mEnd Allow List\x1b[39m"'
  End_Banner
+  sleep 2
 }
 
 function allow_regex()
@@ -108,6 +109,7 @@ done < $file2
  End_Banner
  bash -c 'echo -e "\033[1;33mEnd Allow Regex List\x1b[39m"'
  End_Banner
+  sleep 2
 }
 
 function cleanup()
