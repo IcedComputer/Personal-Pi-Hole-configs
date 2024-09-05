@@ -1,4 +1,4 @@
-## Last Updated 2024-08-30
+## Last Updated 2024-09-05
 ## DB_Updates.sh
 ## This script is designed to keep the pihole updated and linked to any changes made
 ##
@@ -119,7 +119,7 @@ pihole restartdns
 
 ## Main Program
 allow
-adlist
 allow_regex
+adlist
 regex
 cleanup

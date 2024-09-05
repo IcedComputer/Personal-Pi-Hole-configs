@@ -15,7 +15,7 @@ CONFIG=/scripts/Finished/CONFIG
 Type=$(<"$CONFIG/type.conf")
 test_system=$(<"$CONFIG/test.conf") 
 is_cloudflared=$(<"$CONFIG/dns_type.conf")
-is_v5=$(<"$CONFIG/ver.conf")
+version=$(<"$CONFIG/ver.conf")
 
 #Some basic functions including updating the box & getting new configuration files
 function base()
@@ -180,12 +180,18 @@ function assemble()
 	mv $TEMPDIR/CFconfig $FINISHED/cloudflared
 	mv $TEMPDIR/refresh.sh $FINISHED/refresh.sh
 	
-	
-	if [ $is_v5 = "yes" ]
+	## remove me soon
+	if [ $version = "yes" ]
 		then
 			sudo bash $FINISHED/DB_Updates.sh
 	fi
+	###
 	
+	
+	if [ $version = "5" ]
+		then
+			sudo bash $FINISHED/DB_Updates.sh
+	fi
 
 }
 
