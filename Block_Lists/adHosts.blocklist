@@ -1,7 +1,8 @@
-# List of tracking, advertising and other non-malicious hosts
-# adHosts.blocklist
-# Last Modified: 2024-08-13
-#
+# #List of tracking, advertising and other non-malicious hosts
+## adHosts.blocklist
+## Last Modified: 2024-08-13
+##
+
 189229.measurementapi.com
 50analytics.secureserver.net
 5490.engine.mobileapptracking.com
@@ -32,6 +33,7 @@ adpushup.typeform.com
 ads-1202260457.us-east-1.elb.amazonaws.com
 ads-adseast-vpc.yldbt.com
 ads-adseast.yldbt.com
+ads-interfaces.sc-cdn.net
 ads.cmcm.com
 ads.engagefront.com
 ads.everquote.com
@@ -48,6 +50,7 @@ ads.viber.com
 ads.www.amazon.com
 ads2live.com
 adsapi.adsymptotic.com
+adsapi.snapchat.com
 adsassets-ipv6.waze.com
 adsassets.waze.com
 adserver.umb.com
@@ -70,6 +73,7 @@ api-tealeaf.goacoustic.com
 apple.comscoreresearch.com
 as.2020mustang.com
 as.catsnbootsncats2020.com
+ase.adserver.snapads.com
 assets.track.easypost.com
 auth.samsungosp.com
 az43064.vo.msecnd.net
@@ -127,6 +131,7 @@ devices.carnivalmobile.com
 diagnostics.meethue.com
 dlt-beacon.dynatrace-managed.com
 dolro.club
+euw.adserver.snapads.com
 events.bouncex.net
 eventtracking.hubapi.com
 faphouse.com
@@ -202,6 +207,7 @@ redirect-1966248761.us-west-2.elb.amazonaws.com
 redirect.viglink.com
 roomimg.stream.highwebmedia.com
 s10.device.marketingcloudapis.com
+snapads.com
 srv-2017-10-23-06.pixel.parsely.com
 srv-2017-12-14-05.pixel.parsely.com
 srv-2017-12-18-17.pixel.parsely.com
@@ -234,6 +240,9 @@ tracking-2.us-east-1.prod.intspot.com
 tracking-3.us-east-1.prod.intspot.com
 trackinglb-1826511868.us-east-1.elb.amazonaws.com
 Trkngnow.com
+usc.adserver.snapads.com
+usc.adserver.snapads.com
+use.adserver.snapads.com
 use.trk.svr-algorix.com
 v.faphouse.com
 v.vfgtb.com

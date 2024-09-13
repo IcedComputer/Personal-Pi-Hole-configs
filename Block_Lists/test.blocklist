@@ -1,10 +1,10 @@
-# A list of test items
-# test.blocklist
-# Re-Organized: 2023-04-25
-# Last Updated: 2024-08-23
+## A list of test items
+## test.blocklist
+## Re-Organized: 2023-04-25
+## Last Updated: 2024-09-13
 
 ## To adHosts.blocklist (tracking, advertising and other non-malicious hosts)
-# 2023-04-25
+## 2023-04-25
 profilepics.cf.kik.com
 profilepics.kik.com
 report.dfs.glassboxdigital.io
@@ -17,7 +17,6 @@ partner.ads.js
 pagead.js
 ads.js
 
-
 ## 2024-04-18
 analytics.snapchat.com
 app-analytics-v2.snapchat.com
@@ -28,25 +27,17 @@ snapchat-proxy.appspot.com
 usc.adserver.snapads.com 
 
 ##2024-05-17
-adsapi.snapchat.com
+aimg.kwcdn.com
+app-analytics-v2.snapchat.com
+app-analytics.snapchat.com
 asia-southeast1-gcp.api.snapchat.com
 aws-cf.api.snapchat.com
-app-analytics.snapchat.com
-app-analytics-v2.snapchat.com
-euw.adserver.snapads.com
-ads-interfaces.sc-cdn.net
-ase.adserver.snapads.com
-usc.adserver.snapads.com
-usc.adserver.snapads.com
-use.adserver.snapads.com
-snapads.com
+d3aqntjehoyiyc.cloudfront.net
 gcs.sc-cdn.net
-www.temu.com
-aimg.kwcdn.com
 static.kwcdn.com
 us.pftk.temu.com
-d3aqntjehoyiyc.cloudfront.net
 www.knotch-cdn.com
+www.temu.com
 
 ## 2024-08-23
 api.revenuecat.com
