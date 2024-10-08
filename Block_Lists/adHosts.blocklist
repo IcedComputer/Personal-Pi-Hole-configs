@@ -1,7 +1,8 @@
 # #List of tracking, advertising and other non-malicious hosts
 ## adHosts.blocklist
-## Last Modified: 2024-08-13
+## Last Modified: 2024-10-08
 ##
+
 
 189229.measurementapi.com
 50analytics.secureserver.net
@@ -69,6 +70,7 @@ advertisers.billymob.com
 advertising.amazon.com
 adx.districtm.ca
 afgtrwd1.com
+amplitude.map.fastly.net
 api-tealeaf.goacoustic.com
 apple.comscoreresearch.com
 as.2020mustang.com

@@ -2,7 +2,7 @@
 ## test.regex
 ## This regex is designed to test various features before they get added to the master list
 ## Re-Organized: 2023-04-23
-## Last Updated: 2024-08-06
+## Last Updated: 2024-10-07
 #########
 
 
@@ -21,6 +21,10 @@ messages[0-9]*\.com
 
 ##2024-08-06
 ^(doh|dot|dns|rdns)[-.]
+
+##2024-10-07
+\.akadns\.net$
+(^|\.|-)fastly\.net$
 
 ## end
 
