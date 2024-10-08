@@ -279,7 +279,7 @@
 (^|\.|-)geoycpi-uno[-_\.]
 (^|\.|-)get((chrome)|(jaco)|(tally))\.com$
 (^|\.|-)getpromo2[0-9][0-9][0-9]\.info$
-(^|\.|-)getsi((decar)|(tecontrol)\.com$
+(^|\.|-)getsi((decar)|(tecontrol))\.com$
 (^|\.|-)gigazu\.net$
 (^|\.|-)gigya\.com$
 (^|\.|-)gimbal\.com$
@@ -353,7 +353,7 @@
 (^|\.|-)kontrolnaya-rabota\.ru$
 (^|\.|-)krxd\.net
 (^|\.|-)kubecloud\.com
-(^|\.|-)kunlue?a?n?a?g?r?(120)?(010)?\.((com)|((net)|(org))
+(^|\.|-)kunlue?a?n?a?g?r?(120)?(010)?\.((com)|(net)|(org))
 (^|\.|-)l2\.io$
 (^|\.|-)language\.herokuapp\.com$
 (^|\.|-)lapalingo\.com$
@@ -404,7 +404,7 @@
 (^|\.|-)moatads\.com$
 (^|\.|-)mobfox\.com$
 (^|\.|-)mobile(click)?offer(type)?\.com$
-(^|\.|-)mobo((genie)|(promo)\.((com)|(biz))$
+(^|\.|-)mobo((genie)|(promo))\.((com)|(biz))$
 (^|\.|-)moengage\.com$
 (^|\.|-)monetizer?\[-_\.]
 (^|\.|-)mookie1\.com$
