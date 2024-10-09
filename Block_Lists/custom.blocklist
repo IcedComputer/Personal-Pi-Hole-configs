@@ -1,7 +1,7 @@
 ## A list of tracking sites, malicious sites and other things that likely need to be blocked
 ## custom.blocklist
 ## Re-Organized: 2020-07-04
-## Last Updated: 2024-10-07
+## Last Updated: 2024-10-09
 
 accountingnews.bg
 an0malys1x.com
@@ -50,6 +50,7 @@ usa.buildingourmovement.com
 usatestprep.com
 use-application-dns.net
 vuesz.com
+wheresyoured.at
 wtrmblea.net
 www.acx.com
 www.anomalysix.com
@@ -57,4 +58,5 @@ www.dpreview.com
 www.goodreads.com
 www.pillpack.com
 www.redfet.com
+www.wheresyoured.at
 z.clarity.ms
