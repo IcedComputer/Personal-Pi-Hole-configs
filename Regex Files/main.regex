@@ -661,5 +661,12 @@
 ^tiles\..*services\.mozilla\.com$
 ^www-?[:alpha:]+\.com$
 
+## 2024-10-07
+uemm((\.)|(-))dynatrace\.ford\.com
+(^|\.|-)emarsys\.net
+(^|\.|-)medallia\.com$
+mkt[0-9]*\.com$
+messages[0-9]*\.com
+
 ## end
 

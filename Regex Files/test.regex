@@ -6,18 +6,7 @@
 #########
 
 
-##2022-02-20
-uemm((\.)|(-))dynatrace\.ford\.com
 
-## 2022-11-20
-(^|\.|-)emarsys\.net
-
-##2023-04-23
-(^|\.|-)medallia\.com$
-
-##2023-06-19
-mkt[0-9]*\.com$
-messages[0-9]*\.com
 
 ##2024-08-06
 ^(doh|dot|dns|rdns)[-.]
