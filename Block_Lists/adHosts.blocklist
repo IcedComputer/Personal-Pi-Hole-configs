@@ -1,8 +1,7 @@
 # #List of tracking, advertising and other non-malicious hosts
 ## adHosts.blocklist
-## Last Modified: 2024-10-08
+## Last Modified: 2024-10-09
 ##
-
 
 189229.measurementapi.com
 50analytics.secureserver.net
@@ -200,7 +199,7 @@ mediabarterexchange.com
 mediadirectx.com
 metric-agent.i10c.net
 metrics1.citibank.com
-mobile-data.onetrust.io
+#mobile-data.onetrust.io
 mparticle.map.fastly.net
 ms-trackingapi.phenompeople.com
 mybbc-analytics.files.bbci.co.uk
