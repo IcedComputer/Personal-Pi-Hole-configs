@@ -28,6 +28,9 @@ function download()
 	
 	## download an updated configuration_changes.sh
 	curl --tlsv1.3 -o $TEMPDIR/configuration_changes.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Updates/configuration_changes.sh'
+	
+	## download an updated Research.sh
+	curl --tlsv1.3 -o $TEMPDIR/Research.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/refs/heads/master/Updates/Research.sh'
 }
 
 
@@ -47,6 +50,9 @@ function move()
 	
 	chmod 777 $TEMPDIR/configuration_changes.sh
 	mv $TEMPDIR/configuration_changes.sh $FINISHED/configuration_changes.sh
+	
+	chmod 777 $TEMPDIR/Research.sh
+	mv $TEMPDIR/Research.sh $FINISHED/Research.sh
 }
 
 download
