@@ -24,7 +24,7 @@ messages[0-9]*\.com
 
 ##2024-10-07
 \.akadns\.net$
-(^|\.|-)fastly\.net$
+##(^|\.|-)fastly\.net$
 
 ## end
 
