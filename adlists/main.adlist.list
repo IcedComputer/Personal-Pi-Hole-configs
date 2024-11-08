@@ -1,11 +1,9 @@
 ## This adlist is the full blocking list
-## Last Updated 2024-08-20
+## Last Updated 2024-11-07
 
 ## Local Lists
 file:///scripts/Finished/CONFIG/encrypt.list
 
-##GQP/GOP/Republican Propaganda, Spam and Funraising
-https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/GQP.propaganda.blocklist
 
 ## International Propaganda / Fake News 
 https://raw.githubusercontent.com/dnsblocklistnet/blocklists/master/conspiracy.list

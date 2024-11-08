@@ -160,12 +160,16 @@ function encrypted_regex_allowlist()
 function encrypted_block_list()
 {
 
-	wget -O $TEMPDIR/encrypt.block.addlist.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Block_Lists/encryted.blocklist.gpg'
-	gpg $TEMPDIR/encrypt.block.addlist.temp.gpg
+
+	wget -O $TEMPDIR/block.encrypt.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Block_Lists/block.encrypt.gpg'
+	wget -O $TEMPDIR/propaganda.block.encrypt.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Block_Lists/propaganda.block.encrypt.gpg'
+	gpg $TEMPDIR/block.encrypt.temp.gpg
 	wait
-	sed -i -e "s/\r//g" $TEMPDIR/encrypt.block.addlist.temp
-	mv $TEMPDIR/encrypt.block.addlist.temp $CONFIG/encrypt.list
-		
+	sed -i -e "s/\r//g" $TEMPDIR/block.encrypt.temp
+	gpg $TEMPDIR/propaganda.block.encrypt.temp.gpg
+	wait
+	sed -i -e "s/\r//g" $TEMPDIR/propaganda.block.encrypt.temp
+			
 }
 
 
@@ -174,6 +178,9 @@ function assemble()
 	cat $TEMPDIR/*.allow.regex.temp | grep -v '#' | grep -v '^$' | grep -v '^[[:space:]]*$' |sort | uniq > $TEMPDIR/final.allow.regex.temp
 	cat $TEMPDIR/*.allow.temp | grep -v '#' | grep -v '^$' | grep -v '^[[:space:]]*$' | sort | uniq > $TEMPDIR/final.allow.temp
 	cat $TEMPDIR/*.regex | grep -v '#' | grep -v '^$' | grep -v '^[[:space:]]*$' | sort | uniq > $TEMPDIR/regex.list
+	cat $TEMPDIR/*.block.encrypt.temp | grep -v '#' | grep -v '^$' | grep -v '^[[:space:]]*$' |sort | uniq > $CONFIG/encrypt.list
+	
+	
 	mv $TEMPDIR/regex.list  $PIDIR/regex.list
 	mv $TEMPDIR/final.allow.temp $PIDIR/whitelist.txt
 	mv $TEMPDIR/adlists.list $PIDIR/adlists.list
