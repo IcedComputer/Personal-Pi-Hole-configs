@@ -162,13 +162,20 @@ function encrypted_block_list()
 
 
 	wget -O $TEMPDIR/custom.block.encrypt.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Block_Lists/custom.block.encrypt.gpg'
-	wget -O $TEMPDIR/propaganda.block.encrypt.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Block_Lists/propaganda.block.encrypt.gpg'
 	gpg $TEMPDIR/custom.block.encrypt.temp.gpg
 	wait
 	sed -i -e "s/\r//g" $TEMPDIR/custom.block.encrypt.temp
+	
+	wget -O $TEMPDIR/propaganda.block.encrypt.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Block_Lists/propaganda.block.encrypt.gpg'
 	gpg $TEMPDIR/propaganda.block.encrypt.temp.gpg
 	wait
 	sed -i -e "s/\r//g" $TEMPDIR/propaganda.block.encrypt.temp
+	
+	wget -O $TEMPDIR/spam.block.encrypt.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Block_Lists/spam.block.encrypt.gpg'
+	gpg $TEMPDIR/spam.block.encrypt.temp.gpg
+	wait
+	sed -i -e "s/\r//g" $TEMPDIR/spam.block.encrypt.temp
+
 			
 }
 
