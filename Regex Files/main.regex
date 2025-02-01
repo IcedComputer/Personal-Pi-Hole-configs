@@ -1,12 +1,12 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 2020-07-03
-## Last Updated: 2024-10-07
+## Last Updated: 2025-02-01
 #########
-(.*\.|^)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
+(^|\.|-)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
 (^|\.)5usakura7s\.co(-8usa)?
 (^|\.)ibs\.lgappstv\.com
-(^|\.)lgsmartad\.com
+(^|\.)lgsmartad\.compihole
 (^|\.)rdx2\.lgtvsdp\.com
 (^|\.)samsung(electronics|cloudcdn)\.com$
 (^|\.)samsungcloudsolution\.(com|net)$
