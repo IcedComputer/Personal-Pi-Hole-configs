@@ -206,7 +206,7 @@ pihole restartdns
 ## Main Program
 
 
-	if [ $version = "5" ]
+	if [ $version = "5" ];
 		then
 			allow_v5
 			allow_regex_v5
@@ -214,7 +214,7 @@ pihole restartdns
 			regex_v5
 	fi
 	
-	if [ $version = "6" ]
+	if [ $version = "6" ];
 		then
 			allow_v6
 			allow_regex_v6
