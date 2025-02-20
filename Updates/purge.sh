@@ -11,7 +11,7 @@
 FINISHED=/scripts/Finished
 TEMPDIR=/scripts/temp
 PIDIR=/etc/pihole
-CONFIG=/scripts/Finished/CONFIG
+CONFIG=/scripts/Finished/CONFIGpihole
 version=$(<"$CONFIG/ver.conf")
 
 # Clears the existing adlist database
@@ -43,17 +43,8 @@ pihole --wild --nuke
 
 	if [ $version = "6" ]
 		then
-			# Purge existing allow list
-			pihole allow --nuke
-
-			# Purge existing allow list regex
-			pihole --allow-regex --nuke
-
-			# Purge existing deny list
-			pihole deny --nuke
-			
-			# Purge existing wildcard allow list
-			pihole --allow-wild --nuke
+		rm /etc/pihole/pihole-FTL.db
+		rm /etc/pihole/gravity.db
 
 	fi
 

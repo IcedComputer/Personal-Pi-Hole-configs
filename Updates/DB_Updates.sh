@@ -85,6 +85,25 @@ done < $file1
   sleep 2
 }
 
+function regex_v5()
+{
+
+ Start_Banner
+ bash -c 'echo -e "\033[1;32mStarting Regex Block List\x1b[39m"'
+ Start_Banner
+ 
+#adds regex from following file
+file3=$PIDIR/regex.list
+while read -r regex; do
+	pihole --regex -nr $regex
+	wait
+done < $file3
+
+ End_Banner
+ bash -c 'echo -e "\033[1;33mEnding Regex Block List\x1b[39m"'
+ End_Banner
+ sleep 2
+}
 ## Version 6
 
 
@@ -120,7 +139,7 @@ file1=$PIDIR/whitelist.txt
 
 
 while read allow; do
-	pihole allow -nr $allow
+	pihole allow $allow
 	wait
 done < $file1
 
@@ -130,6 +149,25 @@ done < $file1
   sleep 2
 }
 
+function regex_v6()
+{
+
+ Start_Banner
+ bash -c 'echo -e "\033[1;32mStarting Regex Block List\x1b[39m"'
+ Start_Banner
+ 
+#adds regex from following file
+file3=$PIDIR/regex.list
+while read -r regex; do
+	pihole --regex $regex
+	wait
+done < $file3
+
+ End_Banner
+ bash -c 'echo -e "\033[1;33mEnding Regex Block List\x1b[39m"'
+ End_Banner
+ sleep 2
+}
 
 ## Stays the Same in both versions
 
@@ -152,25 +190,7 @@ done < $file
 
 
 
-function regex()
-{
 
- Start_Banner
- bash -c 'echo -e "\033[1;32mStarting Regex Block List\x1b[39m"'
- Start_Banner
- 
-#adds regex from following file
-file3=$PIDIR/regex.list
-while read -r regex; do
-	pihole --regex -nr $regex
-	wait
-done < $file3
-
- End_Banner
- bash -c 'echo -e "\033[1;33mEnding Regex Block List\x1b[39m"'
- End_Banner
- sleep 2
-}
 
 function cleanup()
 {
@@ -191,7 +211,7 @@ pihole restartdns
 			allow_v5
 			allow_regex_v5
 			adlist
-			regex
+			regex_v5
 	fi
 	
 	if [ $version = "6" ]
@@ -199,7 +219,7 @@ pihole restartdns
 			allow_v6
 			allow_regex_v6
 			adlist
-			regex
+			regex_v6
 	fi	
 
 cleanup
