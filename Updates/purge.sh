@@ -11,6 +11,7 @@
 FINISHED=/scripts/Finished
 TEMPDIR=/scripts/temp
 PIDIR=/etc/pihole
+CONFIG=/scripts/Finished/CONFIG
 version=$(<"$CONFIG/ver.conf")
 
 # Clears the existing adlist database
