@@ -43,7 +43,7 @@ function End_Banner()
 
 
 
-function allow_regex_5()
+function allow_regex_v5()
 {
  Start_Banner
  bash -c 'echo -e "\033[1;32mStarting Allow Regex List\x1b[39m"'
