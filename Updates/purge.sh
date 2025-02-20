@@ -24,7 +24,7 @@ pihole --regex --nuke
 pihole --wild --nuke
 
 
-	if [ $version = "5" ]
+	if [ $version = "5" ];
 		then
 			# Purge existing allow list
 			pihole -w --nuke
@@ -41,7 +41,7 @@ pihole --wild --nuke
 	fi
 
 
-	if [ $version = "6" ]
+	if [ $version = "6" ];
 		then
 		rm /etc/pihole/pihole-FTL.db
 		rm /etc/pihole/gravity.db
