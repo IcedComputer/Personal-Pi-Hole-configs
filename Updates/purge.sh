@@ -17,15 +17,15 @@ version=$(<"$CONFIG/ver.conf")
 # Clears the existing adlist database
 sqlite3 "/etc/pihole/gravity.db" "DELETE FROM adlist"
 
-# Purge existing regex list
-pihole --regex --nuke
-
-# Purge existing wildcard deny list
-pihole --wild --nuke
-
 
 	if [ $version = "5" ];
 		then
+			# Purge existing regex list
+			pihole --regex --nuke
+
+			# Purge existing wildcard deny list
+			pihole --wild --nuke
+
 			# Purge existing allow list
 			pihole -w --nuke
 
