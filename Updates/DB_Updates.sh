@@ -117,7 +117,7 @@ function allow_regex_v6()
 file2=$TEMPDIR/final.allow.regex.temp
 
 while read -r WLallow; do
-	pihole --allow-regex -nr $WLallow
+	pihole --allow-regex  $WLallow
 	wait
 done < $file2
 
