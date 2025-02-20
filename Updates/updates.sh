@@ -194,18 +194,9 @@ function assemble()
 	mv $TEMPDIR/CFconfig $FINISHED/cloudflared
 	mv $TEMPDIR/refresh.sh $FINISHED/refresh.sh
 	
-	## remove me soon
-	if [ $version = "yes" ]
-		then
-			sudo bash $FINISHED/DB_Updates.sh
-	fi
-	###
+		
+	sudo bash $FINISHED/DB_Updates.sh
 	
-	
-	if [ $version = "5" ]
-		then
-			sudo bash $FINISHED/DB_Updates.sh
-	fi
 
 }
 
