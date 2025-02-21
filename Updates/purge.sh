@@ -43,8 +43,8 @@ sqlite3 "/etc/pihole/gravity.db" "DELETE FROM adlist"
 
 	if [ $version = "6" ];
 		then
-		rm /etc/pihole/pihole-FTL.db
-		rm /etc/pihole/gravity.db
+		#rm /etc/pihole/pihole-FTL.db
+		#rm /etc/pihole/gravity.db
 
 	fi
 

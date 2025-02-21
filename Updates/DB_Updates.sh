@@ -117,7 +117,7 @@ function allow_regex_v6()
 file2=$TEMPDIR/final.allow.regex.temp
 
 while read -r WLallow; do
-	pihole --allow-regex  $WLallow
+	pihole --allow-regex -q $WLallow
 	wait
 done < $file2
 
@@ -139,7 +139,7 @@ file1=$PIDIR/whitelist.txt
 
 
 while read allow; do
-	pihole allow $allow
+	pihole allow -q $allow
 	wait
 done < $file1
 
@@ -159,7 +159,7 @@ function regex_v6()
 #adds regex from following file
 file3=$PIDIR/regex.list
 while read -r regex; do
-	pihole --regex $regex
+	pihole --regex -q $regex
 	wait
 done < $file3
 
