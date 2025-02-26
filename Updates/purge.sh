@@ -37,16 +37,15 @@ sqlite3 "/etc/pihole/gravity.db" "DELETE FROM adlist"
 			
 			# Purge existing wildcard allow list
 			pihole --white-wild --nuke
-
 	fi
 
 
-	if [ $version = "6" ];
-		then
+	#if [ $version = "6" ];
+		#then
 		#rm /etc/pihole/pihole-FTL.db
 		#rm /etc/pihole/gravity.db
 
-	fi
+	#fi
 
 
 
