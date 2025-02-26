@@ -1,4 +1,4 @@
-## Last Updated 2025-02-20
+## Last Updated 2025-02-25
 ## purge.sh
 ## This script is designed to keep the pihole updated and linked to any changes made.
 ## This script should be run once to purge existing DB entries so they can be freshly reloaded from scratch.
