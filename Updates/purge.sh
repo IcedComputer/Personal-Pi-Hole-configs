@@ -1,4 +1,4 @@
-## Last Updated 2025-02-25
+## Last Updated 2025-03-19
 ## purge.sh
 ## This script is designed to keep the pihole updated and linked to any changes made.
 ## This script should be run once to purge existing DB entries so they can be freshly reloaded from scratch.
@@ -13,6 +13,7 @@ TEMPDIR=/scripts/temp
 PIDIR=/etc/pihole
 CONFIG=/scripts/Finished/CONFIG
 version=$(<"$CONFIG/ver.conf")
+DATABASE="/etc/pihole/gravity.db"
 
 # Clears the existing adlist database
 sqlite3 "/etc/pihole/gravity.db" "DELETE FROM adlist"
@@ -40,12 +41,21 @@ sqlite3 "/etc/pihole/gravity.db" "DELETE FROM adlist"
 	fi
 
 
-	#if [ $version = "6" ];
-		#then
-		#rm /etc/pihole/pihole-FTL.db
-		#rm /etc/pihole/gravity.db
+	if [ $version = "6" ];
+		then
+		# Run the SQLite query and save the results to the output file
+sqlite3 $DATABASE <<EOF
+.headers on
+.mode column
+DELETE FROM domainlist;
 
-	#fi
+
+EOF
+
+## Prints Red
+ bash -c 'echo -e "\033[0;31m******All rows have been deleted from the domainlist table.*********\x1b[39m"'
+
+	fi
 
 
 

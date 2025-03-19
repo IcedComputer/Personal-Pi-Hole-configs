@@ -1,4 +1,4 @@
-## Last Updated 2025-02-20
+## Last Updated 2025-03-19
 ## DB_Updates.sh
 ## This script is designed to keep the pihole updated and linked to any changes made
 ##
@@ -117,8 +117,7 @@ function allow_regex_v6()
 file2=$TEMPDIR/final.allow.regex.temp
 
 while read -r WLallow; do
-	pihole --allow-regex -q $WLallow
-	wait
+	pihole --allow-regex $WLallow
 done < $file2
 
  End_Banner
@@ -139,8 +138,7 @@ file1=$PIDIR/whitelist.txt
 
 
 while read allow; do
-	pihole allow -q $allow
-	wait
+	pihole allow $allow
 done < $file1
 
  End_Banner
@@ -159,8 +157,7 @@ function regex_v6()
 #adds regex from following file
 file3=$PIDIR/regex.list
 while read -r regex; do
-	pihole --regex -q $regex
-	wait
+	pihole --regex $regex
 done < $file3
 
  End_Banner
