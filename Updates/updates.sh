@@ -1,4 +1,4 @@
-## Last Updated 2024-08-14
+## Last Updated 2025-04-20
 ## updates.sh
 ## This script is designed to keep the pihole updated and linked to any changes made
 ##
@@ -42,10 +42,13 @@ function full()
 
 	# Regex Lists
 	curl --tlsv1.3 -o $TEMPDIR/main.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/main.regex'
+	sed -i -e "s/\r//g" $TEMPDIR/main.regex
 	wait
 	curl --tlsv1.3 -o $TEMPDIR/oTLD.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/oTLD.regex'
+	sed -i -e "s/\r//g" $TEMPDIR/oTLD.regex
 	wait
 	curl --tlsv1.3 -o $TEMPDIR/uslocal.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/uslocal.regex'
+	sed -i -e "s/\r//g" $TEMPDIR/uslocal.regex
 	wait
 	
 	wget -O $TEMPDIR/country.regex.gpg 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/country.regex.gpg'
@@ -66,9 +69,11 @@ function security()
 
 	# Regex Lists
 	curl --tlsv1.3 -o $TEMPDIR/basic_security.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_security.regex'
+	sed -i -e "s/\r//g" $TEMPDIR/basic_security.regex
 	wait
 	
 	curl --tlsv1.3 -o $TEMPDIR/oTLD.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/oTLD.regex'
+	sed -i -e "s/\r//g" $TEMPDIR/oTLD.regex
 	wait
 	
 	wget -O $TEMPDIR/basic_country.regex.gpg 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_country.regex.gpg'
@@ -113,10 +118,8 @@ function public_allowlist()
 	curl --tlsv1.3 -o $TEMPDIR/adlist.allow.temp 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Allow%20Lists/adlist.allow'
 	chmod 777 $TEMPDIR/basic.allow.temp
 	echo " " >> $TEMPDIR/adlist.allow.temp
-	#On System
-	#cp $PIDIR/whitelist.txt $TEMPDIR/current.allow.temp
-	#chmod 777 $TEMPDIR/current.allow.temp
-	#echo " " >> $TEMPDIR/current.allow.temp
+
+	## Local Allow List from On System
 	cp $CONFIG/perm_allow.conf $TEMPDIR/perm.allow.temp
 	
 	
@@ -175,6 +178,7 @@ function encrypted_block_list()
 	gpg $TEMPDIR/spam.block.encrypt.temp.gpg
 	wait
 	sed -i -e "s/\r//g" $TEMPDIR/spam.block.encrypt.temp
+	
 
 			
 }
