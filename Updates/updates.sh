@@ -1,4 +1,4 @@
-## Last Updated 2025-04-20
+## Last Updated 2025-04-21
 ## updates.sh
 ## This script is designed to keep the pihole updated and linked to any changes made
 ##
@@ -140,8 +140,31 @@ function encrypted_allowlist()
 	gpg $TEMPDIR/encrypt.allow.temp.gpg
 	wait
 	sed -i -e "s/\r//g" $TEMPDIR/encrypt.allow.temp
-		
+	
+	wget -O $TEMPDIR/encrypt.allow.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Allow%20Lists/civic.allow.gpg'
+	gpg $TEMPDIR/civic.allow.temp.gpg
+	wait
+	sed -i -e "s/\r//g" $TEMPDIR/civic.allow.temp
+	
+	wget -O $TEMPDIR/encrypt.allow.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Allow%20Lists/financial.allow.gpg'
+	gpg $TEMPDIR/financial.allow.temp.gpg
+	wait
+	sed -i -e "s/\r//g" $TEMPDIR/financial.allow.temp
 }
+	wget -O $TEMPDIR/encrypt.allow.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Allow%20Lists/international.allow.gpg'
+	gpg $TEMPDIR/international.allow.temp.gpg
+	wait
+	sed -i -e "s/\r//g" $TEMPDIR/international.allow.temp
+	
+	wget -O $TEMPDIR/encrypt.allow.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Allow%20Lists/medical.allow.gpg'
+	gpg $TEMPDIR/medical.allow.temp.gpg
+	wait
+	sed -i -e "s/\r//g" $TEMPDIR/medical.allow.temp
+	
+	wget -O $TEMPDIR/encrypt.allow.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Allow%20Lists/tech.allow.gpg'
+	gpg $TEMPDIR/tech.allow.temp.gpg
+	wait
+	sed -i -e "s/\r//g" $TEMPDIR/tech.allow.temp
 
 function regex_allowlist()
 {

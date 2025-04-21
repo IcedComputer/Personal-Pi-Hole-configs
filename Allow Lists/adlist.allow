@@ -1,9 +1,14 @@
+## Updated 2025-04-21
+## Unencrypted Allow List of domains where host-lists are obtained
+
 adaway.org
+archive.ph
 bitbucket.org
 blocklist.cyberthreatcoalition.org
 blocklistproject.github.io
 gist.githubusercontent.com
 gitlab.com
+hosts-file.net
 hostsfile.org
 icedcomputer.github.io
 isc.sans.edu
@@ -20,3 +25,4 @@ www.github.developerdan.com
 www.malwaredomainlist.com
 www.squidblacklist.org
 www.stopforumspam.com
+lists.malwarepatrol.net
