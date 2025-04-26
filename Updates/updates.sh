@@ -150,7 +150,7 @@ function encrypted_allowlist()
 	gpg $TEMPDIR/financial.allow.temp.gpg
 	wait
 	sed -i -e "s/\r//g" $TEMPDIR/financial.allow.temp
-}
+
 	wget -O $TEMPDIR/encrypt.allow.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Allow%20Lists/international.allow.gpg'
 	gpg $TEMPDIR/international.allow.temp.gpg
 	wait
@@ -165,6 +165,7 @@ function encrypted_allowlist()
 	gpg $TEMPDIR/tech.allow.temp.gpg
 	wait
 	sed -i -e "s/\r//g" $TEMPDIR/tech.allow.temp
+}
 
 function regex_allowlist()
 {
