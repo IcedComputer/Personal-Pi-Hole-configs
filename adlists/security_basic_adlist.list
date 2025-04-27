@@ -1,6 +1,6 @@
 # This adlist is a bit more lax than the standard list used
 ## This is largely just security
-## Last Updated 2024-11-07
+## Last Updated 2025-04-26
 
 
 
@@ -64,7 +64,6 @@ https://raw.githubusercontent.com/StevenBlack/hosts/master/data/add.Risk/hosts
 
 
 ## Fake News
-https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/fakenews.blocklist
 https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts
 https://raw.githubusercontent.com/dnsblocklistnet/blocklists/master/conspiracy.list
 

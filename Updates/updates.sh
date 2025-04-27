@@ -203,7 +203,10 @@ function encrypted_block_list()
 	wait
 	sed -i -e "s/\r//g" $TEMPDIR/spam.block.encrypt.temp
 	
-
+	wget -O $TEMPDIR/media.block.encrypt.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Block_Lists/media.block.encrypt.gpg'
+	gpg $TEMPDIR/media.block.encrypt.temp.gpg
+	wait
+	sed -i -e "s/\r//g" $TEMPDIR/spam.block.encrypt.temp
 			
 }
 

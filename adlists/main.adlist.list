@@ -1,5 +1,5 @@
 ## This adlist is the full blocking list
-## Last Updated 2024-11-07
+## Last Updated 2025-04-26
 
 ## Local Lists
 file:///scripts/Finished/CONFIG/encrypt.list
@@ -7,7 +7,6 @@ file:///scripts/Finished/CONFIG/encrypt.list
 
 ## International Propaganda / Fake News 
 https://raw.githubusercontent.com/dnsblocklistnet/blocklists/master/conspiracy.list
-https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/fakenews.blocklist
 https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/Fake-Science
 https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/SupportingRussia
 https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts
