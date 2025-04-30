@@ -231,6 +231,22 @@ function assemble()
 
 }
 
+function test_encrypted()
+{
+	## Encrypted Allow - Test
+	wget -O $TEMPDIR/test.allow.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Allow%20Lists/test.allow.gpg'
+	gpg $TEMPDIR/test.allow.temp.gpg
+	wait
+	sed -i -e "s/\r//g" $TEMPDIR/test.allow.temp
+	
+	
+	## Encrypted Block - Test
+	wget -O $TEMPDIR/test.block.encrypt.temp.gpg 'https://github.com/IcedComputer/Personal-Pi-Hole-configs/raw/master/Block_Lists/test.block.encrypt.gpg'
+	gpg $TEMPDIR/test.block.encrypt.temp.gpg
+	wait
+	sed -i -e "s/\r//g" $TEMPDIR/test.block.encrypt.temp
+}	
+
 #cleanup
 function clean()
 {
@@ -258,6 +274,7 @@ if [ $Type = "security" ]
 		if [ $test_system = "yes" ]
 			then
 				test_list
+				test_encrypted
 
 		fi
 fi
