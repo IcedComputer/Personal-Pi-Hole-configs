@@ -2,7 +2,7 @@
 ## test.regex
 ## This regex is designed to test various features before they get added to the master list
 ## Re-Organized: 2023-04-23
-## Last Updated: 2025-02-06
+## Last Updated: 2025-05-03
 #########
 
 
@@ -14,6 +14,8 @@
 ##2024-10-07
 \.akadns\.net$
 
+## 2025-05-03
+(^|\.)sentry\.io$\
 
 ## end
 
