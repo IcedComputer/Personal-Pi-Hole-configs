@@ -1,7 +1,7 @@
 ## oTLD.regex
 ## Random Other TLD ##
 ## Re-Organized: 2023-05-15
-## Last Updated: 2023-06-02
+## Last Updated: 2025-05-14
 #####
 (\.)goog$
 (^|\.)abogado$
@@ -63,8 +63,8 @@
 (^|\.)gdn$
 (^|\.)glass$
 (^|\.)gop$
-(^|\.)icu$
 (^|\.)ic\.gov$
+(^|\.)icu$
 (^|\.)info$
 (^|\.)ink$
 (^|\.)jetzt$
@@ -72,6 +72,7 @@
 (^|\.)life$
 (^|\.)link$
 (^|\.)loan$
+(^|\.)lol$
 (^|\.)london$
 (^|\.)love$
 (^|\.)ltd$
@@ -168,6 +169,7 @@
 (^|\.)XN--9DBQ2A$
 (^|\.)XN--9ET52U$
 (^|\.)XN--9KRT00A$
+(^|\.)xn--[a-z0-9]*[-_\.]
 (^|\.)XN--B4W605FERD$
 (^|\.)XN--BCK1B9A5DRE4C$
 (^|\.)XN--C1AVG$
@@ -287,7 +289,6 @@
 (^|\.)XN--YFRO4I67O$
 (^|\.)XN--YGBI2AMMX$
 (^|\.)XN--ZFR164B$
-(^|\.)xn--[a-z0-9]*[-_\.]
 (^|\.)xxx$
 (^|\.)xyz$
 (^|\.)yachts$
