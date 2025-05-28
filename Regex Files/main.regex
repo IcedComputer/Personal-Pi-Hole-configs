@@ -1,9 +1,9 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 2020-07-03
-## Last Updated: 2025-02-01
+## Last Updated: 2025-05-28
 #########
-(^|\.|-)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
+
 (^|\.)5usakura7s\.co(-8usa)?
 (^|\.)ibs\.lgappstv\.com
 (^|\.)lgsmartad\.compihole
@@ -19,6 +19,7 @@
 (^|\.|-)((moat)|(traking))?pixel[-_\.]
 (^|\.|-)((pay)|(quant))?count(ers?)?[0-9]*[-_\.]
 (^|\.|-)((pub)|(pcm))?clks\.com$
+(^|\.|-)((think)?with)?google($|((adservices|mail|static|syndication|tagmanager|tagservices|zip|-analytics)($|\..+)))
 (^|\.|-)(0+)?apple(s)?0+\.com$
 (^|\.|-)(fw)?pixels?[-_\.]
 (^|\.|-)(info|ads)\.yahoo\.
@@ -165,6 +166,7 @@
 (^|\.|-)clicks\.beap(.\*)?
 (^|\.|-)clientmetrics?[-_\.]
 (^|\.|-)clients\.your$
+(^|\.|-)clixsight\.com$
 (^|\.|-)clksite\.com$
 (^|\.|-)clmbtech\.com$
 (^|\.|-)cloudmobi\.net$
@@ -236,6 +238,7 @@
 (^|\.|-)elbavietnam\.com$
 (^|\.|-)elitepartner\.de$
 (^|\.|-)eloqua\.com$
+(^|\.|-)emarsys\.net
 (^|\.|-)emetriq\.de$
 (^|\.|-)ensighten\.com$
 (^|\.|-)epiphanyai\.com$
@@ -390,6 +393,7 @@
 (^|\.|-)market(ing)?automations?[-_\.]
 (^|\.|-)marketo\.com$
 (^|\.|-)mature2date\.com$
+(^|\.|-)medallia\.com$
 (^|\.|-)mediaiqdigital\.com$
 (^|\.|-)medialytics\.com$
 (^|\.|-)mediaoffers?(ing)?\.((com)|(click))$
@@ -660,13 +664,9 @@
 ^api\..*\.hismarttv\.com$
 ^tiles\..*services\.mozilla\.com$
 ^www-?[:alpha:]+\.com$
-
-## 2024-10-07
-uemm((\.)|(-))dynatrace\.ford\.com
-(^|\.|-)emarsys\.net
-(^|\.|-)medallia\.com$
-mkt[0-9]*\.com$
 messages[0-9]*\.com
+mkt[0-9]*\.com$
+uemm((\.)|(-))dynatrace\.ford\.com
 
 ## end
 
