@@ -1,10 +1,9 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 2020-07-03
-## Last Updated: 2025-07-16
+## Last Updated: 2025-07-17
 #########
 
-(^|\.)whitetreecollective\.com
 (^|\.)5usakura7s\.co(-8usa)?
 (^|\.)ibs\.lgappstv\.com
 (^|\.)lgsmartad\.compihole
@@ -13,6 +12,7 @@
 (^|\.)samsungcloudsolution\.(com|net)$
 (^|\.)smartshare\.lgtvsdp\.com
 (^|\.)tplinkra\.com$
+(^|\.)whitetreecollective\.com
 (^|\.)x999xx\.
 (^|\.)xbcs\.net$
 (^|\.|-)((boom)|(dynamo)|(ket)|(max)|(moat)|(pop)|(snap)|(te))ads?[-_\.]
