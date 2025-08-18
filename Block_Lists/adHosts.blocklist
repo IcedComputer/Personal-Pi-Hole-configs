@@ -1,9 +1,8 @@
 # #List of tracking, advertising and other non-malicious hosts
 ## adHosts.blocklist
-## Last Modified: 2024-10-15
+## Last Modified: 2025-08-18
 ##
 
-#mobile-data.onetrust.io
 189229.measurementapi.com
 50analytics.secureserver.net
 5490.engine.mobileapptracking.com
@@ -96,6 +95,7 @@ beacons.gcp.gvt2.com
 beginads.com
 blkditsup.com
 camschat.net
+cdn-adn-https-new.mtgglobals.com
 cdn.adswizz.com
 cdn.asf4f.us
 cdn.atlanticinsights.com
@@ -151,6 +151,7 @@ firebaseremoteconfig.googleapis.com
 fkp.samsungcloudsolution.com
 fkp.samsungcloudsolution.net
 game.internetat.tv
+gcp-bidders-us-east4.dataseat.com
 gcp.api.snapchat.com
 gcs.sc-cdn.net
 geoclue.smaato.net
@@ -226,6 +227,7 @@ redirect.viglink.com
 report.dfs.glassboxdigital.io
 roomimg.stream.highwebmedia.com
 s10.device.marketingcloudapis.com
+sdkc.vervegroupinc.net
 snapads.com
 snapchat-proxy.appspot.com
 srv-2017-10-23-06.pixel.parsely.com
