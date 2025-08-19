@@ -1,6 +1,6 @@
 # #List of tracking, advertising and other non-malicious hosts
 ## adHosts.blocklist
-## Last Modified: 2025-08-18
+## Last Modified: 2025-08-19
 ##
 
 189229.measurementapi.com
@@ -147,6 +147,7 @@ euw.adserver.snapads.com
 events.bouncex.net
 eventtracking.hubapi.com
 faphouse.com
+firebase.com
 firebaseremoteconfig.googleapis.com
 fkp.samsungcloudsolution.com
 fkp.samsungcloudsolution.net
@@ -167,6 +168,7 @@ if.psmimg.com
 imp-lb-us2.jampp.com
 imp2.ads.linkedin.com
 infolink.pavv.co.kr
+integralads.com
 kindepend.com
 koi-3qcmwoxuw2.marketingautomation.services
 krg-tracker-production.elasticbeanstalk.com
