@@ -1,5 +1,5 @@
 ## This adlist is the full blocking list
-## Last Updated 2025-08-19
+## Last Updated 2025-08-20
 
 ## Local Lists
 file:///scripts/Finished/CONFIG/encrypt.list
@@ -52,11 +52,11 @@ https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/MiFitXia
 https://raw.githubusercontent.com/superover/TikTok-Blocklist/master/tiktok.txt
 
 ## Crypto
-https://gitlab.com/ZeroDot1/CoinBlockerLists/raw/master/list.txt
 https://gitlab.com/ZeroDot1/CoinBlockerLists/raw/master/list_browser.txt
 https://gitlab.com/ZeroDot1/CoinBlockerLists/raw/master/list_optional.txt
 https://raw.githubusercontent.com/anudeepND/blacklist/master/CoinMiner.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/crypto.txt
+https://raw.githubusercontent.com/WillPresley/ZeroDot1_CoinBlockerList/refs/heads/main/hosts
 
 ## DNS
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/dns.blocklist
@@ -168,6 +168,7 @@ https://raw.githubusercontent.com/yous/YousList/master/hosts.txt
 https://someonewhocares.org/hosts/hosts
 https://v.firebog.net/hosts/AdguardDNS.txt
 https://v.firebog.net/hosts/Easyprivacy.txt
+https://v.firebog.net/hosts/Prigent-Adult.txt
 https://v.firebog.net/hosts/static/w3kbl.txt
 https://www.github.developerdan.com/hosts/lists/hate-and-junk-extended.txt
 

@@ -1,6 +1,6 @@
 # This adlist is a bit more lax than the standard list used
 ## This is largely just security
-## Last Updated 2025-04-26
+## Last Updated 2025-08-20
 
 
 
@@ -68,11 +68,11 @@ https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/h
 https://raw.githubusercontent.com/dnsblocklistnet/blocklists/master/conspiracy.list
 
 ## Crypto Mining
-https://gitlab.com/ZeroDot1/CoinBlockerLists/raw/master/list.txt
 https://gitlab.com/ZeroDot1/CoinBlockerLists/raw/master/list_browser.txt
 https://gitlab.com/ZeroDot1/CoinBlockerLists/raw/master/list_optional.txt
 https://raw.githubusercontent.com/anudeepND/blacklist/master/CoinMiner.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/crypto.txt
+https://raw.githubusercontent.com/WillPresley/ZeroDot1_CoinBlockerList/refs/heads/main/hosts
 
 ## DNS
 https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Block_Lists/dns.blocklist

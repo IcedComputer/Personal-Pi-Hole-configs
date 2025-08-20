@@ -1,6 +1,6 @@
 # Trial Blocklists Included 
 # trial.adlist.list
-## Last Updated 2024-08-23
+## Last Updated 2025-08-20
 ## Items that are still in testing
 #########
 
@@ -20,4 +20,3 @@ https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/B
 #https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/pornblock4
 #https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/pornblock5
 #https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/pornblock6
-https://v.firebog.net/hosts/Prigent-Adult.txt
