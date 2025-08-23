@@ -1,4 +1,4 @@
-## Last Updated 2025-08-22
+## Last Updated 2025-08-23
 ## updates.sh
 ## This script is designed to keep the pihole updated and linked to any changes made
 ##
@@ -84,6 +84,10 @@ function security()
 	#curl --tlsv1.3 -o $TEMPDIR/basic_country.regex 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/basic_country.regex'
 	#wait
 
+	wget -O $TEMPDIR/encrypted.regex.gpg 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/master/Regex%20Files/encrypted.regex.gpg'
+	gpg $TEMPDIR/encrypted.regex.gpg
+	wait
+	sed -i -e "s/\r//g" $TEMPDIR/encrypted.regex
 
 }
 
@@ -209,6 +213,7 @@ function encrypted_block_list()
 	sed -i -e "s/\r//g" $TEMPDIR/spam.block.encrypt.temp
 			
 }
+
 
 
 function assemble()
