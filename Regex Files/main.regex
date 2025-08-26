@@ -1,7 +1,7 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 2020-07-03
-## Last Updated: 2025-07-17
+## Last Updated: 2025-08-26
 #########
 
 (^|\.)5usakura7s\.co(-8usa)?
@@ -370,6 +370,7 @@
 (^|\.|-)lgappstv\.com$
 (^|\.|-)lgsmartad\.com$
 (^|\.|-)lgtvsdp\.com$
+(^|\.|-)lib-(us|eu)-[0-9]\.brilliantcollector\.com$
 (^|\.|-)liftoff\.io$
 (^|\.|-)liga?((dx)|(tus)|(htcast))\.com$
 (^|\.|-)likebtn\.com$
