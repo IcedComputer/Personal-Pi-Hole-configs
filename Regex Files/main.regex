@@ -671,7 +671,6 @@ iadcontent\.apple\.com
 iadsdk\.apple\.com
 messages[0-9]*\.com
 mkt[0-9]*\.com$
-news\.iadsdk\.apple\.com
 uemm((\.)|(-))dynatrace\.ford\.com
 webproxy-advp\.iad-apple\.com
 
