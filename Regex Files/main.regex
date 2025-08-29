@@ -1,7 +1,7 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 2020-07-03
-## Last Updated: 2025-08-26
+## Last Updated: 2025-08-29
 #########
 
 (^|\.)5usakura7s\.co(-8usa)?
@@ -667,9 +667,13 @@
 ^api\..*\.hismarttv\.com$
 ^tiles\..*services\.mozilla\.com$
 ^www-?[:alpha:]+\.com$
+iadcontent\.apple\.com
+iadsdk\.apple\.com
 messages[0-9]*\.com
 mkt[0-9]*\.com$
+news\.iadsdk\.apple\.com
 uemm((\.)|(-))dynatrace\.ford\.com
+webproxy-advp\.iad-apple\.com
 
 ## end
 
