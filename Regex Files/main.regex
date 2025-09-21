@@ -1,9 +1,9 @@
 ## Regex Blacklist ##
 ## main.regex
 ## Re-Organized: 2020-07-03
-## Last Updated: 2025-08-29
+## Last Updated: 2025-09-21
 #########
-
+(\.|^)snapads\.com$
 (^|\.)5usakura7s\.co(-8usa)?
 (^|\.)ibs\.lgappstv\.com
 (^|\.)lgsmartad\.compihole
@@ -50,9 +50,9 @@
 (^|\.|-)[0-9]*\.ecom\.attccc\.com$
 (^|\.|-)[0-9]*s?analytics?[-_\.]
 (^|\.|-)[0-9]appsinstall\.com$
+(^|\.|-)[a-z0-9]*[-_\.]?adserver[-_\.]
 (^|\.|-)[a-z0-9]*keygen(erator)?[-_\.]
 (^|\.|-)[a-z]*-?track(er|ing)?[0-9]*[-_\.]
-(^|\.|-)[a-z]*[-_\.]?adserver[-_\.]
 (^|\.|-)[a-z]*advert(s|is(ing|ements?))?[0-9]*[-_\.]
 (^|\.|-)[a-z]*cannabis[a-z]*[-_\.]
 (^|\.|-)aakit\.com$
