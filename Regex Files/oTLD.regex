@@ -1,8 +1,9 @@
 ## oTLD.regex
 ## Random Other TLD ##
 ## Re-Organized: 2023-05-15
-## Last Updated: 2025-05-14
+## Last Updated: 2025-09-25
 #####
+
 (\.)goog$
 (^|\.)abogado$
 (^|\.)academy$
@@ -27,6 +28,7 @@
 (^|\.)bargains?$
 (^|\.)baseball$
 (^|\.)basketball$
+(^|\.)beauty$
 (^|\.)bible$
 (^|\.)bid$
 (^|\.)bike$
@@ -63,6 +65,7 @@
 (^|\.)gdn$
 (^|\.)glass$
 (^|\.)gop$
+(^|\.)host$
 (^|\.)ic\.gov$
 (^|\.)icu$
 (^|\.)info$
@@ -101,10 +104,12 @@
 (^|\.)rest$
 (^|\.)review$
 (^|\.)rocks$
+(^|\.)sbs$
 (^|\.)scholarships$
 (^|\.)science$
 (^|\.)scloud$
 (^|\.)services$
+(^|\.)sex$
 (^|\.)shop$
 (^|\.)shouji$
 (^|\.)sip$
@@ -112,6 +117,7 @@
 (^|\.)social$
 (^|\.)space$
 (^|\.)spy$
+(^|\.)store$
 (^|\.)stream$
 (^|\.)surf$
 (^|\.)tel$
@@ -119,6 +125,7 @@
 (^|\.)trade$
 (^|\.)tushu$
 (^|\.)unicom$
+(^|\.)uno$
 (^|\.)viajes$
 (^|\.)vin$
 (^|\.)vip$
