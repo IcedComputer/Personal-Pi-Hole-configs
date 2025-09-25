@@ -43,6 +43,7 @@
 (^|\.)country$
 (^|\.)cricket$
 (^|\.)date$
+(^|\.)degree$
 (^|\.)desi$
 (^|\.)download$
 (^|\.)education$
@@ -65,6 +66,7 @@
 (^|\.)gdn$
 (^|\.)glass$
 (^|\.)gop$
+(^|\.)haus$
 (^|\.)host$
 (^|\.)ic\.gov$
 (^|\.)icu$
@@ -103,6 +105,7 @@
 (^|\.)republican$
 (^|\.)rest$
 (^|\.)review$
+(^|\.)rip$
 (^|\.)rocks$
 (^|\.)sbs$
 (^|\.)scholarships$
@@ -296,6 +299,9 @@
 (^|\.)XN--YFRO4I67O$
 (^|\.)XN--YGBI2AMMX$
 (^|\.)XN--ZFR164B$
+(^|\.)xn-2scrj9c$
+(^|\.)xn-s9brj9c$
+(^|\.)xn-xhq521b$
 (^|\.)xxx$
 (^|\.)xyz$
 (^|\.)yachts$
