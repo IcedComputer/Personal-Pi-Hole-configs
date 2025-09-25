@@ -66,6 +66,7 @@
 (^|\.)gdn$
 (^|\.)glass$
 (^|\.)gop$
+(^|\.)guru$
 (^|\.)haus$
 (^|\.)host$
 (^|\.)ic\.gov$
@@ -97,6 +98,7 @@
 (^|\.)pics$
 (^|\.)plus$
 (^|\.)pro$
+(^|\.)pub$
 (^|\.)quest$
 (^|\.)racing$
 (^|\.)realestate$
@@ -123,6 +125,7 @@
 (^|\.)spy$
 (^|\.)store$
 (^|\.)stream$
+(^|\.)support$
 (^|\.)surf$
 (^|\.)tel$
 (^|\.)top$
@@ -300,9 +303,9 @@
 (^|\.)XN--YFRO4I67O$
 (^|\.)XN--YGBI2AMMX$
 (^|\.)XN--ZFR164B$
-(^|\.)xn-2scrj9c$
-(^|\.)xn-s9brj9c$
-(^|\.)xn-xhq521b$
+(^|\.)xn--2scrj9c$
+(^|\.)xn--s9brj9c$
+(^|\.)xn--xhq521b$
 (^|\.)xxx$
 (^|\.)xyz$
 (^|\.)yachts$
@@ -316,7 +319,10 @@
 (^|\.)zero$
 (^|\.)zip$
 (^|\.)zone$
-xn--[a-z0-9]*
+
+
+## Not Strictly TLD but all punycode
+.*(xn--).*
 
 ## end
 
