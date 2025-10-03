@@ -1,5 +1,5 @@
 ## Created 25 July 2020
-## Updated 2024-09-05
+## Updated 2025-10-03
 ## refresh.sh
 ## This script simply updates the various update script to ensure the local copy on the machine is up to date
 ##
@@ -31,6 +31,9 @@ function download()
 	
 	## download an updated Research.sh
 	curl --tlsv1.3 -o $TEMPDIR/Research.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/refs/heads/master/Updates/Research.sh'
+	
+		## download an updated allow_update.sh
+	curl --tlsv1.3 -o $TEMPDIR/allow_update.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/refs/heads/master/Updates/allow_update.sh'
 }
 
 
@@ -53,6 +56,9 @@ function move()
 	
 	chmod 777 $TEMPDIR/Research.sh
 	mv $TEMPDIR/Research.sh $FINISHED/Research.sh
+	
+	chmod 777 $TEMPDIR/allow_update.sh
+	mv $TEMPDIR/allow_update.sh $FINISHED/allow_update.sh
 }
 
 download
