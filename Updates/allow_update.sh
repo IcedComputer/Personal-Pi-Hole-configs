@@ -1,4 +1,4 @@
-## Last Updated 2025-10-03
+## Last Updated 2025-10-06
 ## allow_updates.sh
 ## A smaller launcher to update the allow list manually
 ##
@@ -110,6 +110,8 @@ function assemble()
 	cat $TEMPDIR/*.allow.temp | grep -v '#' | grep -v '^$' | grep -v '^[[:space:]]*$' | sort | uniq > $TEMPDIR/final.allow.temp
 	
 	mv $TEMPDIR/final.allow.temp $PIDIR/whitelist.txt
+
+}
 
 function Start_Banner()
 {
@@ -225,7 +227,7 @@ function clean()
  if [ $is_cloudflared = "cloudflared" ]
 	then
 		sudo systemctl restart cloudflared
- fi
+	fi
 }
 
 ## Main script
@@ -244,15 +246,15 @@ if [ $Type = "security" ]
 		
 	fi	
 
-	if [ $version = "5" ];
-		then
+if [ $version = "5" ];
+	then
 			allow_v5
 			allow_regex_v5
 
 	fi
 	
-		if [ $version = "6" ];
-		then
+if [ $version = "6" ];
+	then
 			allow_v6
 			allow_regex_v6
 
