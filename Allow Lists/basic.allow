@@ -10,6 +10,8 @@ rcs-acs-att-us.jibe.google.com
 rcs-acs-tmobile-us.jibe.google.com
 acs-vzw.jibe.google.com
 fp-us-verizon.rcs.telephony.goog
+rcsbusinessmessaging.googleapis.com
+telephony.goog
 
 #end
 
