@@ -1,9 +1,10 @@
-## Updated 2025-10-25
+## Updated 2025-11-07
 ## Unencrypted Allow List
 
 127.0.0.1
 support.microsoft.com
 share.google
+api.push.apple.com
 
 #end
 
