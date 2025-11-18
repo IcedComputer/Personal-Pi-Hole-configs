@@ -1,4 +1,4 @@
-## Last Updated 2024-11-07
+## Last Updated 2024-11-18
 ##
 (-|\.)apple\.com\.akadns\.net$
 (-|\.)godaddy\.com\.akadns\.net$
@@ -6,9 +6,9 @@
 [0-9]*\.tlu\.dl\.delivery\.mp\.microsoft\.com$
 [A-Za-z]*[0-9]*-ssl\.ls\.apple\.com$
 \.1drv\.com$
+\.jibe\.google\.com$
+\.rcs\.telephony\.goog$
 \.storage\.live\.com$
 ip[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]\.ahcdn\.com$
 
-\.jibe\.google\.com$
-\.rcs\.telephony\.goog$
 ## end
