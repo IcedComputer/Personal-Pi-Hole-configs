@@ -1,38 +1,9 @@
 ## A list of test items
 ## test.blocklist
 ## Re-Organized: 2023-04-25
-## Last Updated: 2025-08-29
+## Last Updated: 2025-11-19
 
 ## To adHosts.blocklist (tracking, advertising and other non-malicious hosts)
-
-
-advertising.apple.com
-apple.comscoreresearch.com
-banners.itunes.apple.com
-ca.iadsdk.apple.com 
-cf.iadsdk.apple.com 
-cs.iadsdk.apple.com 
-iad.apple.com 
-iadcontent.apple.com
-iadctest.qwapi.com 
-iadmoo.apple.com
-iadsdk.apple.com 
-iadworkbench.apple.com 
-launch.apple.com 
-ls.advp.apple.com 
-metrics.apple.com
-news.iadsdk.apple.com 
-news.iadsdk.apple.com.akadns.net
-news.iadsdk.v.aaplimg.com
-proxy.advp.apple.com 
-qwapi.apple.com
-securemetrics.apple.com
-su.iadsdk.apple.com 
-tr.iadsdk.apple.com 
-ut.iadsdk.apple.com 
-webproxy-advp.iad-apple.com
-webproxy-advp.iad-apple.com.akadns.net
-webproxy.advp.apple.com
 
 
 ## To MalBlock.blocklist (malware, randsomware, spam, phishing, etc.)

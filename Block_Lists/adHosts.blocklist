@@ -1,6 +1,6 @@
 # #List of tracking, advertising and other non-malicious hosts
 ## adHosts.blocklist
-## Last Modified: 2025-08-29
+## Last Modified: 2025-11-18
 ##
 
 189229.measurementapi.com
@@ -68,6 +68,7 @@ adtekmedia.com
 advertise.foxnews.com
 advertisers.billymob.com
 advertising.amazon.com
+advertising.apple.com
 adx.districtm.ca
 afgtrwd1.com
 aimg.kwcdn.com
@@ -87,6 +88,7 @@ auth.samsungosp.com
 aws-cf.api.snapchat.com
 az43064.vo.msecnd.net
 az725175.vo.msecnd.net
+banners.itunes.apple.com
 beacon.dropbox.com
 beacon.krxd.net
 beacons-blackholed.gcp.gvt2.com
@@ -94,6 +96,7 @@ beacons.extremereach.io
 beacons.gcp.gvt2.com
 beginads.com
 blkditsup.com
+ca.iadsdk.apple.com 
 camschat.net
 cdn-adn-https-new.mtgglobals.com
 cdn.adswizz.com
@@ -109,6 +112,7 @@ cdn.samsungcloudsolution.com
 cdn.stripcash.com
 cds.k7y9i5a8.hwcdn.net
 celltrackingapps.com
+cf.iadsdk.apple.com 
 ciaanalytics.wellsfargo.com
 cits-tracking-prod.americanexpress.com
 client-analytics-service.production.stitchfix.com
@@ -130,6 +134,7 @@ Coordinator-Production-28516768.us-east-1.elb.amazonaws.com
 corp-mktg.s3.amazonaws.com
 cpxy.a-mo.net.cdn.cloudflare.net
 creative-analytics.crossinstall.io
+cs.iadsdk.apple.com 
 d3aqntjehoyiyc.cloudfront.net
 dat.itsup.com
 dat3.its-up.com
@@ -164,6 +169,12 @@ gtq6.sct.sc-prod.net
 healthguides.cnn.com
 hw-cdn-ap.trafficjunky.net
 i.psmimg.com
+iad.apple.com 
+iadcontent.apple.com
+iadctest.qwapi.com 
+iadmoo.apple.com
+iadsdk.apple.com 
+iadworkbench.apple.com 
 if.psmimg.com
 imp-lb-us2.jampp.com
 imp2.ads.linkedin.com
@@ -172,6 +183,7 @@ integralads.com
 kindepend.com
 koi-3qcmwoxuw2.marketingautomation.services
 krg-tracker-production.elasticbeanstalk.com
+launch.apple.com 
 lcprd1.samsungcloudsolution.net
 lib-ap-1.brilliantcollector.com
 lib-eu-1.brilliantcollector.com
@@ -182,6 +194,7 @@ livehdcams.com
 log-1.samsungacr.com
 log-2.samsungacr.com
 log.internetat.tv
+ls.advp.apple.com 
 m-metrics-prod-waf-metrictoggle.aws-stsd.capitalonegslbex.com
 market.android.com
 market.epom.com
@@ -201,10 +214,12 @@ media.trafficjunky.com
 mediabarterexchange.com
 mediadirectx.com
 metric-agent.i10c.net
+metrics.apple.com
 metrics1.citibank.com
 mparticle.map.fastly.net
 ms-trackingapi.phenompeople.com
 mybbc-analytics.files.bbci.co.uk
+news.iadsdk.apple.com 
 news.iadsdk.apple.com.akadns.net
 news.iadsdk.v.aaplimg.com
 nexus-test.ensighten.com
@@ -224,6 +239,8 @@ peoplefun.helpshift.com
 premium-videos.telly.com
 profilepics.cf.kik.com
 profilepics.kik.com
+proxy.advp.apple.com 
+qwapi.apple.com
 rainydaymarketing.affise.com
 rainydaymarketing.g2afse.com
 redirect-1966248761.us-west-2.elb.amazonaws.com
@@ -232,6 +249,7 @@ report.dfs.glassboxdigital.io
 roomimg.stream.highwebmedia.com
 s10.device.marketingcloudapis.com
 sdkc.vervegroupinc.net
+securemetrics.apple.com
 snapads.com
 snapchat-proxy.appspot.com
 srv-2017-10-23-06.pixel.parsely.com
@@ -242,6 +260,7 @@ ssl-ccstatic.highwebmedia.com
 ssl.track2mobile.com
 sso.internetat.tv
 static.kwcdn.com
+su.iadsdk.apple.com 
 syncplusconfig.s3.amazonaws.com
 t.bdwafx.com
 tag.bounceexchange.com
@@ -262,6 +281,7 @@ telemetryhost235.cloudapp.net
 time.samsungcloudsolution.com
 tour.eplay.com
 tr.iadsdk.apple.com
+tr.iadsdk.apple.com 
 tracker-sp-elb-1474841806.us-east-1.elb.amazonaws.com
 tracker-us.adsmoloco.com
 tracking-2.us-east-1.prod.intspot.com
@@ -272,6 +292,7 @@ us.pftk.temu.com
 usc.adserver.snapads.com
 use.adserver.snapads.com
 use.trk.svr-algorix.com
+ut.iadsdk.apple.com 
 v.faphouse.com
 v.vfgtb.com
 v.vfgte.com
@@ -281,7 +302,9 @@ vfthr.com
 viglink.go2cloud.org
 vz-cdn.trafficjunky.net
 web.diagnostic.networking.aws.dev
+webproxy-advp.iad-apple.com
 webproxy-advp.iad-apple.com.akadns.net
+webproxy.advp.apple.com
 wetrackyourback.com
 wl.hpyrdr.com
 www.dolro.club
