@@ -1,5 +1,5 @@
 ## Created 25 July 2020
-## Updated 2025-10-03
+## Updated 2025-12-05
 ## refresh.sh
 ## This script simply updates the various update script to ensure the local copy on the machine is up to date
 ##
@@ -34,6 +34,10 @@ function download()
 	
 		## download an updated allow_update.sh
 	curl --tlsv1.3 -o $TEMPDIR/allow_update.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/refs/heads/master/Updates/allow_update.sh'
+	
+	## download an current updates_optimized.sh
+	curl --tlsv1.3 -o $TEMPDIR/updates_optimized.sh 'https://raw.githubusercontent.com/IcedComputer/Personal-Pi-Hole-configs/refs/heads/master/Updates/Test%20-%20Optimized/updates_optimized.sh'
+
 }
 
 
@@ -59,6 +63,9 @@ function move()
 	
 	chmod 777 $TEMPDIR/allow_update.sh
 	mv $TEMPDIR/allow_update.sh $FINISHED/allow_update.sh
+	
+	chmod 777 $TEMPDIR/updates_optimized.sh
+	mv $TEMPDIR/updates_optimized.sh $FINISHED/updates_optimized.sh
 }
 
 download

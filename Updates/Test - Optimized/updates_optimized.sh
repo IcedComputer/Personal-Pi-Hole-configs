@@ -814,6 +814,7 @@ system_update() {
 
 download_scripts() {
     log "Downloading configuration and scripts..."
+    debug_log "download_scripts: Starting script downloads"
     
     local downloads=(
         "${AZURE_REPO}/Configuration%20Files/CFconfig|$TEMPDIR/CFconfig"
@@ -824,8 +825,26 @@ download_scripts() {
         "${REPO_BASE}/Updates/allow_update.sh|$TEMPDIR/allow_update.sh"
     )
     
-    parallel_download downloads
+    debug_log "download_scripts: Downloading ${#downloads[@]} files"
+    if ! parallel_download downloads; then
+        log "WARNING: Some script downloads failed, but continuing..."
+        debug_log "download_scripts: parallel_download returned error, checking which files succeeded"
+        
+        # Log which files were successfully downloaded
+        for item in "${downloads[@]}"; do
+            IFS='|' read -r url output <<< "$item"
+            if [[ -f "$output" ]]; then
+                debug_log "download_scripts: SUCCESS - $output exists"
+            else
+                log "WARNING: Failed to download: $output"
+                debug_log "download_scripts: MISSING - $output does not exist"
+            fi
+        done
+    fi
+    
+    debug_log "download_scripts: Making scripts executable"
     chmod 755 $TEMPDIR/*.sh 2>/dev/null || true
+    debug_log "download_scripts: Completed"
 }
 
 download_full_config() {
@@ -968,15 +987,29 @@ assemble_and_deploy() {
         sort | uniq > "$CONFIG/encrypt.list"
     
     # Deploy files
-    mv "$TEMPDIR/regex.list" "$PIDIR/regex.list"
-    mv "$TEMPDIR/final.allow.temp" "$PIDIR/whitelist.txt"
-    mv "$TEMPDIR/adlists.list" "$PIDIR/adlists.list"
+    debug_log "assemble_and_deploy: Deploying configuration files"
+    mv "$TEMPDIR/regex.list" "$PIDIR/regex.list" || log "WARNING: Failed to deploy regex.list"
+    mv "$TEMPDIR/final.allow.temp" "$PIDIR/whitelist.txt" || log "WARNING: Failed to deploy whitelist.txt"
+    mv "$TEMPDIR/adlists.list" "$PIDIR/adlists.list" || log "WARNING: Failed to deploy adlists.list"
     
-    [[ -f "$TEMPDIR/CFconfig" ]] && mv "$TEMPDIR/CFconfig" "$FINISHED/cloudflared"
-    [[ -f "$TEMPDIR/refresh.sh" ]] && mv "$TEMPDIR/refresh.sh" "$FINISHED/refresh.sh"
+    if [[ -f "$TEMPDIR/CFconfig" ]]; then
+        debug_log "assemble_and_deploy: Deploying CFconfig"
+        mv "$TEMPDIR/CFconfig" "$FINISHED/cloudflared" || log "WARNING: Failed to deploy CFconfig"
+    else
+        debug_log "assemble_and_deploy: CFconfig not found, skipping"
+    fi
+    
+    if [[ -f "$TEMPDIR/refresh.sh" ]]; then
+        debug_log "assemble_and_deploy: Deploying refresh.sh"
+        mv "$TEMPDIR/refresh.sh" "$FINISHED/refresh.sh" || log "WARNING: Failed to deploy refresh.sh"
+    else
+        debug_log "assemble_and_deploy: refresh.sh not found, skipping"
+    fi
     
     # Update database directly (integrated functionality)
+    debug_log "assemble_and_deploy: Starting database update"
     update_pihole_database
+    debug_log "assemble_and_deploy: Completed"
 }
 
 assemble_and_deploy_regex_only() {
