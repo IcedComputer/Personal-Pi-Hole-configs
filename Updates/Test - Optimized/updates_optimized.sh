@@ -78,6 +78,32 @@ check_network() {
     return 0
 }
 
+check_gpg_keys() {
+    debug_log "Checking GPG configuration..."
+    
+    if ! command -v gpg &> /dev/null; then
+        log "ERROR: GPG is not installed"
+        log "ERROR: Install with: apt-get install gnupg"
+        return 1
+    fi
+    
+    local key_count=$(gpg --list-keys 2>/dev/null | grep -c "^pub" || echo "0")
+    debug_log "GPG public keys available: $key_count"
+    
+    local secret_key_count=$(gpg --list-secret-keys 2>/dev/null | grep -c "^sec" || echo "0")
+    debug_log "GPG secret keys available: $secret_key_count"
+    
+    if [[ "$secret_key_count" -eq 0 ]]; then
+        log "WARNING: No GPG secret keys found"
+        log "WARNING: Encrypted file decryption will fail"
+        log "WARNING: Import your private key with: gpg --import /path/to/private.key"
+        return 1
+    fi
+    
+    debug_log "GPG configuration OK"
+    return 0
+}
+
 print_banner() {
     local color="$1"
     local message="$2"
@@ -146,20 +172,55 @@ download_gpg_file() {
     debug_log "Downloading GPG file: $url"
     download_file "$url" "${output_base}.gpg" || return 1
     
+    # Check if GPG file was actually downloaded and has content
+    if [[ ! -f "${output_base}.gpg" ]]; then
+        log "ERROR: GPG file was not downloaded: ${output_base}.gpg"
+        return 1
+    fi
+    
+    local gpg_size=$(stat -c%s "${output_base}.gpg" 2>/dev/null || echo "0")
+    debug_log "Downloaded GPG file size: $gpg_size bytes"
+    
+    if [[ "$gpg_size" -eq 0 ]]; then
+        log "ERROR: Downloaded GPG file is empty: ${output_base}.gpg"
+        return 1
+    fi
+    
     debug_log "Decrypting: ${output_base}.gpg"
+    debug_log "GPG command: gpg --batch --yes --decrypt ${output_base}.gpg"
+    
     if ! gpg --batch --yes --decrypt "${output_base}.gpg" > "$output_base" 2>"$gpg_error"; then
         log "ERROR: Failed to decrypt ${output_base}.gpg"
+        log "ERROR: GPG file size: $gpg_size bytes"
         if [[ -f "$gpg_error" ]]; then
             log "ERROR: GPG output: $(cat "$gpg_error")"
-            rm -f "$gpg_error"
+            # Check for common GPG errors
+            if grep -q "no secret key" "$gpg_error"; then
+                log "ERROR: GPG key not found. You may need to import the decryption key."
+                log "ERROR: Run: gpg --list-keys to see available keys"
+            elif grep -q "decryption failed" "$gpg_error"; then
+                log "ERROR: File may be corrupted or encrypted with different key"
+            fi
+        else
+            log "ERROR: No GPG error output available"
         fi
+        log "ERROR: Keeping ${output_base}.gpg for manual inspection"
+        return 1
+    fi
+    
+    # Check if decrypted file has content
+    local decrypted_size=$(stat -c%s "$output_base" 2>/dev/null || echo "0")
+    debug_log "Decrypted file size: $decrypted_size bytes"
+    
+    if [[ "$decrypted_size" -eq 0 ]]; then
+        log "ERROR: Decrypted file is empty: $output_base"
         return 1
     fi
     
     sed -i -e "s/\r//g" "$output_base"
     rm -f "${output_base}.gpg" "$gpg_error"
     verbose_log "Decrypted and cleaned: $output_base"
-    debug_log "Final file size: $(stat -c%s "$output_base" 2>/dev/null || echo 'unknown') bytes"
+    debug_log "Final file size: $decrypted_size bytes"
 }
 
 parallel_download() {
@@ -546,7 +607,10 @@ download_full_config() {
     log "Downloading full configuration..."
     
     # Download adlists
-    download_file "${REPO_BASE}/adlists/main.adlist.list" "$TEMPDIR/adlists.list"
+    download_file "${REPO_BASE}/adlists/main.adlist.list" "$TEMPDIR/adlists.list" || {
+        log "ERROR: Failed to download adlists"
+        return 1
+    }
     
     # Download regex lists in parallel
     local regex_files=(
@@ -554,13 +618,20 @@ download_full_config() {
         "${REPO_BASE}/Regex%20Files/oTLD.regex|$TEMPDIR/oTLD.regex"
         "${REPO_BASE}/Regex%20Files/uslocal.regex|$TEMPDIR/uslocal.regex"
     )
-    parallel_download regex_files
+    parallel_download regex_files || {
+        log "ERROR: Failed to download regex files"
+        return 1
+    }
     
     # Clean line endings
     sed -i -e "s/\r//g" $TEMPDIR/*.regex 2>/dev/null || true
     
     # Download encrypted country regex
-    download_gpg_file "${REPO_BASE}/Regex%20Files/country.regex.gpg" "$TEMPDIR/country.regex"
+    download_gpg_file "${REPO_BASE}/Regex%20Files/country.regex.gpg" "$TEMPDIR/country.regex" || {
+        log "ERROR: Failed to download/decrypt country.regex.gpg"
+        log "ERROR: This is likely a GPG key issue"
+        return 1
+    }
 }
 
 download_security_config() {
@@ -1032,6 +1103,15 @@ main() {
             log "ERROR: Network check failed, cannot proceed with $command"
             exit 1
         }
+        
+        # Check GPG configuration for commands that need decryption
+        if [[ "$command" == "full-update" ]] || [[ "$command" == "quick-update" ]] || [[ "$command" == "purge-and-update" ]]; then
+            check_gpg_keys || {
+                log "ERROR: GPG check failed - encrypted files cannot be decrypted"
+                log "ERROR: Either import your GPG private key or skip encrypted files"
+                exit 1
+            }
+        fi
     fi
     
     # Execute command
