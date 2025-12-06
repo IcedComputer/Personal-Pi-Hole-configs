@@ -60,6 +60,18 @@ log() {
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"
 }
 
+log_success() {
+    printf "\033[0;32m[$(date +'%Y-%m-%d %H:%M:%S')] ✓ %s\033[0m\n" "$*" | tee -a "$LOGFILE"
+}
+
+log_error() {
+    printf "\033[1;31m[$(date +'%Y-%m-%d %H:%M:%S')] ✗ ERROR: %s\033[0m\n" "$*" | tee -a "$LOGFILE"
+}
+
+log_warning() {
+    printf "\033[0;33m[$(date +'%Y-%m-%d %H:%M:%S')] ⚠ WARNING: %s\033[0m\n" "$*" | tee -a "$LOGFILE"
+}
+
 verbose_log() {
     [[ $VERBOSE -eq 1 ]] && log "$*"
 }
@@ -67,6 +79,18 @@ verbose_log() {
 debug_log() {
     if [[ $DEBUG -eq 1 ]]; then
         echo "[DEBUG $(date +'%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"
+    fi
+}
+
+debug_success() {
+    if [[ $DEBUG -eq 1 ]]; then
+        printf "\033[0;32m[DEBUG $(date +'%Y-%m-%d %H:%M:%S')] ✓ %s\033[0m\n" "$*" | tee -a "$LOGFILE"
+    fi
+}
+
+debug_error() {
+    if [[ $DEBUG -eq 1 ]]; then
+        printf "\033[1;31m[DEBUG $(date +'%Y-%m-%d %H:%M:%S')] ✗ %s\033[0m\n" "$*" | tee -a "$LOGFILE"
     fi
 }
 
@@ -212,23 +236,23 @@ download_file() {
         if curl --tlsv1.3 --fail --location --connect-timeout 10 --max-time 60 \
             --show-error --silent -o "$output" "$url" 2>"$error_log"; then
             verbose_log "Downloaded: $url -> $output"
-            debug_log "File size: $(stat -c%s "$output" 2>/dev/null || echo 'unknown') bytes"
+            debug_success "Downloaded: $url ($(stat -c%s "$output" 2>/dev/null || echo 'unknown') bytes)"
             rm -f "$error_log"
             return 0
         fi
         
         local error_msg=$(cat "$error_log" 2>/dev/null || echo "Unknown error")
-        log "Download attempt $i failed for: $url"
-        log "Error details: $error_msg"
+        log_warning "Download attempt $i failed for: $url"
+        debug_error "Download failed: $error_msg"
         debug_log "Waiting 3 seconds before retry..."
         sleep 3
     done
     
-    log "ERROR: Failed to download after $retries attempts"
-    log "ERROR: URL: $url"
-    log "ERROR: Output: $output"
+    log_error "Failed to download after $retries attempts"
+    log_error "URL: $url"
+    log_error "Output: $output"
     if [[ -f "$error_log" ]]; then
-        log "ERROR: $(cat "$error_log")"
+        log_error "$(cat "$error_log")"
         rm -f "$error_log"
     fi
     
@@ -264,10 +288,10 @@ download_gpg_file() {
     debug_log "GPG command: gpg --batch --yes --decrypt ${output_base}.gpg"
     
     if ! gpg --batch --yes --decrypt "${output_base}.gpg" > "$output_base" 2>"$gpg_error"; then
-        log "ERROR: Failed to decrypt ${output_base}.gpg"
-        log "ERROR: GPG file size: $gpg_size bytes"
+        log_error "Failed to decrypt ${output_base}.gpg"
+        log_error "GPG file size: $gpg_size bytes"
         if [[ -f "$gpg_error" ]]; then
-            log "ERROR: GPG output: $(cat "$gpg_error")"
+            log_error "GPG output: $(cat "$gpg_error")"
             # Check for common GPG errors
             if grep -q "no secret key" "$gpg_error"; then
                 log "ERROR: GPG key not found. You may need to import the decryption key."
@@ -298,7 +322,7 @@ download_gpg_file() {
     sed -i -e "s/\r//g" "$output_base"
     rm -f "${output_base}.gpg" "$gpg_error"
     verbose_log "Decrypted and cleaned: $output_base"
-    debug_log "Final file size: $decrypted_size bytes"
+    debug_success "Decrypted: $output_base ($decrypted_size bytes)"
 }
 
 parallel_download() {
@@ -322,16 +346,18 @@ parallel_download() {
     for pid in "${pids[@]}"; do
         if ! wait "$pid"; then
             IFS='|' read -r failed_url failed_output <<< "${pid_urls[$pid]}"
-            log "ERROR: Download failed for URL: $failed_url"
-            log "ERROR: Expected output: $failed_output"
+            log_error "Download failed for URL: $failed_url"
+            log_error "Expected output: $failed_output"
             ((failed++))
         fi
     done
     
     if [[ $failed -gt 0 ]]; then
-        log "WARNING: $failed out of ${#urls[@]} downloads failed"
+        log_warning "$failed out of ${#urls[@]} downloads failed"
         return 1
     fi
+    
+    debug_success "All ${#urls[@]} parallel downloads completed successfully"
     
     debug_log "All parallel downloads completed successfully"
     return 0
@@ -388,8 +414,8 @@ update_allow_regex_v5() {
     fi
     
     rm -f "$temp_sql" "$sql_error"
-    log "Added $count allow regex patterns via direct SQL (fast)"
-    debug_log "update_allow_regex_v5: Successfully completed"
+    log_success "Added $count allow regex patterns via direct SQL (fast)"
+    debug_success "update_allow_regex_v5: Completed successfully"
     print_banner yellow "Completed Allow Regex List"
 }
 
@@ -463,8 +489,8 @@ update_allow_v5() {
     fi
     
     rm -f "$temp_sql" "$sql_error"
-    log "Added $count allow domains via direct SQL (fast)"
-    debug_log "update_allow_v5: Successfully completed"
+    log_success "Added $count allow domains via direct SQL (fast)"
+    debug_success "update_allow_v5: Completed successfully"
     print_banner yellow "Completed Allow List"
 }
 
@@ -514,8 +540,8 @@ update_regex_v5() {
     fi
     
     rm -f "$temp_sql" "$sql_error"
-    log "Added $count block regex patterns via direct SQL (fast)"
-    debug_log "update_regex_v5: Successfully completed"
+    log_success "Added $count block regex patterns via direct SQL (fast)"
+    debug_success "update_regex_v5: Completed successfully"
     print_banner yellow "Completed Regex Block List"
 }
 
@@ -569,8 +595,8 @@ update_allow_regex_v6() {
     fi
     
     rm -f "$temp_sql" "$sql_error"
-    log "Added $count allow regex patterns via direct SQL (fast)"
-    debug_log "update_allow_regex_v6: Successfully completed"
+    log_success "Added $count allow regex patterns via direct SQL (fast)"
+    debug_success "update_allow_regex_v6: Completed successfully"
     print_banner yellow "Completed Allow Regex List"
 }
 
@@ -637,8 +663,8 @@ update_allow_v6() {
     fi
     
     rm -f "$temp_sql" "$sql_error"
-    log "Added $count allow domains via direct SQL (fast)"
-    debug_log "update_allow_v6: Successfully completed"
+    log_success "Added $count allow domains via direct SQL (fast)"
+    debug_success "update_allow_v6: Completed successfully"
     print_banner yellow "Completed Allow List"
 }
 
@@ -688,8 +714,8 @@ update_regex_v6() {
     fi
     
     rm -f "$temp_sql" "$sql_error"
-    log "Added $count block regex patterns via direct SQL (fast)"
-    debug_log "update_regex_v6: Successfully completed"
+    log_success "Added $count block regex patterns via direct SQL (fast)"
+    debug_success "update_regex_v6: Completed successfully"
     print_banner yellow "Completed Regex Block List"
 }
 
@@ -909,19 +935,21 @@ download_scripts() {
     
     debug_log "download_scripts: Downloading ${#downloads[@]} files"
     if ! parallel_download downloads; then
-        log "WARNING: Some script downloads failed, but continuing..."
+        log_warning "Some script downloads failed, but continuing..."
         debug_log "download_scripts: parallel_download returned error, checking which files succeeded"
         
         # Log which files were successfully downloaded
         for item in "${downloads[@]}"; do
             IFS='|' read -r url output <<< "$item"
             if [[ -f "$output" ]]; then
-                debug_log "download_scripts: SUCCESS - $output exists"
+                debug_success "download_scripts: $output exists"
             else
-                log "WARNING: Failed to download: $output"
-                debug_log "download_scripts: MISSING - $output does not exist"
+                log_warning "Failed to download: $output"
+                debug_error "download_scripts: $output does not exist"
             fi
         done
+    else
+        debug_success "All ${#downloads[@]} scripts downloaded successfully"
     fi
     
     debug_log "download_scripts: Making scripts executable"
@@ -964,10 +992,13 @@ download_security_config() {
     log "Downloading security configuration..."
     debug_log "download_security_config: Starting"
     
-    download_file "${REPO_BASE}/adlists/security_basic_adlist.list" "$TEMPDIR/adlists.list" || {
-        log "ERROR: Failed to download security adlist"
-        return 1
-    }
+    if ! download_file "${REPO_BASE}/adlists/security_basic_adlist.list" "$TEMPDIR/adlists.list"; then
+        log_error "Failed to download security adlist"
+        touch "$TEMPDIR/adlists.list" || {
+            log_error "Cannot create adlists.list"
+            return 1
+        }
+    fi
     
     local security_files=(
         "${REPO_BASE}/Regex%20Files/basic_security.regex|$TEMPDIR/basic_security.regex"
@@ -976,30 +1007,67 @@ download_security_config() {
     
     debug_log "download_security_config: Downloading ${#security_files[@]} regex files"
     if ! parallel_download security_files; then
-        log "WARNING: Some security regex downloads failed, continuing..."
+        log_warning "Some security regex downloads failed, continuing..."
         debug_log "download_security_config: Checking which files succeeded"
+    else
+        debug_success "All ${#security_files[@]} security regex files downloaded successfully"
     fi
     
     sed -i -e "s/\r//g" $TEMPDIR/*.regex 2>/dev/null || true
     
     # Download encrypted files
-    download_gpg_file "${REPO_BASE}/Regex%20Files/basic_country.regex.gpg" "$TEMPDIR/basic_country.regex"
-    download_gpg_file "${REPO_BASE}/Regex%20Files/encrypted.regex.gpg" "$TEMPDIR/encrypted.regex"
+    debug_log "download_security_config: Downloading encrypted regex files"
+    if ! download_gpg_file "${REPO_BASE}/Regex%20Files/basic_country.regex.gpg" "$TEMPDIR/basic_country.regex"; then
+        log_warning "Failed to download basic_country.regex.gpg, creating empty file"
+        touch "$TEMPDIR/basic_country.regex" || log_error "Cannot create basic_country.regex"
+    fi
+    
+    if ! download_gpg_file "${REPO_BASE}/Regex%20Files/encrypted.regex.gpg" "$TEMPDIR/encrypted.regex"; then
+        log_warning "Failed to download encrypted.regex.gpg, creating empty file"
+        touch "$TEMPDIR/encrypted.regex" || log_error "Cannot create encrypted.regex"
+    fi
+    
+    debug_log "download_security_config: Completed"
 }
 
 download_test_lists() {
-    [[ "$test_system" != "yes" ]] && return 0
+    [[ "$test_system" != "yes" ]] && { debug_log "Test system disabled, skipping test lists"; return 0; }
     
     log "Downloading test lists..."
-    download_file "${REPO_BASE}/adlists/trial.adlist.list" "$TEMPDIR/adlists.list.trial.temp"
+    debug_log "download_test_lists: Starting"
     
-    cat "$TEMPDIR/adlists.list.trial.temp" "$TEMPDIR/adlists.list" | \
-        grep -v "##" | sort | uniq > "$TEMPDIR/adlists.list.temp"
-    mv "$TEMPDIR/adlists.list.temp" "$TEMPDIR/adlists.list"
+    if ! download_file "${REPO_BASE}/adlists/trial.adlist.list" "$TEMPDIR/adlists.list.trial.temp"; then
+        log_warning "Failed to download trial.adlist.list, creating empty file"
+        touch "$TEMPDIR/adlists.list.trial.temp" || {
+            log_error "Cannot create trial.adlist.list"
+            return 1
+        }
+    fi
     
-    download_file "${REPO_BASE}/Regex%20Files/test.regex" "$TEMPDIR/test.regex"
-    download_gpg_file "${REPO_BASE}/Allow%20Lists/test.allow.gpg" "$TEMPDIR/test.allow.temp"
-    download_gpg_file "${REPO_BASE}/Block_Lists/test.block.encrypt.gpg" "$TEMPDIR/test.block.encrypt.temp"
+    debug_log "download_test_lists: Merging trial adlists with main adlists"
+    cat "$TEMPDIR/adlists.list.trial.temp" "$TEMPDIR/adlists.list" 2>/dev/null | \
+        grep -v "##" | sort | uniq > "$TEMPDIR/adlists.list.temp" || {
+        log_warning "Failed to merge adlists, using original"
+        cp "$TEMPDIR/adlists.list" "$TEMPDIR/adlists.list.temp" 2>/dev/null
+    }
+    mv "$TEMPDIR/adlists.list.temp" "$TEMPDIR/adlists.list" || log_warning "Failed to update adlists.list"
+    
+    if ! download_file "${REPO_BASE}/Regex%20Files/test.regex" "$TEMPDIR/test.regex"; then
+        log_warning "Failed to download test.regex, creating empty file"
+        touch "$TEMPDIR/test.regex" || log_error "Cannot create test.regex"
+    fi
+    
+    if ! download_gpg_file "${REPO_BASE}/Allow%20Lists/test.allow.gpg" "$TEMPDIR/test.allow.temp"; then
+        log_warning "Failed to download test.allow.gpg, creating empty file"
+        touch "$TEMPDIR/test.allow.temp" || log_error "Cannot create test.allow.temp"
+    fi
+    
+    if ! download_gpg_file "${REPO_BASE}/Block_Lists/test.block.encrypt.gpg" "$TEMPDIR/test.block.encrypt.temp"; then
+        log_warning "Failed to download test.block.encrypt.gpg, creating empty file"
+        touch "$TEMPDIR/test.block.encrypt.temp" || log_error "Cannot create test.block.encrypt.temp"
+    fi
+    
+    debug_log "download_test_lists: Completed"
 }
 
 download_public_allowlists() {
@@ -1013,18 +1081,20 @@ download_public_allowlists() {
     
     debug_log "download_public_allowlists: Downloading ${#allow_files[@]} files"
     if ! parallel_download allow_files; then
-        log "WARNING: Some allow list downloads failed"
+        log_warning "Some allow list downloads failed"
         debug_log "download_public_allowlists: parallel_download returned error"
         
         # Check which files exist
         for item in "${allow_files[@]}"; do
             IFS='|' read -r url output <<< "$item"
             if [[ ! -f "$output" ]]; then
-                log "WARNING: Missing file: $output"
+                log_warning "Missing file: $output"
                 debug_log "download_public_allowlists: Creating empty placeholder for $output"
-                touch "$output" || log "ERROR: Cannot create $output"
+                touch "$output" || log_error "Cannot create $output"
             fi
         done
+    else
+        debug_success "All ${#allow_files[@]} allow lists downloaded successfully"
     fi
     
     # Add newlines and copy local config
@@ -1291,25 +1361,40 @@ cmd_refresh() {
 
 cmd_full_update() {
     log "=== Starting full update ==="
+    debug_log "cmd_full_update: Comprehensive update with all components"
     
-    system_update
-    download_scripts
+    # System update
+    system_update || log_warning "System update had issues"
     
+    # Download scripts
+    download_scripts || log_warning "Script download had issues"
+    
+    # Download configurations based on type
     if [[ "$Type" == "security" ]]; then
-        download_security_config
-        download_security_allowlists
+        download_security_config || log_warning "Security config download had issues"
+        download_security_allowlists || log_warning "Security allowlist download had issues"
     else
-        download_full_config
-        download_test_lists
+        download_full_config || log_warning "Full config download had issues"
+        download_test_lists || log_warning "Test list download had issues"
     fi
     
-    download_public_allowlists
-    download_regex_allowlists
-    download_encrypted_allowlists
-    download_encrypted_blocklists
+    # Download all allow and block lists (comprehensive)
+    download_public_allowlists || log_warning "Public allowlist download had issues"
+    download_regex_allowlists || log_warning "Regex allowlist download had issues"
+    download_encrypted_allowlists || log_warning "Encrypted allowlist download had issues"
+    download_encrypted_blocklists || log_warning "Encrypted blocklist download had issues"
     
-    assemble_and_deploy
-    restart_services
+    # Deploy and update database
+    assemble_and_deploy || {
+        log_error "Assembly and deployment failed"
+        show_error_summary
+        return 1
+    }
+    
+    # Restart services
+    restart_services || log_warning "Service restart had issues"
+    
+    # Cleanup
     cleanup
     
     log "=== Full update completed ==="
@@ -1502,7 +1587,6 @@ CRON EXAMPLES:
 NOTES:
     - Automatically detects Pi-hole version (5 or 6)
     - All database updates are handled internally
-    - No external db_updates_optimized.sh script required
     - Logs to /var/log/pihole-updates.log
 
 EOF
