@@ -46,6 +46,12 @@ VERBOSE=0
 NO_REBOOT=0
 DEBUG=0
 
+# Global error tracking
+declare -a DOWNLOAD_ERRORS=()
+declare -a GPG_ERRORS=()
+declare -a SQL_ERRORS=()
+declare -a DEPLOY_ERRORS=()
+
 #======================================================================================
 # UTILITY FUNCTIONS
 #======================================================================================
@@ -127,6 +133,70 @@ print_banner() {
     esac
 }
 
+show_error_summary() {
+    local total_errors=0
+    ((total_errors = ${#DOWNLOAD_ERRORS[@]} + ${#GPG_ERRORS[@]} + ${#SQL_ERRORS[@]} + ${#DEPLOY_ERRORS[@]}))
+    
+    if [[ $total_errors -eq 0 ]]; then
+        print_banner green "✓ Update Completed Successfully - No Errors"
+        return 0
+    fi
+    
+    # Display big red error summary
+    echo ""
+    echo ""
+    printf '\033[1;41;97m%s\033[0m\n' "╔══════════════════════════════════════════════════════════════════════════════╗"
+    printf '\033[1;41;97m%s\033[0m\n' "║                                                                              ║"
+    printf '\033[1;41;97m%s\033[0m\n' "║                        ⚠️  ERROR SUMMARY - ATTENTION REQUIRED ⚠️              ║"
+    printf '\033[1;41;97m%s\033[0m\n' "║                                                                              ║"
+    printf '\033[1;41;97m%s\033[0m\n' "║  Total Errors: $total_errors                                                        ║"
+    printf '\033[1;41;97m%s\033[0m\n' "║                                                                              ║"
+    printf '\033[1;41;97m%s\033[0m\n' "╚══════════════════════════════════════════════════════════════════════════════╝"
+    echo ""
+    
+    if [[ ${#DOWNLOAD_ERRORS[@]} -gt 0 ]]; then
+        printf '\033[1;31m%s\033[0m\n' "📥 DOWNLOAD FAILURES (${#DOWNLOAD_ERRORS[@]}):" 
+        for error in "${DOWNLOAD_ERRORS[@]}"; do
+            printf '\033[0;31m%s\033[0m\n' "   ✗ $error"
+        done
+        echo ""
+    fi
+    
+    if [[ ${#GPG_ERRORS[@]} -gt 0 ]]; then
+        printf '\033[1;31m%s\033[0m\n' "🔐 GPG DECRYPTION FAILURES (${#GPG_ERRORS[@]}):"
+        for error in "${GPG_ERRORS[@]}"; do
+            printf '\033[0;31m%s\033[0m\n' "   ✗ $error"
+        done
+        echo ""
+    fi
+    
+    if [[ ${#SQL_ERRORS[@]} -gt 0 ]]; then
+        printf '\033[1;31m%s\033[0m\n' "💾 DATABASE FAILURES (${#SQL_ERRORS[@]}):"
+        for error in "${SQL_ERRORS[@]}"; do
+            printf '\033[0;31m%s\033[0m\n' "   ✗ $error"
+        done
+        echo ""
+    fi
+    
+    if [[ ${#DEPLOY_ERRORS[@]} -gt 0 ]]; then
+        printf '\033[1;31m%s\033[0m\n' "📦 DEPLOYMENT FAILURES (${#DEPLOY_ERRORS[@]}):"
+        for error in "${DEPLOY_ERRORS[@]}"; do
+            printf '\033[0;31m%s\033[0m\n' "   ✗ $error"
+        done
+        echo ""
+    fi
+    
+    printf '\033[1;33m%s\033[0m\n' "💡 RECOMMENDED ACTIONS:"
+    printf '\033[0;33m%s\033[0m\n' "   1. Run with --debug flag for detailed diagnostics"
+    printf '\033[0;33m%s\033[0m\n' "   2. Check network connectivity to GitHub"
+    printf '\033[0;33m%s\033[0m\n' "   3. Review log file: $LOGFILE"
+    printf '\033[0;33m%s\033[0m\n' "   4. Verify GPG keys are imported (for GPG errors)"
+    printf '\033[0;33m%s\033[0m\n' "   5. Check disk space and permissions"
+    echo ""
+    
+    return 1
+}
+
 download_file() {
     local url="$1"
     local output="$2"
@@ -161,6 +231,10 @@ download_file() {
         log "ERROR: $(cat "$error_log")"
         rm -f "$error_log"
     fi
+    
+    # Track error globally
+    DOWNLOAD_ERRORS+=("DOWNLOAD FAILED: $url")
+    
     return 1
 }
 
@@ -205,6 +279,10 @@ download_gpg_file() {
             log "ERROR: No GPG error output available"
         fi
         log "ERROR: Keeping ${output_base}.gpg for manual inspection"
+        
+        # Track error globally
+        GPG_ERRORS+=("GPG DECRYPT FAILED: ${output_base}.gpg")
+        
         return 1
     fi
     
@@ -373,8 +451,12 @@ update_allow_v5() {
     if ! sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>"$sql_error"; then
         log "ERROR: Failed to insert allow list"
         if [[ -f "$sql_error" ]]; then
-            log "ERROR: SQL error: $(cat "$sql_error")"
+            local error_msg=$(cat "$sql_error")
+            log "ERROR: SQL error: $error_msg"
+            SQL_ERRORS+=("SQL FAILED (v5 allow): $error_msg")
             rm -f "$sql_error"
+        else
+            SQL_ERRORS+=("SQL FAILED (v5 allow): Unknown error")
         fi
         debug_log "update_allow_v5: SQL execution failed, keeping $temp_sql for inspection"
         return 1
@@ -880,14 +962,23 @@ download_full_config() {
 
 download_security_config() {
     log "Downloading security configuration..."
+    debug_log "download_security_config: Starting"
     
-    download_file "${REPO_BASE}/adlists/security_basic_adlist.list" "$TEMPDIR/adlists.list"
+    download_file "${REPO_BASE}/adlists/security_basic_adlist.list" "$TEMPDIR/adlists.list" || {
+        log "ERROR: Failed to download security adlist"
+        return 1
+    }
     
     local security_files=(
         "${REPO_BASE}/Regex%20Files/basic_security.regex|$TEMPDIR/basic_security.regex"
         "${REPO_BASE}/Regex%20Files/oTLD.regex|$TEMPDIR/oTLD.regex"
     )
-    parallel_download security_files
+    
+    debug_log "download_security_config: Downloading ${#security_files[@]} regex files"
+    if ! parallel_download security_files; then
+        log "WARNING: Some security regex downloads failed, continuing..."
+        debug_log "download_security_config: Checking which files succeeded"
+    fi
     
     sed -i -e "s/\r//g" $TEMPDIR/*.regex 2>/dev/null || true
     
@@ -913,57 +1004,127 @@ download_test_lists() {
 
 download_public_allowlists() {
     log "Downloading public allow lists..."
+    debug_log "download_public_allowlists: Starting"
     
     local allow_files=(
         "${REPO_BASE}/Allow%20Lists/basic.allow|$TEMPDIR/basic.allow.temp"
         "${REPO_BASE}/Allow%20Lists/adlist.allow|$TEMPDIR/adlist.allow.temp"
     )
-    parallel_download allow_files
+    
+    debug_log "download_public_allowlists: Downloading ${#allow_files[@]} files"
+    if ! parallel_download allow_files; then
+        log "WARNING: Some allow list downloads failed"
+        debug_log "download_public_allowlists: parallel_download returned error"
+        
+        # Check which files exist
+        for item in "${allow_files[@]}"; do
+            IFS='|' read -r url output <<< "$item"
+            if [[ ! -f "$output" ]]; then
+                log "WARNING: Missing file: $output"
+                debug_log "download_public_allowlists: Creating empty placeholder for $output"
+                touch "$output" || log "ERROR: Cannot create $output"
+            fi
+        done
+    fi
     
     # Add newlines and copy local config
-    echo " " >> "$TEMPDIR/basic.allow.temp"
-    echo " " >> "$TEMPDIR/adlist.allow.temp"
-    cp "$CONFIG/perm_allow.conf" "$TEMPDIR/perm.allow.temp" 2>/dev/null || true
+    echo " " >> "$TEMPDIR/basic.allow.temp" 2>/dev/null || log "WARNING: Cannot append to basic.allow.temp"
+    echo " " >> "$TEMPDIR/adlist.allow.temp" 2>/dev/null || log "WARNING: Cannot append to adlist.allow.temp"
+    cp "$CONFIG/perm_allow.conf" "$TEMPDIR/perm.allow.temp" 2>/dev/null || {
+        debug_log "download_public_allowlists: perm_allow.conf not found or cannot copy"
+        touch "$TEMPDIR/perm.allow.temp" || log "WARNING: Cannot create perm.allow.temp"
+    }
+    debug_log "download_public_allowlists: Completed"
 }
 
 download_security_allowlists() {
     log "Downloading security allow lists..."
-    download_file "${REPO_BASE}/Allow%20Lists/security_only.allow" "$TEMPDIR/security_only.allow.temp"
+    debug_log "download_security_allowlists: Starting"
+    
+    if ! download_file "${REPO_BASE}/Allow%20Lists/security_only.allow" "$TEMPDIR/security_only.allow.temp"; then
+        log "WARNING: Failed to download security_only.allow, creating empty file"
+        touch "$TEMPDIR/security_only.allow.temp" || log "ERROR: Cannot create security_only.allow.temp"
+    fi
+    
+    debug_log "download_security_allowlists: Completed"
 }
 
 download_encrypted_allowlists() {
     log "Downloading encrypted allow lists..."
+    debug_log "download_encrypted_allowlists: Starting"
     
     local encrypted_lists=(
         encrypt financial civic international medical tech
     )
     
+    local pids=()
     for list in "${encrypted_lists[@]}"; do
-        download_gpg_file "${REPO_BASE}/Allow%20Lists/${list}.allow.gpg" "$TEMPDIR/${list}.allow.temp" &
+        debug_log "download_encrypted_allowlists: Downloading ${list}.allow.gpg"
+        (
+            if ! download_gpg_file "${REPO_BASE}/Allow%20Lists/${list}.allow.gpg" "$TEMPDIR/${list}.allow.temp"; then
+                log "WARNING: Failed to download ${list}.allow.gpg, creating empty file"
+                touch "$TEMPDIR/${list}.allow.temp" 2>/dev/null
+            fi
+        ) &
+        pids+=("$!")
     done
-    wait
+    
+    debug_log "download_encrypted_allowlists: Waiting for ${#pids[@]} downloads to complete"
+    for pid in "${pids[@]}"; do
+        wait "$pid" || debug_log "download_encrypted_allowlists: A download process failed (non-fatal)"
+    done
+    
+    debug_log "download_encrypted_allowlists: Completed"
 }
 
 download_regex_allowlists() {
     log "Downloading regex allow lists..."
+    debug_log "download_regex_allowlists: Starting"
     
-    download_file "${REPO_BASE}/Allow%20Lists/regex.allow" "$TEMPDIR/regex.allow.regex.temp"
-    cp "$CONFIG/allow_wild.conf" "$TEMPDIR/allow_wild.allow.regex.temp" 2>/dev/null || true
+    if ! download_file "${REPO_BASE}/Allow%20Lists/regex.allow" "$TEMPDIR/regex.allow.regex.temp"; then
+        log "WARNING: Failed to download regex.allow, creating empty file"
+        touch "$TEMPDIR/regex.allow.regex.temp" || log "ERROR: Cannot create regex.allow.regex.temp"
+    fi
     
-    download_gpg_file "${REPO_BASE}/Allow%20Lists/encrypt.regex.allow.gpg" "$TEMPDIR/encrypt.regex.allow.regex.temp"
+    if ! cp "$CONFIG/allow_wild.conf" "$TEMPDIR/allow_wild.allow.regex.temp" 2>/dev/null; then
+        debug_log "download_regex_allowlists: allow_wild.conf not found, creating empty file"
+        touch "$TEMPDIR/allow_wild.allow.regex.temp" || log "WARNING: Cannot create allow_wild.allow.regex.temp"
+    fi
+    
+    if ! download_gpg_file "${REPO_BASE}/Allow%20Lists/encrypt.regex.allow.gpg" "$TEMPDIR/encrypt.regex.allow.regex.temp"; then
+        log "WARNING: Failed to download/decrypt encrypt.regex.allow.gpg, creating empty file"
+        touch "$TEMPDIR/encrypt.regex.allow.regex.temp" || log "ERROR: Cannot create encrypt.regex.allow.regex.temp"
+    fi
+    
+    debug_log "download_regex_allowlists: Completed"
 }
 
 download_encrypted_blocklists() {
     log "Downloading encrypted block lists..."
+    debug_log "download_encrypted_blocklists: Starting"
     
     local block_lists=(
         custom propaganda spam media
     )
     
+    local pids=()
     for list in "${block_lists[@]}"; do
-        download_gpg_file "${REPO_BASE}/Block_Lists/${list}.block.encrypt.gpg" "$TEMPDIR/${list}.block.encrypt.temp" &
+        debug_log "download_encrypted_blocklists: Downloading ${list}.block.encrypt.gpg"
+        (
+            if ! download_gpg_file "${REPO_BASE}/Block_Lists/${list}.block.encrypt.gpg" "$TEMPDIR/${list}.block.encrypt.temp"; then
+                log "WARNING: Failed to download ${list}.block.encrypt.gpg, creating empty file"
+                touch "$TEMPDIR/${list}.block.encrypt.temp" 2>/dev/null
+            fi
+        ) &
+        pids+=("$!")
     done
-    wait
+    
+    debug_log "download_encrypted_blocklists: Waiting for ${#pids[@]} downloads to complete"
+    for pid in "${pids[@]}"; do
+        wait "$pid" || debug_log "download_encrypted_blocklists: A download process failed (non-fatal)"
+    done
+    
+    debug_log "download_encrypted_blocklists: Completed"
 }
 
 assemble_and_deploy() {
@@ -988,9 +1149,18 @@ assemble_and_deploy() {
     
     # Deploy files
     debug_log "assemble_and_deploy: Deploying configuration files"
-    mv "$TEMPDIR/regex.list" "$PIDIR/regex.list" || log "WARNING: Failed to deploy regex.list"
-    mv "$TEMPDIR/final.allow.temp" "$PIDIR/whitelist.txt" || log "WARNING: Failed to deploy whitelist.txt"
-    mv "$TEMPDIR/adlists.list" "$PIDIR/adlists.list" || log "WARNING: Failed to deploy adlists.list"
+    mv "$TEMPDIR/regex.list" "$PIDIR/regex.list" || {
+        log "WARNING: Failed to deploy regex.list"
+        DEPLOY_ERRORS+=("DEPLOY FAILED: regex.list to $PIDIR/regex.list")
+    }
+    mv "$TEMPDIR/final.allow.temp" "$PIDIR/whitelist.txt" || {
+        log "WARNING: Failed to deploy whitelist.txt"
+        DEPLOY_ERRORS+=("DEPLOY FAILED: whitelist.txt to $PIDIR/whitelist.txt")
+    }
+    mv "$TEMPDIR/adlists.list" "$PIDIR/adlists.list" || {
+        log "WARNING: Failed to deploy adlists.list"
+        DEPLOY_ERRORS+=("DEPLOY FAILED: adlists.list to $PIDIR/adlists.list")
+    }
     
     if [[ -f "$TEMPDIR/CFconfig" ]]; then
         debug_log "assemble_and_deploy: Deploying CFconfig"
@@ -1114,6 +1284,9 @@ cmd_refresh() {
     done
     
     log "=== Script refresh completed ==="
+    
+    # Show error summary
+    show_error_summary
 }
 
 cmd_full_update() {
@@ -1140,6 +1313,9 @@ cmd_full_update() {
     cleanup
     
     log "=== Full update completed ==="
+    
+    # Show error summary
+    show_error_summary
 }
 
 cmd_allow_update() {
@@ -1172,6 +1348,9 @@ cmd_allow_update() {
     cleanup
     
     log "=== Allow list update completed ==="
+    
+    # Show error summary
+    show_error_summary
 }
 
 cmd_quick_update() {
@@ -1197,6 +1376,9 @@ cmd_quick_update() {
     cleanup
     
     log "=== Quick update completed ==="
+    
+    # Show error summary
+    show_error_summary
 }
 
 cmd_purge_and_update() {
@@ -1232,6 +1414,9 @@ cmd_purge_and_update() {
     cleanup
     
     log "=== Purge and full update completed ==="
+    
+    # Show error summary
+    show_error_summary
 }
 
 cmd_block_regex_update() {
@@ -1249,6 +1434,9 @@ cmd_block_regex_update() {
     cleanup
     
     log "=== Block regex update completed ==="
+    
+    # Show error summary
+    show_error_summary
 }
 
 show_help() {
