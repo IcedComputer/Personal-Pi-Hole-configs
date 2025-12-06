@@ -266,12 +266,22 @@ parallel_download() {
 update_allow_regex_v5() {
     local file="$TEMPDIR/final.allow.regex.temp"
     
-    [[ ! -f "$file" ]] && { log "No allow regex file found, skipping"; return 0; }
+    debug_log "update_allow_regex_v5: Starting function"
+    debug_log "update_allow_regex_v5: Looking for file: $file"
+    
+    if [[ ! -f "$file" ]]; then
+        log "No allow regex file found, skipping"
+        debug_log "update_allow_regex_v5: File does not exist, skipping"
+        return 0
+    fi
+    
+    debug_log "update_allow_regex_v5: File found, size: $(stat -c%s "$file" 2>/dev/null || echo 'unknown') bytes"
     
     print_banner green "Starting Allow Regex List (v5)"
     
     local count=0
     local temp_sql="$TEMPDIR/allow_regex_insert.sql"
+    debug_log "update_allow_regex_v5: Creating SQL file: $temp_sql"
     
     echo "BEGIN TRANSACTION;" > "$temp_sql"
     
@@ -285,33 +295,64 @@ update_allow_regex_v5() {
         verbose_log "Queued allow regex: $pattern"
     done < "$file"
     
+    debug_log "update_allow_regex_v5: Queued $count regex patterns"
     echo "COMMIT;" >> "$temp_sql"
     
-    sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>/dev/null || {
+    debug_log "update_allow_regex_v5: Executing SQL transaction"
+    local sql_error="$TEMPDIR/sql_error_regex_v5_$$.log"
+    if ! sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>"$sql_error"; then
         log "ERROR: Failed to insert allow regex"
+        if [[ -f "$sql_error" ]]; then
+            log "ERROR: SQL error: $(cat "$sql_error")"
+            rm -f "$sql_error"
+        fi
         return 1
-    }
+    fi
     
-    rm -f "$temp_sql"
+    rm -f "$temp_sql" "$sql_error"
     log "Added $count allow regex patterns via direct SQL (fast)"
+    debug_log "update_allow_regex_v5: Successfully completed"
     print_banner yellow "Completed Allow Regex List"
 }
 
 update_allow_v5() {
     local file="$PIDIR/whitelist.txt"
     
-    [[ ! -f "$file" ]] && { log "No whitelist file found, skipping"; return 0; }
+    debug_log "update_allow_v5: Starting function"
+    debug_log "update_allow_v5: Looking for file: $file"
+    
+    if [[ ! -f "$file" ]]; then
+        log "No whitelist file found, skipping"
+        debug_log "update_allow_v5: File does not exist: $file"
+        return 0
+    fi
+    
+    debug_log "update_allow_v5: File found, size: $(stat -c%s "$file" 2>/dev/null || echo 'unknown') bytes"
     
     print_banner green "Starting Allow List (v5)"
+    
+    # Validate database exists
+    if [[ ! -f "$GRAVITY_DB" ]]; then
+        log "ERROR: Gravity database not found: $GRAVITY_DB"
+        debug_log "update_allow_v5: Database missing, aborting"
+        return 1
+    fi
+    debug_log "update_allow_v5: Database exists: $GRAVITY_DB"
     
     # Use direct SQL INSERT for massive performance improvement
     # This is 50-100x faster than calling pihole -w for each domain
     local count=0
     local temp_sql="$TEMPDIR/allow_insert.sql"
+    debug_log "update_allow_v5: Creating SQL transaction file: $temp_sql"
     
     # Start SQL transaction
-    echo "BEGIN TRANSACTION;" > "$temp_sql"
+    echo "BEGIN TRANSACTION;" > "$temp_sql" || {
+        log "ERROR: Failed to create SQL transaction file: $temp_sql"
+        debug_log "update_allow_v5: Cannot write to temp directory"
+        return 1
+    }
     
+    debug_log "update_allow_v5: Reading domains from $file"
     while IFS= read -r domain; do
         [[ -z "$domain" ]] && continue
         # Type 0 = exact whitelist, enabled = 1
@@ -320,28 +361,50 @@ update_allow_v5() {
         verbose_log "Queued allow domain: $domain"
     done < "$file"
     
+    debug_log "update_allow_v5: Queued $count domains for insertion"
     echo "COMMIT;" >> "$temp_sql"
     
-    # Execute all inserts in one transaction
-    sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>/dev/null || {
-        log "ERROR: Failed to insert allow list"
-        return 1
-    }
+    local sql_size=$(stat -c%s "$temp_sql" 2>/dev/null || echo '0')
+    debug_log "update_allow_v5: SQL file size: $sql_size bytes"
+    debug_log "update_allow_v5: Executing SQL transaction"
     
-    rm -f "$temp_sql"
+    # Execute all inserts in one transaction
+    local sql_error="$TEMPDIR/sql_error_v5_$$.log"
+    if ! sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>"$sql_error"; then
+        log "ERROR: Failed to insert allow list"
+        if [[ -f "$sql_error" ]]; then
+            log "ERROR: SQL error: $(cat "$sql_error")"
+            rm -f "$sql_error"
+        fi
+        debug_log "update_allow_v5: SQL execution failed, keeping $temp_sql for inspection"
+        return 1
+    fi
+    
+    rm -f "$temp_sql" "$sql_error"
     log "Added $count allow domains via direct SQL (fast)"
+    debug_log "update_allow_v5: Successfully completed"
     print_banner yellow "Completed Allow List"
 }
 
 update_regex_v5() {
     local file="$PIDIR/regex.list"
     
-    [[ ! -f "$file" ]] && { log "No regex block file found, skipping"; return 0; }
+    debug_log "update_regex_v5: Starting function"
+    debug_log "update_regex_v5: Looking for file: $file"
+    
+    if [[ ! -f "$file" ]]; then
+        log "No regex block file found, skipping"
+        debug_log "update_regex_v5: File does not exist, skipping"
+        return 0
+    fi
+    
+    debug_log "update_regex_v5: File found, size: $(stat -c%s "$file" 2>/dev/null || echo 'unknown') bytes"
     
     print_banner green "Starting Regex Block List (v5)"
     
     local count=0
     local temp_sql="$TEMPDIR/block_regex_insert.sql"
+    debug_log "update_regex_v5: Creating SQL file: $temp_sql"
     
     echo "BEGIN TRANSACTION;" > "$temp_sql"
     
@@ -354,15 +417,23 @@ update_regex_v5() {
         verbose_log "Queued block regex: $pattern"
     done < "$file"
     
+    debug_log "update_regex_v5: Queued $count block regex patterns"
     echo "COMMIT;" >> "$temp_sql"
     
-    sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>/dev/null || {
+    debug_log "update_regex_v5: Executing SQL transaction"
+    local sql_error="$TEMPDIR/sql_error_block_v5_$$.log"
+    if ! sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>"$sql_error"; then
         log "ERROR: Failed to insert block regex"
+        if [[ -f "$sql_error" ]]; then
+            log "ERROR: SQL error: $(cat "$sql_error")"
+            rm -f "$sql_error"
+        fi
         return 1
-    }
+    fi
     
-    rm -f "$temp_sql"
+    rm -f "$temp_sql" "$sql_error"
     log "Added $count block regex patterns via direct SQL (fast)"
+    debug_log "update_regex_v5: Successfully completed"
     print_banner yellow "Completed Regex Block List"
 }
 
@@ -373,12 +444,22 @@ update_regex_v5() {
 update_allow_regex_v6() {
     local file="$TEMPDIR/final.allow.regex.temp"
     
-    [[ ! -f "$file" ]] && { log "No allow regex file found, skipping"; return 0; }
+    debug_log "update_allow_regex_v6: Starting function"
+    debug_log "update_allow_regex_v6: Looking for file: $file"
+    
+    if [[ ! -f "$file" ]]; then
+        log "No allow regex file found, skipping"
+        debug_log "update_allow_regex_v6: File does not exist, skipping"
+        return 0
+    fi
+    
+    debug_log "update_allow_regex_v6: File found, size: $(stat -c%s "$file" 2>/dev/null || echo 'unknown') bytes"
     
     print_banner green "Starting Allow Regex List (v6)"
     
     local count=0
     local temp_sql="$TEMPDIR/allow_regex_insert.sql"
+    debug_log "update_allow_regex_v6: Creating SQL file: $temp_sql"
     
     echo "BEGIN TRANSACTION;" > "$temp_sql"
     
@@ -391,31 +472,62 @@ update_allow_regex_v6() {
         verbose_log "Queued allow regex: $pattern"
     done < "$file"
     
+    debug_log "update_allow_regex_v6: Queued $count regex patterns"
     echo "COMMIT;" >> "$temp_sql"
     
-    sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>/dev/null || {
+    debug_log "update_allow_regex_v6: Executing SQL transaction"
+    local sql_error="$TEMPDIR/sql_error_regex_$$.log"
+    if ! sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>"$sql_error"; then
         log "ERROR: Failed to insert allow regex"
+        if [[ -f "$sql_error" ]]; then
+            log "ERROR: SQL error: $(cat "$sql_error")"
+            rm -f "$sql_error"
+        fi
         return 1
-    }
+    fi
     
-    rm -f "$temp_sql"
+    rm -f "$temp_sql" "$sql_error"
     log "Added $count allow regex patterns via direct SQL (fast)"
+    debug_log "update_allow_regex_v6: Successfully completed"
     print_banner yellow "Completed Allow Regex List"
 }
 
 update_allow_v6() {
     local file="$PIDIR/whitelist.txt"
     
-    [[ ! -f "$file" ]] && { log "No whitelist file found, skipping"; return 0; }
+    debug_log "update_allow_v6: Starting function"
+    debug_log "update_allow_v6: Looking for file: $file"
+    
+    if [[ ! -f "$file" ]]; then
+        log "No whitelist file found, skipping"
+        debug_log "update_allow_v6: File does not exist: $file"
+        return 0
+    fi
+    
+    debug_log "update_allow_v6: File found, size: $(stat -c%s "$file" 2>/dev/null || echo 'unknown') bytes"
     
     print_banner green "Starting Allow List (v6)"
+    
+    # Validate database exists
+    if [[ ! -f "$GRAVITY_DB" ]]; then
+        log "ERROR: Gravity database not found: $GRAVITY_DB"
+        debug_log "update_allow_v6: Database missing, aborting"
+        return 1
+    fi
+    debug_log "update_allow_v6: Database exists: $GRAVITY_DB"
     
     # Use direct SQL INSERT for massive performance improvement
     local count=0
     local temp_sql="$TEMPDIR/allow_insert.sql"
+    debug_log "update_allow_v6: Creating SQL transaction file: $temp_sql"
     
-    echo "BEGIN TRANSACTION;" > "$temp_sql"
+    echo "BEGIN TRANSACTION;" > "$temp_sql" || {
+        log "ERROR: Failed to create SQL transaction file: $temp_sql"
+        debug_log "update_allow_v6: Cannot write to temp directory"
+        return 1
+    }
     
+    debug_log "update_allow_v6: Reading domains from $file"
     while IFS= read -r domain; do
         [[ -z "$domain" ]] && continue
         # Type 0 = exact whitelist, enabled = 1
@@ -424,27 +536,49 @@ update_allow_v6() {
         verbose_log "Queued allow domain: $domain"
     done < "$file"
     
+    debug_log "update_allow_v6: Queued $count domains for insertion"
     echo "COMMIT;" >> "$temp_sql"
     
-    sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>/dev/null || {
-        log "ERROR: Failed to insert allow list"
-        return 1
-    }
+    local sql_size=$(stat -c%s "$temp_sql" 2>/dev/null || echo '0')
+    debug_log "update_allow_v6: SQL file size: $sql_size bytes"
+    debug_log "update_allow_v6: Executing SQL transaction"
     
-    rm -f "$temp_sql"
+    local sql_error="$TEMPDIR/sql_error_$$.log"
+    if ! sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>"$sql_error"; then
+        log "ERROR: Failed to insert allow list"
+        if [[ -f "$sql_error" ]]; then
+            log "ERROR: SQL error: $(cat "$sql_error")"
+            rm -f "$sql_error"
+        fi
+        debug_log "update_allow_v6: SQL execution failed, keeping $temp_sql for inspection"
+        return 1
+    fi
+    
+    rm -f "$temp_sql" "$sql_error"
     log "Added $count allow domains via direct SQL (fast)"
+    debug_log "update_allow_v6: Successfully completed"
     print_banner yellow "Completed Allow List"
 }
 
 update_regex_v6() {
     local file="$PIDIR/regex.list"
     
-    [[ ! -f "$file" ]] && { log "No regex block file found, skipping"; return 0; }
+    debug_log "update_regex_v6: Starting function"
+    debug_log "update_regex_v6: Looking for file: $file"
+    
+    if [[ ! -f "$file" ]]; then
+        log "No regex block file found, skipping"
+        debug_log "update_regex_v6: File does not exist, skipping"
+        return 0
+    fi
+    
+    debug_log "update_regex_v6: File found, size: $(stat -c%s "$file" 2>/dev/null || echo 'unknown') bytes"
     
     print_banner green "Starting Regex Block List (v6)"
     
     local count=0
     local temp_sql="$TEMPDIR/block_regex_insert.sql"
+    debug_log "update_regex_v6: Creating SQL file: $temp_sql"
     
     echo "BEGIN TRANSACTION;" > "$temp_sql"
     
@@ -457,15 +591,23 @@ update_regex_v6() {
         verbose_log "Queued block regex: $pattern"
     done < "$file"
     
+    debug_log "update_regex_v6: Queued $count block regex patterns"
     echo "COMMIT;" >> "$temp_sql"
     
-    sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>/dev/null || {
+    debug_log "update_regex_v6: Executing SQL transaction"
+    local sql_error="$TEMPDIR/sql_error_block_$$.log"
+    if ! sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>"$sql_error"; then
         log "ERROR: Failed to insert block regex"
+        if [[ -f "$sql_error" ]]; then
+            log "ERROR: SQL error: $(cat "$sql_error")"
+            rm -f "$sql_error"
+        fi
         return 1
-    }
+    fi
     
-    rm -f "$temp_sql"
+    rm -f "$temp_sql" "$sql_error"
     log "Added $count block regex patterns via direct SQL (fast)"
+    debug_log "update_regex_v6: Successfully completed"
     print_banner yellow "Completed Regex Block List"
 }
 
@@ -516,28 +658,79 @@ update_adlists() {
 
 update_allow() {
     log "Updating allow lists..."
+    debug_log "update_allow: Dispatching to version $version"
     case "$version" in
-        5) update_allow_v5 ;;
-        6) update_allow_v6 ;;
-        *) log "ERROR: Unknown Pi-hole version: $version"; return 1 ;;
+        5) 
+            debug_log "update_allow: Calling update_allow_v5"
+            update_allow_v5
+            local result=$?
+            debug_log "update_allow: update_allow_v5 returned: $result"
+            return $result
+            ;;
+        6) 
+            debug_log "update_allow: Calling update_allow_v6"
+            update_allow_v6
+            local result=$?
+            debug_log "update_allow: update_allow_v6 returned: $result"
+            return $result
+            ;;
+        *) 
+            log "ERROR: Unknown Pi-hole version: $version"
+            debug_log "update_allow: Invalid version detected"
+            return 1
+            ;;
     esac
 }
 
 update_allow_regex() {
     log "Updating allow regex..."
+    debug_log "update_allow_regex: Dispatching to version $version"
     case "$version" in
-        5) update_allow_regex_v5 ;;
-        6) update_allow_regex_v6 ;;
-        *) log "ERROR: Unknown Pi-hole version: $version"; return 1 ;;
+        5) 
+            debug_log "update_allow_regex: Calling update_allow_regex_v5"
+            update_allow_regex_v5
+            local result=$?
+            debug_log "update_allow_regex: update_allow_regex_v5 returned: $result"
+            return $result
+            ;;
+        6) 
+            debug_log "update_allow_regex: Calling update_allow_regex_v6"
+            update_allow_regex_v6
+            local result=$?
+            debug_log "update_allow_regex: update_allow_regex_v6 returned: $result"
+            return $result
+            ;;
+        *) 
+            log "ERROR: Unknown Pi-hole version: $version"
+            debug_log "update_allow_regex: Invalid version detected"
+            return 1
+            ;;
     esac
 }
 
 update_block_regex() {
     log "Updating block regex..."
+    debug_log "update_block_regex: Dispatching to version $version"
     case "$version" in
-        5) update_regex_v5 ;;
-        6) update_regex_v6 ;;
-        *) log "ERROR: Unknown Pi-hole version: $version"; return 1 ;;
+        5) 
+            debug_log "update_block_regex: Calling update_regex_v5"
+            update_regex_v5
+            local result=$?
+            debug_log "update_block_regex: update_regex_v5 returned: $result"
+            return $result
+            ;;
+        6) 
+            debug_log "update_block_regex: Calling update_regex_v6"
+            update_regex_v6
+            local result=$?
+            debug_log "update_block_regex: update_regex_v6 returned: $result"
+            return $result
+            ;;
+        *) 
+            log "ERROR: Unknown Pi-hole version: $version"
+            debug_log "update_block_regex: Invalid version detected"
+            return 1
+            ;;
     esac
 }
 
@@ -548,13 +741,45 @@ update_block_regex() {
 update_pihole_database() {
     log "=== Starting full database update ==="
     log "Pi-hole version: $version"
+    debug_log "update_pihole_database: Function called"
+    debug_log "update_pihole_database: GRAVITY_DB=$GRAVITY_DB"
+    debug_log "update_pihole_database: PIDIR=$PIDIR"
+    debug_log "update_pihole_database: TEMPDIR=$TEMPDIR"
     
-    update_allow
-    update_allow_regex
-    update_adlists
-    update_block_regex
+    debug_log "update_pihole_database: Step 1 - Calling update_allow"
+    update_allow || {
+        log "ERROR: update_allow failed"
+        debug_log "update_pihole_database: update_allow returned error"
+        return 1
+    }
+    debug_log "update_pihole_database: Step 1 complete"
+    
+    debug_log "update_pihole_database: Step 2 - Calling update_allow_regex"
+    update_allow_regex || {
+        log "ERROR: update_allow_regex failed"
+        debug_log "update_pihole_database: update_allow_regex returned error"
+        return 1
+    }
+    debug_log "update_pihole_database: Step 2 complete"
+    
+    debug_log "update_pihole_database: Step 3 - Calling update_adlists"
+    update_adlists || {
+        log "ERROR: update_adlists failed"
+        debug_log "update_pihole_database: update_adlists returned error"
+        return 1
+    }
+    debug_log "update_pihole_database: Step 3 complete"
+    
+    debug_log "update_pihole_database: Step 4 - Calling update_block_regex"
+    update_block_regex || {
+        log "ERROR: update_block_regex failed"
+        debug_log "update_pihole_database: update_block_regex returned error"
+        return 1
+    }
+    debug_log "update_pihole_database: Step 4 complete"
     
     log "=== Full database update completed ==="
+    debug_log "update_pihole_database: All steps completed successfully"
 }
 
 update_pihole_database_allow_only() {
