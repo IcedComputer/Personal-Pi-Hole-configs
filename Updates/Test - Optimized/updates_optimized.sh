@@ -44,6 +44,7 @@ readonly AZURE_REPO="${GH_RAW}/Azure-Pihole-VPN-setup/master"
 # Options
 VERBOSE=0
 NO_REBOOT=0
+DEBUG=0
 
 #======================================================================================
 # UTILITY FUNCTIONS
@@ -55,6 +56,26 @@ log() {
 
 verbose_log() {
     [[ $VERBOSE -eq 1 ]] && log "$*"
+}
+
+debug_log() {
+    if [[ $DEBUG -eq 1 ]]; then
+        echo "[DEBUG $(date +'%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOGFILE"
+    fi
+}
+
+check_network() {
+    debug_log "Checking network connectivity..."
+    if ! ping -c 1 8.8.8.8 &> /dev/null; then
+        log "ERROR: No network connectivity detected"
+        return 1
+    fi
+    if ! ping -c 1 raw.githubusercontent.com &> /dev/null; then
+        log "ERROR: Cannot reach GitHub (raw.githubusercontent.com)"
+        return 1
+    fi
+    debug_log "Network connectivity OK"
+    return 0
 }
 
 print_banner() {
@@ -84,48 +105,97 @@ download_file() {
     local url="$1"
     local output="$2"
     local retries=3
+    local error_log="$TEMPDIR/curl_error_$$.log"
+    
+    debug_log "Starting download: $url"
+    debug_log "Output destination: $output"
     
     for i in $(seq 1 $retries); do
-        if curl --tlsv1.3 --fail --silent --show-error -o "$output" "$url"; then
+        debug_log "Download attempt $i of $retries for: $url"
+        
+        if curl --tlsv1.3 --fail --location --connect-timeout 10 --max-time 60 \
+            --show-error --silent -o "$output" "$url" 2>"$error_log"; then
             verbose_log "Downloaded: $url -> $output"
+            debug_log "File size: $(stat -c%s "$output" 2>/dev/null || echo 'unknown') bytes"
+            rm -f "$error_log"
             return 0
         fi
+        
+        local error_msg=$(cat "$error_log" 2>/dev/null || echo "Unknown error")
         log "Download attempt $i failed for: $url"
-        sleep 2
+        log "Error details: $error_msg"
+        debug_log "Waiting 3 seconds before retry..."
+        sleep 3
     done
     
-    log "ERROR: Failed to download $url after $retries attempts"
+    log "ERROR: Failed to download after $retries attempts"
+    log "ERROR: URL: $url"
+    log "ERROR: Output: $output"
+    if [[ -f "$error_log" ]]; then
+        log "ERROR: $(cat "$error_log")"
+        rm -f "$error_log"
+    fi
     return 1
 }
 
 download_gpg_file() {
     local url="$1"
     local output_base="$2"
+    local gpg_error="$TEMPDIR/gpg_error_$$.log"
     
+    debug_log "Downloading GPG file: $url"
     download_file "$url" "${output_base}.gpg" || return 1
-    gpg --batch --yes --decrypt "${output_base}.gpg" > "$output_base" 2>/dev/null || {
+    
+    debug_log "Decrypting: ${output_base}.gpg"
+    if ! gpg --batch --yes --decrypt "${output_base}.gpg" > "$output_base" 2>"$gpg_error"; then
         log "ERROR: Failed to decrypt ${output_base}.gpg"
+        if [[ -f "$gpg_error" ]]; then
+            log "ERROR: GPG output: $(cat "$gpg_error")"
+            rm -f "$gpg_error"
+        fi
         return 1
-    }
+    fi
+    
     sed -i -e "s/\r//g" "$output_base"
-    rm -f "${output_base}.gpg"
+    rm -f "${output_base}.gpg" "$gpg_error"
     verbose_log "Decrypted and cleaned: $output_base"
+    debug_log "Final file size: $(stat -c%s "$output_base" 2>/dev/null || echo 'unknown') bytes"
 }
 
 parallel_download() {
     local -n urls=$1
     local pids=()
+    local pid_urls=()
+    local failed=0
+    
+    debug_log "Starting ${#urls[@]} parallel downloads"
     
     for item in "${urls[@]}"; do
         IFS='|' read -r url output <<< "$item"
+        debug_log "Queuing download: $url"
         download_file "$url" "$output" &
-        pids+=($!)
+        local pid=$!
+        pids+=("$pid")
+        pid_urls[$pid]="$url|$output"
     done
     
-    # Wait for all downloads to complete
+    # Wait for all downloads to complete and track failures
     for pid in "${pids[@]}"; do
-        wait "$pid" || log "WARNING: A download process failed"
+        if ! wait "$pid"; then
+            IFS='|' read -r failed_url failed_output <<< "${pid_urls[$pid]}"
+            log "ERROR: Download failed for URL: $failed_url"
+            log "ERROR: Expected output: $failed_output"
+            ((failed++))
+        fi
     done
+    
+    if [[ $failed -gt 0 ]]; then
+        log "WARNING: $failed out of ${#urls[@]} downloads failed"
+        return 1
+    fi
+    
+    debug_log "All parallel downloads completed successfully"
+    return 0
 }
 
 #======================================================================================
@@ -874,6 +944,7 @@ COMMANDS:
 
 OPTIONS:
     --verbose       Enable verbose logging
+    --debug         Enable debug mode (includes verbose + detailed error tracking)
     --no-reboot     Skip automatic reboot check
 
 EXAMPLES:
@@ -933,6 +1004,12 @@ main() {
         case "$1" in
             --verbose)
                 VERBOSE=1
+                log "Verbose mode enabled"
+                ;;
+            --debug)
+                DEBUG=1
+                VERBOSE=1
+                log "Debug mode enabled (includes verbose)"
                 ;;
             --no-reboot)
                 NO_REBOOT=1
@@ -948,6 +1025,14 @@ main() {
     
     # Create temp directory if needed
     mkdir -p "$TEMPDIR"
+    
+    # Check network connectivity if downloading
+    if [[ "$command" != "help" ]] && [[ "$command" != "--help" ]] && [[ "$command" != "-h" ]]; then
+        check_network || {
+            log "ERROR: Network check failed, cannot proceed with $command"
+            exit 1
+        }
+    fi
     
     # Execute command
     case "$command" in
