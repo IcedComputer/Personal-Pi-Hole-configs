@@ -1,5 +1,5 @@
 ## This adlist is the full blocking list
-## Last Updated 2025-08-20
+## Last Updated 2025-12-17
 
 ## Local Lists
 file:///scripts/Finished/CONFIG/encrypt.list
@@ -52,8 +52,6 @@ https://raw.githubusercontent.com/d43m0nhLInt3r/socialblocklists/master/MiFitXia
 https://raw.githubusercontent.com/superover/TikTok-Blocklist/master/tiktok.txt
 
 ## Crypto
-https://gitlab.com/ZeroDot1/CoinBlockerLists/raw/master/list_browser.txt
-https://gitlab.com/ZeroDot1/CoinBlockerLists/raw/master/list_optional.txt
 https://raw.githubusercontent.com/anudeepND/blacklist/master/CoinMiner.txt
 https://raw.githubusercontent.com/blocklistproject/Lists/master/crypto.txt
 https://raw.githubusercontent.com/WillPresley/ZeroDot1_CoinBlockerList/refs/heads/main/hosts
