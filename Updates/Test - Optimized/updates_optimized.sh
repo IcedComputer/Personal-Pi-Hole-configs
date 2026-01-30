@@ -1,5 +1,5 @@
 #!/bin/bash
-## Last Updated 2025-12-05
+## Last Updated 2026-01-30
 ## updates_optimized.sh - Fully Integrated & Optimized
 ## Combines update/download functionality with database management
 ## Usage: ./updates_optimized.sh [command] [options]
@@ -16,6 +16,17 @@
 ## Options:
 ##   --no-reboot     - Skip system reboot check
 ##   --verbose       - Enable verbose output
+##
+## Pi-hole Version Support:
+##   - Version 5: Uses legacy CLI commands (pihole -w, pihole -b, etc.)
+##   - Version 6: Uses new CLI commands (pihole allow, pihole deny, etc.)
+##   - Both versions use the same database schema (domainlist table)
+##
+## Database Schema (domainlist table - v5 and v6):
+##   Type 0 = exact allowlist
+##   Type 1 = exact denylist  
+##   Type 2 = regex allowlist
+##   Type 3 = regex denylist
 
 set -euo pipefail  # Exit on error, undefined vars, pipe failures
 
@@ -30,18 +41,7 @@ readonly CONFIG=/scripts/Finished/CONFIG
 readonly GRAVITY_DB="/etc/pihole/gravity.db"
 readonly LOGFILE=/var/log/pihole-updates.log
 
-# Load configuration files
-Type=$(<"$CONFIG/type.conf")
-test_system=$(<"$CONFIG/test.conf") 
-is_cloudflared=$(<"$CONFIG/dns_type.conf")
-version=$(<"$CONFIG/ver.conf")
-
-# GitHub base URLs
-readonly GH_RAW="https://raw.githubusercontent.com/IcedComputer"
-readonly REPO_BASE="${GH_RAW}/Personal-Pi-Hole-configs/master"
-readonly AZURE_REPO="${GH_RAW}/Azure-Pihole-VPN-setup/master"
-
-# Options
+# Options (set defaults before config loading)
 VERBOSE=0
 NO_REBOOT=0
 DEBUG=0
@@ -51,6 +51,262 @@ declare -a DOWNLOAD_ERRORS=()
 declare -a GPG_ERRORS=()
 declare -a SQL_ERRORS=()
 declare -a DEPLOY_ERRORS=()
+declare -a VALIDATION_ERRORS=()
+
+# Configuration variables (will be loaded)
+Type=""
+test_system=""
+is_cloudflared=""
+version=""
+
+#======================================================================================
+# CLEANUP TRAP - ENSURES /scripts/temp/* IS ALWAYS CLEANED
+#======================================================================================
+
+# Global flag to track if cleanup has run
+CLEANUP_DONE=0
+
+cleanup_temp() {
+    # Prevent multiple cleanup runs
+    [[ "$CLEANUP_DONE" -eq 1 ]] && return 0
+    CLEANUP_DONE=1
+    
+    local exit_code="${1:-$?}"
+    
+    log "Performing cleanup of temporary files..."
+    
+    # Clean up all temp files
+    if [[ -d "$TEMPDIR" ]]; then
+        rm -f "$TEMPDIR"/*.regex 2>/dev/null || true
+        rm -f "$TEMPDIR"/*.temp 2>/dev/null || true
+        rm -f "$TEMPDIR"/*.gpg 2>/dev/null || true
+        rm -f "$TEMPDIR"/*.sql 2>/dev/null || true
+        rm -f "$TEMPDIR"/*.log 2>/dev/null || true
+        rm -f "$TEMPDIR"/curl_error_* 2>/dev/null || true
+        rm -f "$TEMPDIR"/gpg_error_* 2>/dev/null || true
+        rm -f "$TEMPDIR"/sql_error_* 2>/dev/null || true
+        
+        # Remove any remaining files in temp
+        find "$TEMPDIR" -type f -name "*.temp" -delete 2>/dev/null || true
+        find "$TEMPDIR" -type f -name "*.gpg" -delete 2>/dev/null || true
+        
+        log_success "Cleanup completed: $TEMPDIR"
+    fi
+    
+    if [[ "$exit_code" -ne 0 ]]; then
+        log_error "Script exited with error code: $exit_code"
+    fi
+    
+    return "$exit_code"
+}
+
+# Set trap for cleanup on EXIT, INT, TERM, ERR
+trap 'cleanup_temp $?' EXIT
+trap 'cleanup_temp 130' INT
+trap 'cleanup_temp 143' TERM
+
+#======================================================================================
+# VALIDATION FUNCTIONS
+#======================================================================================
+
+validate_config_files() {
+    local errors=0
+    
+    debug_log "Validating configuration files..."
+    
+    # Check CONFIG directory exists
+    if [[ ! -d "$CONFIG" ]]; then
+        log_error "Configuration directory not found: $CONFIG"
+        VALIDATION_ERRORS+=("CONFIG directory missing: $CONFIG")
+        return 1
+    fi
+    
+    # Validate type.conf
+    if [[ ! -f "$CONFIG/type.conf" ]]; then
+        log_error "Missing configuration: $CONFIG/type.conf"
+        VALIDATION_ERRORS+=("Missing: type.conf")
+        ((errors++))
+    elif [[ ! -s "$CONFIG/type.conf" ]]; then
+        log_error "Empty configuration: $CONFIG/type.conf"
+        VALIDATION_ERRORS+=("Empty: type.conf")
+        ((errors++))
+    fi
+    
+    # Validate test.conf
+    if [[ ! -f "$CONFIG/test.conf" ]]; then
+        log_warning "Missing configuration: $CONFIG/test.conf (defaulting to 'no')"
+        echo "no" > "$CONFIG/test.conf" 2>/dev/null || {
+            VALIDATION_ERRORS+=("Cannot create default: test.conf")
+            ((errors++))
+        }
+    fi
+    
+    # Validate dns_type.conf
+    if [[ ! -f "$CONFIG/dns_type.conf" ]]; then
+        log_warning "Missing configuration: $CONFIG/dns_type.conf (defaulting to 'standard')"
+        echo "standard" > "$CONFIG/dns_type.conf" 2>/dev/null || {
+            VALIDATION_ERRORS+=("Cannot create default: dns_type.conf")
+            ((errors++))
+        }
+    fi
+    
+    # Validate ver.conf (critical)
+    if [[ ! -f "$CONFIG/ver.conf" ]]; then
+        log_error "Missing critical configuration: $CONFIG/ver.conf"
+        log_error "Please create $CONFIG/ver.conf with value '5' or '6'"
+        VALIDATION_ERRORS+=("Missing critical: ver.conf")
+        ((errors++))
+    elif [[ ! -s "$CONFIG/ver.conf" ]]; then
+        log_error "Empty critical configuration: $CONFIG/ver.conf"
+        VALIDATION_ERRORS+=("Empty critical: ver.conf")
+        ((errors++))
+    fi
+    
+    if [[ $errors -gt 0 ]]; then
+        log_error "Configuration validation failed with $errors errors"
+        return 1
+    fi
+    
+    debug_success "Configuration files validated"
+    return 0
+}
+
+load_configuration() {
+    debug_log "Loading configuration files..."
+    
+    # Load with validation
+    Type=$(<"$CONFIG/type.conf") || { log_error "Failed to read type.conf"; return 1; }
+    test_system=$(<"$CONFIG/test.conf") || { log_warning "Failed to read test.conf, using 'no'"; test_system="no"; }
+    is_cloudflared=$(<"$CONFIG/dns_type.conf") || { log_warning "Failed to read dns_type.conf, using 'standard'"; is_cloudflared="standard"; }
+    version=$(<"$CONFIG/ver.conf") || { log_error "Failed to read ver.conf"; return 1; }
+    
+    # Trim whitespace
+    Type="${Type//[$'\t\r\n ']/}"
+    test_system="${test_system//[$'\t\r\n ']/}"
+    is_cloudflared="${is_cloudflared//[$'\t\r\n ']/}"
+    version="${version//[$'\t\r\n ']/}"
+    
+    # Validate version
+    if [[ "$version" != "5" && "$version" != "6" ]]; then
+        log_error "Invalid Pi-hole version in ver.conf: '$version'"
+        log_error "Supported versions: 5, 6"
+        VALIDATION_ERRORS+=("Invalid Pi-hole version: $version")
+        return 1
+    fi
+    
+    # Validate type
+    if [[ "$Type" != "security" && "$Type" != "full" && "$Type" != "standard" ]]; then
+        log_warning "Unrecognized type in type.conf: '$Type' (using as-is)"
+    fi
+    
+    debug_log "Configuration loaded:"
+    debug_log "  Type: $Type"
+    debug_log "  test_system: $test_system"
+    debug_log "  is_cloudflared: $is_cloudflared"
+    debug_log "  version: $version"
+    
+    return 0
+}
+
+validate_pihole_installation() {
+    debug_log "Validating Pi-hole installation..."
+    
+    # Check if pihole command exists
+    if ! command -v pihole &> /dev/null; then
+        log_error "Pi-hole command not found in PATH"
+        VALIDATION_ERRORS+=("pihole command not found")
+        return 1
+    fi
+    
+    # Check gravity database exists
+    if [[ ! -f "$GRAVITY_DB" ]]; then
+        log_error "Gravity database not found: $GRAVITY_DB"
+        VALIDATION_ERRORS+=("Gravity database missing: $GRAVITY_DB")
+        return 1
+    fi
+    
+    # Check database is readable
+    if ! sqlite3 "$GRAVITY_DB" "SELECT 1" &>/dev/null; then
+        log_error "Cannot read gravity database: $GRAVITY_DB"
+        VALIDATION_ERRORS+=("Gravity database unreadable")
+        return 1
+    fi
+    
+    # Verify domainlist table exists
+    local table_check
+    table_check=$(sqlite3 "$GRAVITY_DB" "SELECT name FROM sqlite_master WHERE type='table' AND name='domainlist';" 2>/dev/null)
+    if [[ -z "$table_check" ]]; then
+        log_error "domainlist table not found in gravity database"
+        VALIDATION_ERRORS+=("domainlist table missing from database")
+        return 1
+    fi
+    
+    # Verify adlist table exists
+    table_check=$(sqlite3 "$GRAVITY_DB" "SELECT name FROM sqlite_master WHERE type='table' AND name='adlist';" 2>/dev/null)
+    if [[ -z "$table_check" ]]; then
+        log_error "adlist table not found in gravity database"
+        VALIDATION_ERRORS+=("adlist table missing from database")
+        return 1
+    fi
+    
+    debug_success "Pi-hole installation validated"
+    return 0
+}
+
+validate_directories() {
+    debug_log "Validating directory structure..."
+    
+    # Check/create TEMPDIR
+    if [[ ! -d "$TEMPDIR" ]]; then
+        log "Creating temp directory: $TEMPDIR"
+        if ! mkdir -p "$TEMPDIR"; then
+            log_error "Failed to create temp directory: $TEMPDIR"
+            VALIDATION_ERRORS+=("Cannot create: $TEMPDIR")
+            return 1
+        fi
+    fi
+    
+    # Check TEMPDIR is writable
+    if ! touch "$TEMPDIR/.write_test" 2>/dev/null; then
+        log_error "Temp directory not writable: $TEMPDIR"
+        VALIDATION_ERRORS+=("Not writable: $TEMPDIR")
+        return 1
+    fi
+    rm -f "$TEMPDIR/.write_test"
+    
+    # Check PIDIR exists
+    if [[ ! -d "$PIDIR" ]]; then
+        log_error "Pi-hole directory not found: $PIDIR"
+        VALIDATION_ERRORS+=("Missing: $PIDIR")
+        return 1
+    fi
+    
+    # Check PIDIR is writable
+    if ! touch "$PIDIR/.write_test" 2>/dev/null; then
+        log_error "Pi-hole directory not writable: $PIDIR"
+        VALIDATION_ERRORS+=("Not writable: $PIDIR")
+        return 1
+    fi
+    rm -f "$PIDIR/.write_test"
+    
+    # Check FINISHED exists
+    if [[ ! -d "$FINISHED" ]]; then
+        log_warning "Finished directory not found, creating: $FINISHED"
+        if ! mkdir -p "$FINISHED"; then
+            log_error "Failed to create finished directory: $FINISHED"
+            VALIDATION_ERRORS+=("Cannot create: $FINISHED")
+            return 1
+        fi
+    fi
+    
+    debug_success "Directory structure validated"
+    return 0
+}
+
+# GitHub base URLs
+readonly GH_RAW="https://raw.githubusercontent.com/IcedComputer"
+readonly REPO_BASE="${GH_RAW}/Personal-Pi-Hole-configs/master"
+readonly AZURE_REPO="${GH_RAW}/Azure-Pihole-VPN-setup/master"
 
 #======================================================================================
 # UTILITY FUNCTIONS
@@ -159,7 +415,7 @@ print_banner() {
 
 show_error_summary() {
     local total_errors=0
-    ((total_errors = ${#DOWNLOAD_ERRORS[@]} + ${#GPG_ERRORS[@]} + ${#SQL_ERRORS[@]} + ${#DEPLOY_ERRORS[@]}))
+    ((total_errors = ${#DOWNLOAD_ERRORS[@]} + ${#GPG_ERRORS[@]} + ${#SQL_ERRORS[@]} + ${#DEPLOY_ERRORS[@]} + ${#VALIDATION_ERRORS[@]}))
     
     if [[ $total_errors -eq 0 ]]; then
         print_banner green "✓ Update Completed Successfully - No Errors"
@@ -173,10 +429,18 @@ show_error_summary() {
     printf '\033[1;41;97m%s\033[0m\n' "║                                                                              ║"
     printf '\033[1;41;97m%s\033[0m\n' "║                        ⚠️  ERROR SUMMARY - ATTENTION REQUIRED ⚠️              ║"
     printf '\033[1;41;97m%s\033[0m\n' "║                                                                              ║"
-    printf '\033[1;41;97m%s\033[0m\n' "║  Total Errors: $total_errors                                                        ║"
+    printf '\033[1;41;97m%-80s\033[0m\n' "║  Total Errors: $total_errors"
     printf '\033[1;41;97m%s\033[0m\n' "║                                                                              ║"
     printf '\033[1;41;97m%s\033[0m\n' "╚══════════════════════════════════════════════════════════════════════════════╝"
     echo ""
+    
+    if [[ ${#VALIDATION_ERRORS[@]} -gt 0 ]]; then
+        printf '\033[1;31m%s\033[0m\n' "🔍 VALIDATION FAILURES (${#VALIDATION_ERRORS[@]}):"
+        for error in "${VALIDATION_ERRORS[@]}"; do
+            printf '\033[0;31m%s\033[0m\n' "   ✗ $error"
+        done
+        echo ""
+    fi
     
     if [[ ${#DOWNLOAD_ERRORS[@]} -gt 0 ]]; then
         printf '\033[1;31m%s\033[0m\n' "📥 DOWNLOAD FAILURES (${#DOWNLOAD_ERRORS[@]}):" 
@@ -216,6 +480,7 @@ show_error_summary() {
     printf '\033[0;33m%s\033[0m\n' "   3. Review log file: $LOGFILE"
     printf '\033[0;33m%s\033[0m\n' "   4. Verify GPG keys are imported (for GPG errors)"
     printf '\033[0;33m%s\033[0m\n' "   5. Check disk space and permissions"
+    printf '\033[0;33m%s\033[0m\n' "   6. Verify Pi-hole installation: pihole -v"
     echo ""
     
     return 1
@@ -365,7 +630,34 @@ parallel_download() {
 
 #======================================================================================
 # DATABASE UPDATE FUNCTIONS - PI-HOLE VERSION 5
+# Note: Pi-hole v5 and v6 use the same database schema for domainlist:
+#   Type 0 = exact allowlist (whitelist)
+#   Type 1 = exact denylist (blacklist)
+#   Type 2 = regex allowlist (white-regex)
+#   Type 3 = regex denylist (regex blacklist)
+#
+# v5 CLI commands: pihole -w, pihole -b, pihole --regex, pihole --white-regex
+# v6 CLI commands: pihole allow, pihole deny, pihole --regex, pihole --allow-regex
 #======================================================================================
+
+verify_database_insert() {
+    # Verify that entries were actually added to the database
+    local table="$1"
+    local type_val="$2"
+    local expected_min="$3"
+    local description="$4"
+    
+    local actual_count
+    actual_count=$(sqlite3 "$GRAVITY_DB" "SELECT COUNT(*) FROM $table WHERE type=$type_val AND enabled=1;" 2>/dev/null || echo "0")
+    
+    if [[ "$actual_count" -lt "$expected_min" ]]; then
+        log_warning "Verification: Expected at least $expected_min $description entries, found $actual_count"
+        return 1
+    fi
+    
+    debug_success "Verification: Found $actual_count $description entries (expected >= $expected_min)"
+    return 0
+}
 
 update_allow_regex_v5() {
     local file="$TEMPDIR/final.allow.regex.temp"
@@ -379,9 +671,23 @@ update_allow_regex_v5() {
         return 0
     fi
     
+    # Check if file has content
+    if [[ ! -s "$file" ]]; then
+        log "Allow regex file is empty, skipping"
+        debug_log "update_allow_regex_v5: File is empty, skipping"
+        return 0
+    fi
+    
     debug_log "update_allow_regex_v5: File found, size: $(stat -c%s "$file" 2>/dev/null || echo 'unknown') bytes"
     
     print_banner green "Starting Allow Regex List (v5)"
+    
+    # Validate database is accessible
+    if ! sqlite3 "$GRAVITY_DB" "SELECT 1" &>/dev/null; then
+        log_error "Cannot access gravity database"
+        SQL_ERRORS+=("DATABASE ACCESS FAILED: $GRAVITY_DB")
+        return 1
+    fi
     
     local count=0
     local temp_sql="$TEMPDIR/allow_regex_insert.sql"
@@ -389,32 +695,61 @@ update_allow_regex_v5() {
     
     echo "BEGIN TRANSACTION;" > "$temp_sql"
     
-    while IFS= read -r pattern; do
+    while IFS= read -r pattern || [[ -n "$pattern" ]]; do
+        # Skip empty lines and comments
         [[ -z "$pattern" ]] && continue
-        # Type 2 = regex whitelist, enabled = 1
+        [[ "$pattern" =~ ^[[:space:]]*# ]] && continue
+        [[ "$pattern" =~ ^[[:space:]]*$ ]] && continue
+        
+        # Trim whitespace
+        pattern="${pattern#"${pattern%%[![:space:]]*}"}"
+        pattern="${pattern%"${pattern##*[![:space:]]}"}"
+        
+        # Skip if still empty after trimming
+        [[ -z "$pattern" ]] && continue
+        
+        # Type 2 = regex allowlist (whitelist), enabled = 1
         # Escape single quotes for SQL
         local escaped_pattern="${pattern//\'/\'\'}"
-        echo "INSERT OR IGNORE INTO domainlist (type, domain, enabled) VALUES (2, '${escaped_pattern}', 1);" >> "$temp_sql"
+        echo "INSERT OR IGNORE INTO domainlist (type, domain, enabled, comment) VALUES (2, '${escaped_pattern}', 1, 'Added by updates_optimized.sh');" >> "$temp_sql"
         ((count++))
         verbose_log "Queued allow regex: $pattern"
     done < "$file"
     
     debug_log "update_allow_regex_v5: Queued $count regex patterns"
+    
+    if [[ $count -eq 0 ]]; then
+        log "No valid allow regex patterns found to add"
+        rm -f "$temp_sql"
+        return 0
+    fi
+    
     echo "COMMIT;" >> "$temp_sql"
     
     debug_log "update_allow_regex_v5: Executing SQL transaction"
     local sql_error="$TEMPDIR/sql_error_regex_v5_$$.log"
     if ! sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>"$sql_error"; then
-        log "ERROR: Failed to insert allow regex"
-        if [[ -f "$sql_error" ]]; then
-            log "ERROR: SQL error: $(cat "$sql_error")"
-            rm -f "$sql_error"
+        log_error "Failed to insert allow regex"
+        if [[ -f "$sql_error" && -s "$sql_error" ]]; then
+            local err_msg=$(cat "$sql_error")
+            log_error "SQL error: $err_msg"
+            SQL_ERRORS+=("SQL FAILED (v5 allow-regex): $err_msg")
+        else
+            SQL_ERRORS+=("SQL FAILED (v5 allow-regex): Unknown error")
         fi
+        rm -f "$sql_error"
         return 1
     fi
     
     rm -f "$temp_sql" "$sql_error"
-    log_success "Added $count allow regex patterns via direct SQL (fast)"
+    
+    # Verify the entries were actually added
+    verify_database_insert "domainlist" 2 "$count" "allow regex" || {
+        log_warning "Allow regex verification found fewer entries than expected"
+        # Don't fail, just warn - some may have been duplicates
+    }
+    
+    log_success "Added $count allow regex patterns via direct SQL (type=2, v5)"
     debug_success "update_allow_regex_v5: Completed successfully"
     print_banner yellow "Completed Allow Regex List"
 }
@@ -431,41 +766,86 @@ update_allow_v5() {
         return 0
     fi
     
+    # Check if file has content
+    if [[ ! -s "$file" ]]; then
+        log "Whitelist file is empty, skipping"
+        debug_log "update_allow_v5: File is empty: $file"
+        return 0
+    fi
+    
     debug_log "update_allow_v5: File found, size: $(stat -c%s "$file" 2>/dev/null || echo 'unknown') bytes"
     
     print_banner green "Starting Allow List (v5)"
     
-    # Validate database exists
+    # Validate database exists and is accessible
     if [[ ! -f "$GRAVITY_DB" ]]; then
-        log "ERROR: Gravity database not found: $GRAVITY_DB"
+        log_error "Gravity database not found: $GRAVITY_DB"
+        SQL_ERRORS+=("DATABASE MISSING: $GRAVITY_DB")
         debug_log "update_allow_v5: Database missing, aborting"
         return 1
     fi
-    debug_log "update_allow_v5: Database exists: $GRAVITY_DB"
+    
+    if ! sqlite3 "$GRAVITY_DB" "SELECT 1" &>/dev/null; then
+        log_error "Cannot access gravity database"
+        SQL_ERRORS+=("DATABASE ACCESS FAILED: $GRAVITY_DB")
+        return 1
+    fi
+    
+    debug_log "update_allow_v5: Database exists and accessible: $GRAVITY_DB"
     
     # Use direct SQL INSERT for massive performance improvement
     # This is 50-100x faster than calling pihole -w for each domain
     local count=0
+    local skipped=0
     local temp_sql="$TEMPDIR/allow_insert.sql"
     debug_log "update_allow_v5: Creating SQL transaction file: $temp_sql"
     
     # Start SQL transaction
     echo "BEGIN TRANSACTION;" > "$temp_sql" || {
-        log "ERROR: Failed to create SQL transaction file: $temp_sql"
+        log_error "Failed to create SQL transaction file: $temp_sql"
+        SQL_ERRORS+=("CANNOT CREATE SQL FILE: $temp_sql")
         debug_log "update_allow_v5: Cannot write to temp directory"
         return 1
     }
     
     debug_log "update_allow_v5: Reading domains from $file"
-    while IFS= read -r domain; do
+    while IFS= read -r domain || [[ -n "$domain" ]]; do
+        # Skip empty lines and comments
         [[ -z "$domain" ]] && continue
-        # Type 0 = exact whitelist, enabled = 1
-        echo "INSERT OR IGNORE INTO domainlist (type, domain, enabled) VALUES (0, '${domain}', 1);" >> "$temp_sql"
+        [[ "$domain" =~ ^[[:space:]]*# ]] && { ((skipped++)); continue; }
+        [[ "$domain" =~ ^[[:space:]]*$ ]] && continue
+        
+        # Trim whitespace
+        domain="${domain#"${domain%%[![:space:]]*}"}"
+        domain="${domain%"${domain##*[![:space:]]}"}"
+        
+        # Skip if still empty after trimming
+        [[ -z "$domain" ]] && continue
+        
+        # Basic domain validation (allow subdomains, no spaces)
+        if [[ "$domain" =~ [[:space:]] ]]; then
+            log_warning "Skipping invalid domain (contains spaces): $domain"
+            ((skipped++))
+            continue
+        fi
+        
+        # Escape single quotes for SQL
+        local escaped_domain="${domain//\'/\'\'}"
+        
+        # Type 0 = exact allowlist (whitelist), enabled = 1
+        echo "INSERT OR IGNORE INTO domainlist (type, domain, enabled, comment) VALUES (0, '${escaped_domain}', 1, 'Added by updates_optimized.sh');" >> "$temp_sql"
         ((count++))
         verbose_log "Queued allow domain: $domain"
     done < "$file"
     
-    debug_log "update_allow_v5: Queued $count domains for insertion"
+    debug_log "update_allow_v5: Queued $count domains for insertion, skipped $skipped"
+    
+    if [[ $count -eq 0 ]]; then
+        log "No valid domains found to add"
+        rm -f "$temp_sql"
+        return 0
+    fi
+    
     echo "COMMIT;" >> "$temp_sql"
     
     local sql_size=$(stat -c%s "$temp_sql" 2>/dev/null || echo '0')
@@ -475,21 +855,30 @@ update_allow_v5() {
     # Execute all inserts in one transaction
     local sql_error="$TEMPDIR/sql_error_v5_$$.log"
     if ! sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>"$sql_error"; then
-        log "ERROR: Failed to insert allow list"
-        if [[ -f "$sql_error" ]]; then
+        log_error "Failed to insert allow list"
+        if [[ -f "$sql_error" && -s "$sql_error" ]]; then
             local error_msg=$(cat "$sql_error")
-            log "ERROR: SQL error: $error_msg"
+            log_error "SQL error: $error_msg"
             SQL_ERRORS+=("SQL FAILED (v5 allow): $error_msg")
-            rm -f "$sql_error"
         else
             SQL_ERRORS+=("SQL FAILED (v5 allow): Unknown error")
         fi
+        rm -f "$sql_error"
         debug_log "update_allow_v5: SQL execution failed, keeping $temp_sql for inspection"
         return 1
     fi
     
     rm -f "$temp_sql" "$sql_error"
-    log_success "Added $count allow domains via direct SQL (fast)"
+    
+    # Verify the entries were actually added
+    verify_database_insert "domainlist" 0 "$count" "exact allow" || {
+        log_warning "Allow list verification found fewer entries than expected (may be duplicates)"
+    }
+    
+    log_success "Added $count allow domains via direct SQL (type=0, v5)"
+    if [[ $skipped -gt 0 ]]; then
+        log "Skipped $skipped entries (comments or invalid)"
+    fi
     debug_success "update_allow_v5: Completed successfully"
     print_banner yellow "Completed Allow List"
 }
@@ -506,47 +895,102 @@ update_regex_v5() {
         return 0
     fi
     
+    # Check if file has content
+    if [[ ! -s "$file" ]]; then
+        log "Regex block file is empty, skipping"
+        debug_log "update_regex_v5: File is empty, skipping"
+        return 0
+    fi
+    
     debug_log "update_regex_v5: File found, size: $(stat -c%s "$file" 2>/dev/null || echo 'unknown') bytes"
     
     print_banner green "Starting Regex Block List (v5)"
     
+    # Validate database is accessible
+    if ! sqlite3 "$GRAVITY_DB" "SELECT 1" &>/dev/null; then
+        log_error "Cannot access gravity database"
+        SQL_ERRORS+=("DATABASE ACCESS FAILED: $GRAVITY_DB")
+        return 1
+    fi
+    
     local count=0
+    local skipped=0
     local temp_sql="$TEMPDIR/block_regex_insert.sql"
     debug_log "update_regex_v5: Creating SQL file: $temp_sql"
     
     echo "BEGIN TRANSACTION;" > "$temp_sql"
     
-    while IFS= read -r pattern; do
+    while IFS= read -r pattern || [[ -n "$pattern" ]]; do
+        # Skip empty lines and comments
         [[ -z "$pattern" ]] && continue
-        # Type 3 = regex blacklist, enabled = 1
+        [[ "$pattern" =~ ^[[:space:]]*# ]] && { ((skipped++)); continue; }
+        [[ "$pattern" =~ ^[[:space:]]*$ ]] && continue
+        
+        # Trim whitespace
+        pattern="${pattern#"${pattern%%[![:space:]]*}"}"
+        pattern="${pattern%"${pattern##*[![:space:]]}"}"
+        
+        # Skip if still empty after trimming
+        [[ -z "$pattern" ]] && continue
+        
+        # Type 3 = regex denylist (blacklist), enabled = 1
         local escaped_pattern="${pattern//\'/\'\'}"
-        echo "INSERT OR IGNORE INTO domainlist (type, domain, enabled) VALUES (3, '${escaped_pattern}', 1);" >> "$temp_sql"
+        echo "INSERT OR IGNORE INTO domainlist (type, domain, enabled, comment) VALUES (3, '${escaped_pattern}', 1, 'Added by updates_optimized.sh');" >> "$temp_sql"
         ((count++))
         verbose_log "Queued block regex: $pattern"
     done < "$file"
     
-    debug_log "update_regex_v5: Queued $count block regex patterns"
+    debug_log "update_regex_v5: Queued $count block regex patterns, skipped $skipped"
+    
+    if [[ $count -eq 0 ]]; then
+        log "No valid block regex patterns found to add"
+        rm -f "$temp_sql"
+        return 0
+    fi
+    
     echo "COMMIT;" >> "$temp_sql"
     
     debug_log "update_regex_v5: Executing SQL transaction"
     local sql_error="$TEMPDIR/sql_error_block_v5_$$.log"
     if ! sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>"$sql_error"; then
-        log "ERROR: Failed to insert block regex"
-        if [[ -f "$sql_error" ]]; then
-            log "ERROR: SQL error: $(cat "$sql_error")"
-            rm -f "$sql_error"
+        log_error "Failed to insert block regex"
+        if [[ -f "$sql_error" && -s "$sql_error" ]]; then
+            local err_msg=$(cat "$sql_error")
+            log_error "SQL error: $err_msg"
+            SQL_ERRORS+=("SQL FAILED (v5 block-regex): $err_msg")
+        else
+            SQL_ERRORS+=("SQL FAILED (v5 block-regex): Unknown error")
         fi
+        rm -f "$sql_error"
         return 1
     fi
     
     rm -f "$temp_sql" "$sql_error"
-    log_success "Added $count block regex patterns via direct SQL (fast)"
+    
+    # Verify the entries were actually added
+    verify_database_insert "domainlist" 3 "$count" "regex deny" || {
+        log_warning "Block regex verification found fewer entries than expected"
+    }
+    
+    log_success "Added $count block regex patterns via direct SQL (type=3, v5)"
+    if [[ $skipped -gt 0 ]]; then
+        log "Skipped $skipped entries (comments)"
+    fi
     debug_success "update_regex_v5: Completed successfully"
     print_banner yellow "Completed Regex Block List"
 }
 
 #======================================================================================
 # DATABASE UPDATE FUNCTIONS - PI-HOLE VERSION 6
+# Note: Pi-hole v6 uses the SAME database schema as v5:
+#   Type 0 = exact allowlist
+#   Type 1 = exact denylist
+#   Type 2 = regex allowlist
+#   Type 3 = regex denylist
+#
+# The only difference is CLI commands:
+#   v6: pihole allow, pihole deny, pihole --allow-regex, pihole --regex
+# But since we use direct SQL, both versions work identically.
 #======================================================================================
 
 update_allow_regex_v6() {
@@ -561,41 +1005,87 @@ update_allow_regex_v6() {
         return 0
     fi
     
+    # Check if file has content
+    if [[ ! -s "$file" ]]; then
+        log "Allow regex file is empty, skipping"
+        debug_log "update_allow_regex_v6: File is empty, skipping"
+        return 0
+    fi
+    
     debug_log "update_allow_regex_v6: File found, size: $(stat -c%s "$file" 2>/dev/null || echo 'unknown') bytes"
     
     print_banner green "Starting Allow Regex List (v6)"
     
+    # Validate database is accessible
+    if ! sqlite3 "$GRAVITY_DB" "SELECT 1" &>/dev/null; then
+        log_error "Cannot access gravity database"
+        SQL_ERRORS+=("DATABASE ACCESS FAILED: $GRAVITY_DB")
+        return 1
+    fi
+    
     local count=0
+    local skipped=0
     local temp_sql="$TEMPDIR/allow_regex_insert.sql"
     debug_log "update_allow_regex_v6: Creating SQL file: $temp_sql"
     
     echo "BEGIN TRANSACTION;" > "$temp_sql"
     
-    while IFS= read -r pattern; do
+    while IFS= read -r pattern || [[ -n "$pattern" ]]; do
+        # Skip empty lines and comments
         [[ -z "$pattern" ]] && continue
-        # Type 2 = regex whitelist, enabled = 1
+        [[ "$pattern" =~ ^[[:space:]]*# ]] && { ((skipped++)); continue; }
+        [[ "$pattern" =~ ^[[:space:]]*$ ]] && continue
+        
+        # Trim whitespace
+        pattern="${pattern#"${pattern%%[![:space:]]*}"}"
+        pattern="${pattern%"${pattern##*[![:space:]]}"}"
+        
+        # Skip if still empty after trimming
+        [[ -z "$pattern" ]] && continue
+        
+        # Type 2 = regex allowlist, enabled = 1
         local escaped_pattern="${pattern//\'/\'\'}"
-        echo "INSERT OR IGNORE INTO domainlist (type, domain, enabled) VALUES (2, '${escaped_pattern}', 1);" >> "$temp_sql"
+        echo "INSERT OR IGNORE INTO domainlist (type, domain, enabled, comment) VALUES (2, '${escaped_pattern}', 1, 'Added by updates_optimized.sh');" >> "$temp_sql"
         ((count++))
         verbose_log "Queued allow regex: $pattern"
     done < "$file"
     
-    debug_log "update_allow_regex_v6: Queued $count regex patterns"
+    debug_log "update_allow_regex_v6: Queued $count regex patterns, skipped $skipped"
+    
+    if [[ $count -eq 0 ]]; then
+        log "No valid allow regex patterns found to add"
+        rm -f "$temp_sql"
+        return 0
+    fi
+    
     echo "COMMIT;" >> "$temp_sql"
     
     debug_log "update_allow_regex_v6: Executing SQL transaction"
     local sql_error="$TEMPDIR/sql_error_regex_$$.log"
     if ! sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>"$sql_error"; then
-        log "ERROR: Failed to insert allow regex"
-        if [[ -f "$sql_error" ]]; then
-            log "ERROR: SQL error: $(cat "$sql_error")"
-            rm -f "$sql_error"
+        log_error "Failed to insert allow regex"
+        if [[ -f "$sql_error" && -s "$sql_error" ]]; then
+            local err_msg=$(cat "$sql_error")
+            log_error "SQL error: $err_msg"
+            SQL_ERRORS+=("SQL FAILED (v6 allow-regex): $err_msg")
+        else
+            SQL_ERRORS+=("SQL FAILED (v6 allow-regex): Unknown error")
         fi
+        rm -f "$sql_error"
         return 1
     fi
     
     rm -f "$temp_sql" "$sql_error"
-    log_success "Added $count allow regex patterns via direct SQL (fast)"
+    
+    # Verify the entries were actually added
+    verify_database_insert "domainlist" 2 "$count" "allow regex" || {
+        log_warning "Allow regex verification found fewer entries than expected"
+    }
+    
+    log_success "Added $count allow regex patterns via direct SQL (type=2, v6)"
+    if [[ $skipped -gt 0 ]]; then
+        log "Skipped $skipped entries (comments)"
+    fi
     debug_success "update_allow_regex_v6: Completed successfully"
     print_banner yellow "Completed Allow Regex List"
 }
@@ -612,39 +1102,84 @@ update_allow_v6() {
         return 0
     fi
     
+    # Check if file has content
+    if [[ ! -s "$file" ]]; then
+        log "Whitelist file is empty, skipping"
+        debug_log "update_allow_v6: File is empty: $file"
+        return 0
+    fi
+    
     debug_log "update_allow_v6: File found, size: $(stat -c%s "$file" 2>/dev/null || echo 'unknown') bytes"
     
     print_banner green "Starting Allow List (v6)"
     
-    # Validate database exists
+    # Validate database exists and is accessible
     if [[ ! -f "$GRAVITY_DB" ]]; then
-        log "ERROR: Gravity database not found: $GRAVITY_DB"
+        log_error "Gravity database not found: $GRAVITY_DB"
+        SQL_ERRORS+=("DATABASE MISSING: $GRAVITY_DB")
         debug_log "update_allow_v6: Database missing, aborting"
         return 1
     fi
-    debug_log "update_allow_v6: Database exists: $GRAVITY_DB"
+    
+    if ! sqlite3 "$GRAVITY_DB" "SELECT 1" &>/dev/null; then
+        log_error "Cannot access gravity database"
+        SQL_ERRORS+=("DATABASE ACCESS FAILED: $GRAVITY_DB")
+        return 1
+    fi
+    
+    debug_log "update_allow_v6: Database exists and accessible: $GRAVITY_DB"
     
     # Use direct SQL INSERT for massive performance improvement
     local count=0
+    local skipped=0
     local temp_sql="$TEMPDIR/allow_insert.sql"
     debug_log "update_allow_v6: Creating SQL transaction file: $temp_sql"
     
     echo "BEGIN TRANSACTION;" > "$temp_sql" || {
-        log "ERROR: Failed to create SQL transaction file: $temp_sql"
+        log_error "Failed to create SQL transaction file: $temp_sql"
+        SQL_ERRORS+=("CANNOT CREATE SQL FILE: $temp_sql")
         debug_log "update_allow_v6: Cannot write to temp directory"
         return 1
     }
     
     debug_log "update_allow_v6: Reading domains from $file"
-    while IFS= read -r domain; do
+    while IFS= read -r domain || [[ -n "$domain" ]]; do
+        # Skip empty lines and comments
         [[ -z "$domain" ]] && continue
-        # Type 0 = exact whitelist, enabled = 1
-        echo "INSERT OR IGNORE INTO domainlist (type, domain, enabled) VALUES (0, '${domain}', 1);" >> "$temp_sql"
+        [[ "$domain" =~ ^[[:space:]]*# ]] && { ((skipped++)); continue; }
+        [[ "$domain" =~ ^[[:space:]]*$ ]] && continue
+        
+        # Trim whitespace
+        domain="${domain#"${domain%%[![:space:]]*}"}"
+        domain="${domain%"${domain##*[![:space:]]}"}"
+        
+        # Skip if still empty after trimming
+        [[ -z "$domain" ]] && continue
+        
+        # Basic domain validation
+        if [[ "$domain" =~ [[:space:]] ]]; then
+            log_warning "Skipping invalid domain (contains spaces): $domain"
+            ((skipped++))
+            continue
+        fi
+        
+        # Escape single quotes for SQL
+        local escaped_domain="${domain//\'/\'\'}"
+        
+        # Type 0 = exact allowlist, enabled = 1
+        echo "INSERT OR IGNORE INTO domainlist (type, domain, enabled, comment) VALUES (0, '${escaped_domain}', 1, 'Added by updates_optimized.sh');" >> "$temp_sql"
         ((count++))
         verbose_log "Queued allow domain: $domain"
     done < "$file"
     
-    debug_log "update_allow_v6: Queued $count domains for insertion"
+    debug_log "update_allow_v6: Queued $count domains for insertion, skipped $skipped"
+    
+    if [[ $count -eq 0 ]]; then
+        log "No valid domains found to add"
+        rm -f "$temp_sql"
+        return 0
+    fi
+    
     echo "COMMIT;" >> "$temp_sql"
     
     local sql_size=$(stat -c%s "$temp_sql" 2>/dev/null || echo '0')
@@ -653,17 +1188,30 @@ update_allow_v6() {
     
     local sql_error="$TEMPDIR/sql_error_$$.log"
     if ! sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>"$sql_error"; then
-        log "ERROR: Failed to insert allow list"
-        if [[ -f "$sql_error" ]]; then
-            log "ERROR: SQL error: $(cat "$sql_error")"
-            rm -f "$sql_error"
+        log_error "Failed to insert allow list"
+        if [[ -f "$sql_error" && -s "$sql_error" ]]; then
+            local err_msg=$(cat "$sql_error")
+            log_error "SQL error: $err_msg"
+            SQL_ERRORS+=("SQL FAILED (v6 allow): $err_msg")
+        else
+            SQL_ERRORS+=("SQL FAILED (v6 allow): Unknown error")
         fi
+        rm -f "$sql_error"
         debug_log "update_allow_v6: SQL execution failed, keeping $temp_sql for inspection"
         return 1
     fi
     
     rm -f "$temp_sql" "$sql_error"
-    log_success "Added $count allow domains via direct SQL (fast)"
+    
+    # Verify the entries were actually added
+    verify_database_insert "domainlist" 0 "$count" "exact allow" || {
+        log_warning "Allow list verification found fewer entries than expected (may be duplicates)"
+    }
+    
+    log_success "Added $count allow domains via direct SQL (type=0, v6)"
+    if [[ $skipped -gt 0 ]]; then
+        log "Skipped $skipped entries (comments or invalid)"
+    fi
     debug_success "update_allow_v6: Completed successfully"
     print_banner yellow "Completed Allow List"
 }
@@ -680,41 +1228,87 @@ update_regex_v6() {
         return 0
     fi
     
+    # Check if file has content
+    if [[ ! -s "$file" ]]; then
+        log "Regex block file is empty, skipping"
+        debug_log "update_regex_v6: File is empty, skipping"
+        return 0
+    fi
+    
     debug_log "update_regex_v6: File found, size: $(stat -c%s "$file" 2>/dev/null || echo 'unknown') bytes"
     
     print_banner green "Starting Regex Block List (v6)"
     
+    # Validate database is accessible
+    if ! sqlite3 "$GRAVITY_DB" "SELECT 1" &>/dev/null; then
+        log_error "Cannot access gravity database"
+        SQL_ERRORS+=("DATABASE ACCESS FAILED: $GRAVITY_DB")
+        return 1
+    fi
+    
     local count=0
+    local skipped=0
     local temp_sql="$TEMPDIR/block_regex_insert.sql"
     debug_log "update_regex_v6: Creating SQL file: $temp_sql"
     
     echo "BEGIN TRANSACTION;" > "$temp_sql"
     
-    while IFS= read -r pattern; do
+    while IFS= read -r pattern || [[ -n "$pattern" ]]; do
+        # Skip empty lines and comments
         [[ -z "$pattern" ]] && continue
-        # Type 3 = regex blacklist, enabled = 1
+        [[ "$pattern" =~ ^[[:space:]]*# ]] && { ((skipped++)); continue; }
+        [[ "$pattern" =~ ^[[:space:]]*$ ]] && continue
+        
+        # Trim whitespace
+        pattern="${pattern#"${pattern%%[![:space:]]*}"}"
+        pattern="${pattern%"${pattern##*[![:space:]]}"}"
+        
+        # Skip if still empty after trimming
+        [[ -z "$pattern" ]] && continue
+        
+        # Type 3 = regex denylist, enabled = 1
         local escaped_pattern="${pattern//\'/\'\'}"
-        echo "INSERT OR IGNORE INTO domainlist (type, domain, enabled) VALUES (3, '${escaped_pattern}', 1);" >> "$temp_sql"
+        echo "INSERT OR IGNORE INTO domainlist (type, domain, enabled, comment) VALUES (3, '${escaped_pattern}', 1, 'Added by updates_optimized.sh');" >> "$temp_sql"
         ((count++))
         verbose_log "Queued block regex: $pattern"
     done < "$file"
     
-    debug_log "update_regex_v6: Queued $count block regex patterns"
+    debug_log "update_regex_v6: Queued $count block regex patterns, skipped $skipped"
+    
+    if [[ $count -eq 0 ]]; then
+        log "No valid block regex patterns found to add"
+        rm -f "$temp_sql"
+        return 0
+    fi
+    
     echo "COMMIT;" >> "$temp_sql"
     
     debug_log "update_regex_v6: Executing SQL transaction"
     local sql_error="$TEMPDIR/sql_error_block_$$.log"
     if ! sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>"$sql_error"; then
-        log "ERROR: Failed to insert block regex"
-        if [[ -f "$sql_error" ]]; then
-            log "ERROR: SQL error: $(cat "$sql_error")"
-            rm -f "$sql_error"
+        log_error "Failed to insert block regex"
+        if [[ -f "$sql_error" && -s "$sql_error" ]]; then
+            local err_msg=$(cat "$sql_error")
+            log_error "SQL error: $err_msg"
+            SQL_ERRORS+=("SQL FAILED (v6 block-regex): $err_msg")
+        else
+            SQL_ERRORS+=("SQL FAILED (v6 block-regex): Unknown error")
         fi
+        rm -f "$sql_error"
         return 1
     fi
     
     rm -f "$temp_sql" "$sql_error"
-    log_success "Added $count block regex patterns via direct SQL (fast)"
+    
+    # Verify the entries were actually added
+    verify_database_insert "domainlist" 3 "$count" "regex deny" || {
+        log_warning "Block regex verification found fewer entries than expected"
+    }
+    
+    log_success "Added $count block regex patterns via direct SQL (type=3, v6)"
+    if [[ $skipped -gt 0 ]]; then
+        log "Skipped $skipped entries (comments)"
+    fi
     debug_success "update_regex_v6: Completed successfully"
     print_banner yellow "Completed Regex Block List"
 }
@@ -726,37 +1320,122 @@ update_regex_v6() {
 update_adlists() {
     local file="$PIDIR/adlists.list"
     
-    [[ ! -f "$file" ]] && { log "No adlists file found, skipping"; return 0; }
+    debug_log "update_adlists: Starting function"
+    debug_log "update_adlists: Looking for file: $file"
+    
+    if [[ ! -f "$file" ]]; then
+        log "No adlists file found, skipping"
+        debug_log "update_adlists: File does not exist: $file"
+        return 0
+    fi
+    
+    # Check if file has content
+    if [[ ! -s "$file" ]]; then
+        log "Adlists file is empty, skipping"
+        debug_log "update_adlists: File is empty: $file"
+        return 0
+    fi
     
     print_banner green "Starting Adlist Database Update"
     
-    # Clear existing adlist database
-    sqlite3 "$GRAVITY_DB" "DELETE FROM adlist" 2>/dev/null || {
-        log "ERROR: Failed to clear adlist database"
+    # Validate database is accessible
+    if ! sqlite3 "$GRAVITY_DB" "SELECT 1" &>/dev/null; then
+        log_error "Cannot access gravity database"
+        SQL_ERRORS+=("DATABASE ACCESS FAILED: $GRAVITY_DB")
         return 1
-    }
+    fi
     
-    # Format and prepare adlist
-    grep -v '#' "$file" | grep "/" | sort | uniq > "$TEMPDIR/formatted_adlist.temp" || {
-        log "WARNING: No valid adlists found"
+    # Clear existing adlist database
+    debug_log "update_adlists: Clearing existing adlist entries"
+    local sql_error="$TEMPDIR/sql_error_adlist_$$.log"
+    if ! sqlite3 "$GRAVITY_DB" "DELETE FROM adlist" 2>"$sql_error"; then
+        log_error "Failed to clear adlist database"
+        if [[ -f "$sql_error" && -s "$sql_error" ]]; then
+            local err_msg=$(cat "$sql_error")
+            log_error "SQL error: $err_msg"
+            SQL_ERRORS+=("SQL FAILED (clear adlist): $err_msg")
+        fi
+        rm -f "$sql_error"
+        return 1
+    fi
+    rm -f "$sql_error"
+    
+    # Format and prepare adlist - filter out comments and invalid lines
+    debug_log "update_adlists: Formatting adlist file"
+    if ! grep -v '^[[:space:]]*#' "$file" | grep -v '^[[:space:]]*$' | grep "/" | sort | uniq > "$TEMPDIR/formatted_adlist.temp" 2>/dev/null; then
+        log_warning "No valid adlists found after filtering"
         return 0
-    }
+    fi
     
-    # Insert URLs into database
+    # Check if we have any valid URLs
+    if [[ ! -s "$TEMPDIR/formatted_adlist.temp" ]]; then
+        log_warning "No valid adlist URLs found in $file"
+        return 0
+    fi
+    
+    # Insert URLs into database using a transaction for better performance
     local count=0
     local id=1
-    while IFS= read -r url; do
+    local temp_sql="$TEMPDIR/adlist_insert.sql"
+    
+    echo "BEGIN TRANSACTION;" > "$temp_sql"
+    
+    while IFS= read -r url || [[ -n "$url" ]]; do
         [[ -z "$url" ]] && continue
-        sqlite3 "$GRAVITY_DB" "INSERT INTO adlist (id, address, enabled) VALUES($id, '$url', 1)" 2>/dev/null || {
-            log "WARNING: Failed to insert adlist: $url"
+        
+        # Trim whitespace
+        url="${url#"${url%%[![:space:]]*}"}"
+        url="${url%"${url##*[![:space:]]}"}"
+        
+        [[ -z "$url" ]] && continue
+        
+        # Basic URL validation
+        if [[ ! "$url" =~ ^https?:// ]]; then
+            log_warning "Skipping invalid URL (no http/https): $url"
             continue
-        }
+        fi
+        
+        # Escape single quotes for SQL
+        local escaped_url="${url//\'/\'\'}"
+        echo "INSERT INTO adlist (id, address, enabled, comment) VALUES($id, '$escaped_url', 1, 'Added by updates_optimized.sh');" >> "$temp_sql"
         ((count++))
         ((id++))
         verbose_log "Added adlist: $url"
     done < "$TEMPDIR/formatted_adlist.temp"
     
-    log "Added $count adlists to database"
+    echo "COMMIT;" >> "$temp_sql"
+    
+    if [[ $count -eq 0 ]]; then
+        log "No valid adlist URLs found to add"
+        rm -f "$temp_sql" "$TEMPDIR/formatted_adlist.temp"
+        return 0
+    fi
+    
+    # Execute the transaction
+    debug_log "update_adlists: Executing SQL transaction with $count URLs"
+    sql_error="$TEMPDIR/sql_error_adlist_insert_$$.log"
+    if ! sqlite3 "$GRAVITY_DB" < "$temp_sql" 2>"$sql_error"; then
+        log_error "Failed to insert adlists"
+        if [[ -f "$sql_error" && -s "$sql_error" ]]; then
+            local err_msg=$(cat "$sql_error")
+            log_error "SQL error: $err_msg"
+            SQL_ERRORS+=("SQL FAILED (adlist insert): $err_msg")
+        fi
+        rm -f "$sql_error"
+        return 1
+    fi
+    
+    rm -f "$temp_sql" "$sql_error" "$TEMPDIR/formatted_adlist.temp"
+    
+    # Verify entries were added
+    local actual_count
+    actual_count=$(sqlite3 "$GRAVITY_DB" "SELECT COUNT(*) FROM adlist WHERE enabled=1;" 2>/dev/null || echo "0")
+    
+    if [[ "$actual_count" -lt "$count" ]]; then
+        log_warning "Adlist verification: Expected $count, found $actual_count"
+    fi
+    
+    log_success "Added $count adlists to database"
     print_banner yellow "Completed Adlist Database Update"
 }
 
@@ -1199,141 +1878,342 @@ download_encrypted_blocklists() {
 
 assemble_and_deploy() {
     log "Assembling and deploying configurations..."
+    local errors=0
     
-    # Assemble final files
-    cat $TEMPDIR/*.allow.regex.temp 2>/dev/null | \
-        grep -v '#' | grep -v '^$' | grep -v '^[[:space:]]*$' | \
-        sort | uniq > "$TEMPDIR/final.allow.regex.temp"
+    # Assemble final files with better error handling
+    debug_log "assemble_and_deploy: Assembling allow regex files"
+    if ! cat $TEMPDIR/*.allow.regex.temp 2>/dev/null | \
+        grep -v '^[[:space:]]*#' | grep -v '^$' | grep -v '^[[:space:]]*$' | \
+        sort | uniq > "$TEMPDIR/final.allow.regex.temp" 2>/dev/null; then
+        log_warning "No allow regex files to assemble"
+        touch "$TEMPDIR/final.allow.regex.temp"
+    fi
     
-    cat $TEMPDIR/*.allow.temp 2>/dev/null | \
-        grep -v '#' | grep -v '^$' | grep -v '^[[:space:]]*$' | \
-        sort | uniq > "$TEMPDIR/final.allow.temp"
+    debug_log "assemble_and_deploy: Assembling allow files"
+    if ! cat $TEMPDIR/*.allow.temp 2>/dev/null | \
+        grep -v '^[[:space:]]*#' | grep -v '^$' | grep -v '^[[:space:]]*$' | \
+        sort | uniq > "$TEMPDIR/final.allow.temp" 2>/dev/null; then
+        log_warning "No allow files to assemble"
+        touch "$TEMPDIR/final.allow.temp"
+    fi
     
-    cat $TEMPDIR/*.regex 2>/dev/null | \
-        grep -v '#' | grep -v '^$' | grep -v '^[[:space:]]*$' | \
-        sort | uniq > "$TEMPDIR/regex.list"
+    debug_log "assemble_and_deploy: Assembling regex files"
+    if ! cat $TEMPDIR/*.regex 2>/dev/null | \
+        grep -v '^[[:space:]]*#' | grep -v '^$' | grep -v '^[[:space:]]*$' | \
+        sort | uniq > "$TEMPDIR/regex.list" 2>/dev/null; then
+        log_warning "No regex files to assemble"
+        touch "$TEMPDIR/regex.list"
+    fi
     
-    cat $TEMPDIR/*.block.encrypt.temp 2>/dev/null | \
-        grep -v '#' | grep -v '^$' | grep -v '^[[:space:]]*$' | \
-        sort | uniq > "$CONFIG/encrypt.list"
+    debug_log "assemble_and_deploy: Assembling encrypted block files"
+    if ! cat $TEMPDIR/*.block.encrypt.temp 2>/dev/null | \
+        grep -v '^[[:space:]]*#' | grep -v '^$' | grep -v '^[[:space:]]*$' | \
+        sort | uniq > "$CONFIG/encrypt.list" 2>/dev/null; then
+        log_warning "No encrypted block files to assemble"
+        # Don't fail on this, it may not exist
+    fi
     
-    # Deploy files
+    # Deploy files with verification
     debug_log "assemble_and_deploy: Deploying configuration files"
-    mv "$TEMPDIR/regex.list" "$PIDIR/regex.list" || {
-        log "WARNING: Failed to deploy regex.list"
-        DEPLOY_ERRORS+=("DEPLOY FAILED: regex.list to $PIDIR/regex.list")
-    }
-    mv "$TEMPDIR/final.allow.temp" "$PIDIR/whitelist.txt" || {
-        log "WARNING: Failed to deploy whitelist.txt"
-        DEPLOY_ERRORS+=("DEPLOY FAILED: whitelist.txt to $PIDIR/whitelist.txt")
-    }
-    mv "$TEMPDIR/adlists.list" "$PIDIR/adlists.list" || {
-        log "WARNING: Failed to deploy adlists.list"
-        DEPLOY_ERRORS+=("DEPLOY FAILED: adlists.list to $PIDIR/adlists.list")
-    }
+    
+    if [[ -s "$TEMPDIR/regex.list" ]]; then
+        if mv "$TEMPDIR/regex.list" "$PIDIR/regex.list"; then
+            log "Deployed regex.list ($(wc -l < "$PIDIR/regex.list" 2>/dev/null || echo 0) entries)"
+        else
+            log_error "Failed to deploy regex.list"
+            DEPLOY_ERRORS+=("DEPLOY FAILED: regex.list to $PIDIR/regex.list")
+            ((errors++))
+        fi
+    else
+        log_warning "regex.list is empty, skipping deployment"
+    fi
+    
+    if [[ -s "$TEMPDIR/final.allow.temp" ]]; then
+        if mv "$TEMPDIR/final.allow.temp" "$PIDIR/whitelist.txt"; then
+            log "Deployed whitelist.txt ($(wc -l < "$PIDIR/whitelist.txt" 2>/dev/null || echo 0) entries)"
+        else
+            log_error "Failed to deploy whitelist.txt"
+            DEPLOY_ERRORS+=("DEPLOY FAILED: whitelist.txt to $PIDIR/whitelist.txt")
+            ((errors++))
+        fi
+    else
+        log_warning "whitelist.txt is empty, skipping deployment"
+    fi
+    
+    if [[ -s "$TEMPDIR/adlists.list" ]]; then
+        if mv "$TEMPDIR/adlists.list" "$PIDIR/adlists.list"; then
+            log "Deployed adlists.list ($(wc -l < "$PIDIR/adlists.list" 2>/dev/null || echo 0) entries)"
+        else
+            log_error "Failed to deploy adlists.list"
+            DEPLOY_ERRORS+=("DEPLOY FAILED: adlists.list to $PIDIR/adlists.list")
+            ((errors++))
+        fi
+    else
+        log_warning "adlists.list not found or empty, skipping deployment"
+    fi
     
     if [[ -f "$TEMPDIR/CFconfig" ]]; then
         debug_log "assemble_and_deploy: Deploying CFconfig"
-        mv "$TEMPDIR/CFconfig" "$FINISHED/cloudflared" || log "WARNING: Failed to deploy CFconfig"
+        mv "$TEMPDIR/CFconfig" "$FINISHED/cloudflared" || log_warning "Failed to deploy CFconfig"
     else
         debug_log "assemble_and_deploy: CFconfig not found, skipping"
     fi
     
     if [[ -f "$TEMPDIR/refresh.sh" ]]; then
         debug_log "assemble_and_deploy: Deploying refresh.sh"
-        mv "$TEMPDIR/refresh.sh" "$FINISHED/refresh.sh" || log "WARNING: Failed to deploy refresh.sh"
+        mv "$TEMPDIR/refresh.sh" "$FINISHED/refresh.sh" || log_warning "Failed to deploy refresh.sh"
     else
         debug_log "assemble_and_deploy: refresh.sh not found, skipping"
     fi
     
     # Update database directly (integrated functionality)
     debug_log "assemble_and_deploy: Starting database update"
-    update_pihole_database
-    debug_log "assemble_and_deploy: Completed"
+    if ! update_pihole_database; then
+        log_error "Database update failed"
+        ((errors++))
+    fi
+    
+    # Verify database entries
+    verify_allow_list_entries || log_warning "Allow list verification had issues"
+    
+    debug_log "assemble_and_deploy: Completed with $errors errors"
+    
+    if [[ $errors -gt 0 ]]; then
+        return 1
+    fi
+    return 0
 }
 
 assemble_and_deploy_regex_only() {
     log "Assembling and deploying regex configurations..."
+    local errors=0
     
     # Assemble only regex block lists
-    cat $TEMPDIR/*.regex 2>/dev/null | \
-        grep -v '#' | grep -v '^$' | grep -v '^[[:space:]]*$' | \
-        sort | uniq > "$TEMPDIR/regex.list"
+    debug_log "assemble_and_deploy_regex_only: Assembling regex files"
+    if ! cat $TEMPDIR/*.regex 2>/dev/null | \
+        grep -v '^[[:space:]]*#' | grep -v '^$' | grep -v '^[[:space:]]*$' | \
+        sort | uniq > "$TEMPDIR/regex.list" 2>/dev/null; then
+        log_warning "No regex files to assemble"
+        touch "$TEMPDIR/regex.list"
+    fi
     
     # Deploy regex file
-    mv "$TEMPDIR/regex.list" "$PIDIR/regex.list"
+    if [[ -s "$TEMPDIR/regex.list" ]]; then
+        if mv "$TEMPDIR/regex.list" "$PIDIR/regex.list"; then
+            log "Deployed regex.list ($(wc -l < "$PIDIR/regex.list" 2>/dev/null || echo 0) entries)"
+        else
+            log_error "Failed to deploy regex.list"
+            DEPLOY_ERRORS+=("DEPLOY FAILED: regex.list")
+            ((errors++))
+        fi
+    else
+        log_warning "regex.list is empty, skipping deployment"
+    fi
     
     # Update database with regex only (integrated functionality)
-    update_pihole_database_regex_only
+    if ! update_pihole_database_regex_only; then
+        log_error "Regex database update failed"
+        ((errors++))
+    fi
+    
+    # Verify regex entries
+    local regex_count
+    regex_count=$(sqlite3 "$GRAVITY_DB" "SELECT COUNT(*) FROM domainlist WHERE type=3 AND enabled=1;" 2>/dev/null || echo "0")
+    log "Database verification: $regex_count regex deny entries (type 3)"
+    
+    if [[ $errors -gt 0 ]]; then
+        return 1
+    fi
+    return 0
 }
 
 restart_services() {
     log "Restarting Pi-hole services..."
+    local errors=0
     
-    killall -SIGHUP pihole-FTL 2>/dev/null || true
-    pihole restartdns
-    pihole -g
-    
-    if [[ "$is_cloudflared" == "cloudflared" ]]; then
-        systemctl restart cloudflared
-        log "Cloudflared restarted"
+    # Send SIGHUP to pihole-FTL to reload configuration
+    debug_log "restart_services: Sending SIGHUP to pihole-FTL"
+    if ! killall -SIGHUP pihole-FTL 2>/dev/null; then
+        log_warning "Could not send SIGHUP to pihole-FTL (may not be running)"
     fi
+    
+    # Restart DNS service
+    debug_log "restart_services: Restarting DNS"
+    if ! pihole restartdns 2>/dev/null; then
+        log_warning "pihole restartdns failed"
+        ((errors++))
+    fi
+    
+    # Run gravity to update blocking lists
+    debug_log "restart_services: Running gravity update"
+    if ! pihole -g 2>/dev/null; then
+        log_warning "pihole -g (gravity) failed"
+        ((errors++))
+    fi
+    
+    # Restart cloudflared if configured
+    if [[ "$is_cloudflared" == "cloudflared" ]]; then
+        debug_log "restart_services: Restarting cloudflared"
+        if systemctl restart cloudflared 2>/dev/null; then
+            log "Cloudflared restarted"
+        else
+            log_warning "Failed to restart cloudflared"
+            ((errors++))
+        fi
+    fi
+    
+    # Verify Pi-hole is running after restart
+    if pihole status 2>/dev/null | grep -q "enabled"; then
+        log_success "Pi-hole services restarted successfully"
+    else
+        log_warning "Pi-hole status check returned unexpected result"
+        ((errors++))
+    fi
+    
+    if [[ $errors -gt 0 ]]; then
+        return 1
+    fi
+    return 0
 }
 
 cleanup() {
+    # This function is for in-process cleanup (not the trap-based cleanup)
     log "Cleaning up temporary files..."
-    rm -f $TEMPDIR/*.regex $TEMPDIR/*.temp $TEMPDIR/*.gpg 2>/dev/null || true
+    
+    # Remove specific file patterns
+    rm -f "$TEMPDIR"/*.regex 2>/dev/null || true
+    rm -f "$TEMPDIR"/*.temp 2>/dev/null || true
+    rm -f "$TEMPDIR"/*.gpg 2>/dev/null || true
+    rm -f "$TEMPDIR"/*.sql 2>/dev/null || true
+    rm -f "$TEMPDIR"/*.log 2>/dev/null || true
+    rm -f "$TEMPDIR"/curl_error_* 2>/dev/null || true
+    rm -f "$TEMPDIR"/gpg_error_* 2>/dev/null || true
+    rm -f "$TEMPDIR"/sql_error_* 2>/dev/null || true
+    rm -f "$TEMPDIR"/formatted_adlist.temp 2>/dev/null || true
+    
+    # List any remaining files (for debugging)
+    if [[ "$DEBUG" -eq 1 ]]; then
+        local remaining
+        remaining=$(find "$TEMPDIR" -type f 2>/dev/null | wc -l)
+        if [[ "$remaining" -gt 0 ]]; then
+            debug_log "Remaining files in $TEMPDIR: $remaining"
+            find "$TEMPDIR" -type f 2>/dev/null | while read -r f; do
+                debug_log "  - $f"
+            done
+        else
+            debug_log "Temp directory is clean"
+        fi
+    fi
+    
+    log_success "Cleanup completed"
 }
 
 purge_database() {
     log "Purging Pi-hole database..."
+    debug_log "purge_database: Starting with version=$version"
+    
+    # Validate database is accessible
+    if ! sqlite3 "$GRAVITY_DB" "SELECT 1" &>/dev/null; then
+        log_error "Cannot access gravity database"
+        SQL_ERRORS+=("DATABASE ACCESS FAILED: $GRAVITY_DB")
+        return 1
+    fi
     
     # Clear adlists
-    sqlite3 "$GRAVITY_DB" "DELETE FROM adlist" 2>/dev/null || {
-        log "ERROR: Failed to clear adlist table"
+    local sql_error="$TEMPDIR/sql_error_purge_$$.log"
+    if ! sqlite3 "$GRAVITY_DB" "DELETE FROM adlist" 2>"$sql_error"; then
+        log_error "Failed to clear adlist table"
+        if [[ -f "$sql_error" && -s "$sql_error" ]]; then
+            SQL_ERRORS+=("SQL FAILED (purge adlist): $(cat "$sql_error")")
+        fi
+        rm -f "$sql_error"
         return 1
-    }
+    fi
     log "Cleared adlist table"
     
     if [[ "$version" == "5" ]]; then
         log "Purging Pi-hole v5 lists..."
+        debug_log "purge_database: Using v5 CLI commands"
         
-        # Purge existing regex list
-        pihole --regex --nuke 2>/dev/null || log "WARNING: Failed to nuke regex list"
+        # Pi-hole v5 CLI commands for purging lists
+        # Note: These commands may not all exist in all v5 installations
+        # Using --nuke flag to remove all entries
         
-        # Purge existing wildcard deny list
-        pihole --wild --nuke 2>/dev/null || log "WARNING: Failed to nuke wildcard deny list"
+        # Purge existing regex deny list
+        if pihole --regex --nuke 2>/dev/null; then
+            log "Cleared regex deny list"
+        else
+            log_warning "Failed to nuke regex deny list (may not exist)"
+        fi
         
-        # Purge existing allow list
-        pihole -w --nuke 2>/dev/null || log "WARNING: Failed to nuke allow list"
+        # Purge existing wildcard deny list  
+        if pihole --wild --nuke 2>/dev/null; then
+            log "Cleared wildcard deny list"
+        else
+            log_warning "Failed to nuke wildcard deny list (may not exist)"
+        fi
         
-        # Purge existing allow list regex
-        pihole --white-regex --nuke 2>/dev/null || log "WARNING: Failed to nuke allow regex"
+        # Purge existing allow list (whitelist)
+        if pihole -w --nuke 2>/dev/null; then
+            log "Cleared allow list (whitelist)"
+        else
+            log_warning "Failed to nuke allow list (may not exist)"
+        fi
         
-        # Purge existing deny list
-        pihole -b --nuke 2>/dev/null || log "WARNING: Failed to nuke deny list"
+        # Purge existing allow list regex (white-regex)
+        if pihole --white-regex --nuke 2>/dev/null; then
+            log "Cleared allow regex list"
+        else
+            log_warning "Failed to nuke allow regex list (may not exist)"
+        fi
+        
+        # Purge existing deny list (blacklist)
+        if pihole -b --nuke 2>/dev/null; then
+            log "Cleared deny list (blacklist)"
+        else
+            log_warning "Failed to nuke deny list (may not exist)"
+        fi
         
         # Purge existing wildcard allow list
-        pihole --white-wild --nuke 2>/dev/null || log "WARNING: Failed to nuke wildcard allow"
+        if pihole --white-wild --nuke 2>/dev/null; then
+            log "Cleared wildcard allow list"
+        else
+            log_warning "Failed to nuke wildcard allow list (may not exist)"
+        fi
         
         log "Pi-hole v5 database purged"
         
     elif [[ "$version" == "6" ]]; then
         log "Purging Pi-hole v6 lists..."
+        debug_log "purge_database: Using direct SQL for v6 (more reliable)"
         
-        # Clear domainlist table
-        sqlite3 "$GRAVITY_DB" "DELETE FROM domainlist;" 2>/dev/null || {
-            log "ERROR: Failed to clear domainlist table"
+        # For v6, direct SQL is more reliable than CLI
+        # Clear entire domainlist table
+        if ! sqlite3 "$GRAVITY_DB" "DELETE FROM domainlist;" 2>"$sql_error"; then
+            log_error "Failed to clear domainlist table"
+            if [[ -f "$sql_error" && -s "$sql_error" ]]; then
+                SQL_ERRORS+=("SQL FAILED (purge domainlist): $(cat "$sql_error")")
+            fi
+            rm -f "$sql_error"
             return 1
-        }
+        fi
+        
+        # Verify the table is empty
+        local remaining
+        remaining=$(sqlite3 "$GRAVITY_DB" "SELECT COUNT(*) FROM domainlist;" 2>/dev/null || echo "unknown")
+        if [[ "$remaining" != "0" ]]; then
+            log_warning "domainlist table still has $remaining entries after purge"
+        fi
         
         log "Pi-hole v6 database purged (domainlist table cleared)"
     else
-        log "ERROR: Unknown Pi-hole version: $version"
+        log_error "Unknown Pi-hole version: $version"
+        VALIDATION_ERRORS+=("Unknown Pi-hole version: $version")
         return 1
     fi
     
-    log "Database purge completed successfully"
+    rm -f "$sql_error"
+    log_success "Database purge completed successfully"
 }
 
 #======================================================================================
@@ -1342,16 +2222,27 @@ purge_database() {
 
 cmd_refresh() {
     log "=== Starting script refresh ==="
-    download_scripts
+    download_scripts || log_warning "Some script downloads had issues"
     
     # Move scripts to final location (note: db_updates_optimized.sh no longer needed)
+    local deployed=0
     for script in updates.sh configuration_changes.sh Research.sh allow_update.sh; do
         if [[ -f "$TEMPDIR/$script" ]]; then
             chmod 755 "$TEMPDIR/$script"
-            mv "$TEMPDIR/$script" "$FINISHED/$script"
-            verbose_log "Installed: $script"
+            if mv "$TEMPDIR/$script" "$FINISHED/$script"; then
+                verbose_log "Installed: $script"
+                ((deployed++))
+            else
+                log_warning "Failed to install: $script"
+                DEPLOY_ERRORS+=("DEPLOY FAILED: $script")
+            fi
+        else
+            debug_log "Script not found: $TEMPDIR/$script"
         fi
     done
+    
+    log "Deployed $deployed scripts to $FINISHED"
+    cleanup
     
     log "=== Script refresh completed ==="
     
@@ -1387,6 +2278,7 @@ cmd_full_update() {
     # Deploy and update database
     assemble_and_deploy || {
         log_error "Assembly and deployment failed"
+        cleanup
         show_error_summary
         return 1
     }
@@ -1407,29 +2299,47 @@ cmd_allow_update() {
     log "=== Starting allow list update ==="
     
     if [[ "$Type" == "security" ]]; then
-        download_security_allowlists
+        download_security_allowlists || log_warning "Security allowlist download had issues"
     fi
     
-    download_public_allowlists
-    download_regex_allowlists
-    download_encrypted_allowlists
+    download_public_allowlists || log_warning "Public allowlist download had issues"
+    download_regex_allowlists || log_warning "Regex allowlist download had issues"
+    download_encrypted_allowlists || log_warning "Encrypted allowlist download had issues"
     
     # Assemble allow lists
     cat $TEMPDIR/*.allow.regex.temp 2>/dev/null | \
-        grep -v '#' | grep -v '^$' | grep -v '^[[:space:]]*$' | \
-        sort | uniq > "$TEMPDIR/final.allow.regex.temp"
+        grep -v '^[[:space:]]*#' | grep -v '^$' | grep -v '^[[:space:]]*$' | \
+        sort | uniq > "$TEMPDIR/final.allow.regex.temp" || {
+        log_warning "No allow regex entries to assemble"
+        touch "$TEMPDIR/final.allow.regex.temp"
+    }
     
     cat $TEMPDIR/*.allow.temp 2>/dev/null | \
-        grep -v '#' | grep -v '^$' | grep -v '^[[:space:]]*$' | \
-        sort | uniq > "$TEMPDIR/final.allow.temp"
+        grep -v '^[[:space:]]*#' | grep -v '^$' | grep -v '^[[:space:]]*$' | \
+        sort | uniq > "$TEMPDIR/final.allow.temp" || {
+        log_warning "No allow entries to assemble"
+        touch "$TEMPDIR/final.allow.temp"
+    }
     
     # Deploy allow lists
-    mv "$TEMPDIR/final.allow.temp" "$PIDIR/whitelist.txt"
+    if [[ -s "$TEMPDIR/final.allow.temp" ]]; then
+        mv "$TEMPDIR/final.allow.temp" "$PIDIR/whitelist.txt" || {
+            log_error "Failed to deploy whitelist.txt"
+            DEPLOY_ERRORS+=("DEPLOY FAILED: whitelist.txt")
+        }
+    else
+        log_warning "No allow entries to deploy"
+    fi
     
     # Update database with allow lists only (integrated functionality)
-    update_pihole_database_allow_only
+    update_pihole_database_allow_only || {
+        log_error "Allow list database update failed"
+    }
     
-    restart_services
+    # Verify entries were added
+    verify_allow_list_entries
+    
+    restart_services || log_warning "Service restart had issues"
     cleanup
     
     log "=== Allow list update completed ==="
@@ -1438,26 +2348,77 @@ cmd_allow_update() {
     show_error_summary
 }
 
+# Function to verify allow list entries were actually added
+verify_allow_list_entries() {
+    log "Verifying allow list entries in database..."
+    
+    if ! sqlite3 "$GRAVITY_DB" "SELECT 1" &>/dev/null; then
+        log_error "Cannot access database for verification"
+        return 1
+    fi
+    
+    # Count exact allowlist entries (type 0)
+    local exact_count
+    exact_count=$(sqlite3 "$GRAVITY_DB" "SELECT COUNT(*) FROM domainlist WHERE type=0 AND enabled=1;" 2>/dev/null || echo "0")
+    
+    # Count regex allowlist entries (type 2)
+    local regex_count
+    regex_count=$(sqlite3 "$GRAVITY_DB" "SELECT COUNT(*) FROM domainlist WHERE type=2 AND enabled=1;" 2>/dev/null || echo "0")
+    
+    log "Database verification:"
+    log "  Exact allow entries (type 0): $exact_count"
+    log "  Regex allow entries (type 2): $regex_count"
+    
+    if [[ "$exact_count" -eq 0 && "$regex_count" -eq 0 ]]; then
+        log_warning "No allow list entries found in database!"
+        log_warning "This may indicate a problem with the update"
+        VALIDATION_ERRORS+=("No allow entries in database after update")
+        return 1
+    fi
+    
+    # Show a few sample entries for verification
+    if [[ "$DEBUG" -eq 1 ]]; then
+        debug_log "Sample exact allow entries (type 0):"
+        sqlite3 "$GRAVITY_DB" "SELECT domain FROM domainlist WHERE type=0 AND enabled=1 LIMIT 5;" 2>/dev/null | while read -r d; do
+            debug_log "  - $d"
+        done
+        
+        debug_log "Sample regex allow entries (type 2):"
+        sqlite3 "$GRAVITY_DB" "SELECT domain FROM domainlist WHERE type=2 AND enabled=1 LIMIT 5;" 2>/dev/null | while read -r d; do
+            debug_log "  - $d"
+        done
+    fi
+    
+    log_success "Allow list verification complete"
+    return 0
+}
+
 cmd_quick_update() {
     log "=== Starting quick update (no system upgrade) ==="
     
-    download_scripts
+    download_scripts || log_warning "Script download had issues"
     
     if [[ "$Type" == "security" ]]; then
-        download_security_config
-        download_security_allowlists
+        download_security_config || log_warning "Security config download had issues"
+        download_security_allowlists || log_warning "Security allowlist download had issues"
     else
-        download_full_config
-        download_test_lists
+        download_full_config || log_warning "Full config download had issues"
+        download_test_lists || log_warning "Test list download had issues"
     fi
     
-    download_public_allowlists
-    download_regex_allowlists
-    download_encrypted_allowlists
-    download_encrypted_blocklists
+    download_public_allowlists || log_warning "Public allowlist download had issues"
+    download_regex_allowlists || log_warning "Regex allowlist download had issues"
+    download_encrypted_allowlists || log_warning "Encrypted allowlist download had issues"
+    download_encrypted_blocklists || log_warning "Encrypted blocklist download had issues"
     
-    assemble_and_deploy
-    restart_services
+    assemble_and_deploy || {
+        log_error "Assembly and deployment failed"
+        cleanup
+        show_error_summary
+        return 1
+    }
+    
+    restart_services || log_warning "Service restart had issues"
     cleanup
     
     log "=== Quick update completed ==="
@@ -1468,34 +2429,42 @@ cmd_quick_update() {
 
 cmd_purge_and_update() {
     log "=== Starting purge and full update ==="
-    log "WARNING: This will clear all existing Pi-hole lists and rebuild from scratch"
+    log_warning "This will clear all existing Pi-hole lists and rebuild from scratch"
     
     # Purge existing database
     purge_database || {
-        log "ERROR: Database purge failed, aborting update"
+        log_error "Database purge failed, aborting update"
+        cleanup
+        show_error_summary
         return 1
     }
     
     # Run full update to repopulate
     log "Starting full update to repopulate database..."
-    system_update
-    download_scripts
+    system_update || log_warning "System update had issues"
+    download_scripts || log_warning "Script download had issues"
     
     if [[ "$Type" == "security" ]]; then
-        download_security_config
-        download_security_allowlists
+        download_security_config || log_warning "Security config download had issues"
+        download_security_allowlists || log_warning "Security allowlist download had issues"
     else
-        download_full_config
-        download_test_lists
+        download_full_config || log_warning "Full config download had issues"
+        download_test_lists || log_warning "Test list download had issues"
     fi
     
-    download_public_allowlists
-    download_regex_allowlists
-    download_encrypted_allowlists
-    download_encrypted_blocklists
+    download_public_allowlists || log_warning "Public allowlist download had issues"
+    download_regex_allowlists || log_warning "Regex allowlist download had issues"
+    download_encrypted_allowlists || log_warning "Encrypted allowlist download had issues"
+    download_encrypted_blocklists || log_warning "Encrypted blocklist download had issues"
     
-    assemble_and_deploy
-    restart_services
+    assemble_and_deploy || {
+        log_error "Assembly and deployment failed"
+        cleanup
+        show_error_summary
+        return 1
+    }
+    
+    restart_services || log_warning "Service restart had issues"
     cleanup
     
     log "=== Purge and full update completed ==="
@@ -1508,14 +2477,20 @@ cmd_block_regex_update() {
     log "=== Starting block regex update ==="
     
     if [[ "$Type" == "security" ]]; then
-        download_security_config
+        download_security_config || log_warning "Security config download had issues"
     else
-        download_full_config
-        download_test_lists
+        download_full_config || log_warning "Full config download had issues"
+        download_test_lists || log_warning "Test list download had issues"
     fi
     
-    assemble_and_deploy_regex_only
-    restart_services
+    assemble_and_deploy_regex_only || {
+        log_error "Regex assembly and deployment failed"
+        cleanup
+        show_error_summary
+        return 1
+    }
+    
+    restart_services || log_warning "Service restart had issues"
     cleanup
     
     log "=== Block regex update completed ==="
@@ -1531,6 +2506,18 @@ Pi-hole Update Script - Fully Integrated & Optimized Version
 DESCRIPTION:
     Combines update/download functionality with database management in a single script.
     No separate database update script needed - all functionality is integrated.
+    Supports both Pi-hole v5 and v6 with automatic cleanup on exit/error.
+
+DATABASE SCHEMA (domainlist table - same for v5 and v6):
+    Type 0 = exact allowlist (whitelist)
+    Type 1 = exact denylist (blacklist)
+    Type 2 = regex allowlist (white-regex)
+    Type 3 = regex denylist (regex blacklist)
+
+CLI DIFFERENCES:
+    Pi-hole v5: pihole -w, pihole -b, pihole --regex, pihole --white-regex
+    Pi-hole v6: pihole allow, pihole deny, pihole --regex, pihole --allow-regex
+    (This script uses direct SQL for better performance and compatibility)
 
 USAGE:
     ./updates_optimized.sh [command] [options]
@@ -1549,6 +2536,20 @@ OPTIONS:
     --debug         Enable debug mode (includes verbose + detailed error tracking)
     --no-reboot     Skip automatic reboot check
 
+FEATURES:
+    - Automatic cleanup of /scripts/temp/* on exit (normal or error)
+    - Validates Pi-hole installation before making changes
+    - Validates configuration files exist and are readable
+    - Verifies database operations completed successfully
+    - Comprehensive error tracking and summary
+    - Supports both Pi-hole v5 and v6
+
+CONFIGURATION FILES (in /scripts/Finished/CONFIG/):
+    type.conf       - Type of configuration (security, full, standard)
+    test.conf       - Whether this is a test system (yes/no)
+    dns_type.conf   - DNS type (cloudflared, standard)
+    ver.conf        - Pi-hole version (5 or 6) - REQUIRED
+
 EXAMPLES:
     # Full update (default behavior)
     ./updates_optimized.sh full-update
@@ -1564,6 +2565,9 @@ EXAMPLES:
 
     # Refresh scripts with verbose output
     ./updates_optimized.sh refresh --verbose
+
+    # Full update with debug logging
+    ./updates_optimized.sh full-update --debug
 
 CRON EXAMPLES:
     # Daily full update at 3 AM
@@ -1584,9 +2588,18 @@ CRON EXAMPLES:
     # Monthly purge and rebuild (first Sunday at 4 AM)
     0 4 1-7 * 0 /scripts/Finished/updates_optimized.sh purge-and-update
 
+TROUBLESHOOTING:
+    - Run with --debug flag for detailed diagnostics
+    - Check /var/log/pihole-updates.log for error details
+    - Verify Pi-hole installation: pihole -v
+    - Verify GPG keys: gpg --list-keys
+    - Check database: sqlite3 /etc/pihole/gravity.db ".tables"
+    - Verify temp cleanup: ls -la /scripts/temp/
+
 NOTES:
-    - Automatically detects Pi-hole version (5 or 6)
-    - All database updates are handled internally
+    - Automatically detects Pi-hole version from ver.conf
+    - All database updates are handled via direct SQL for performance
+    - Temp files are always cleaned up, even on errors or interrupts
     - Logs to /var/log/pihole-updates.log
 
 EOF
@@ -1616,7 +2629,7 @@ main() {
                 NO_REBOOT=1
                 ;;
             *)
-                log "Unknown option: $1"
+                log_error "Unknown option: $1"
                 show_help
                 exit 1
                 ;;
@@ -1624,56 +2637,99 @@ main() {
         shift
     done
     
-    # Create temp directory if needed
-    mkdir -p "$TEMPDIR"
+    # Handle help command early (before any validation)
+    if [[ "$command" == "help" ]] || [[ "$command" == "--help" ]] || [[ "$command" == "-h" ]]; then
+        show_help
+        exit 0
+    fi
+    
+    log "============================================"
+    log "Pi-hole Update Script - Starting"
+    log "Command: $command"
+    log "============================================"
+    
+    # Validate directories first (creates TEMPDIR if needed)
+    validate_directories || {
+        log_error "Directory validation failed, cannot proceed"
+        show_error_summary
+        exit 1
+    }
+    
+    # Validate and load configuration
+    validate_config_files || {
+        log_error "Configuration validation failed, cannot proceed"
+        show_error_summary
+        exit 1
+    }
+    
+    load_configuration || {
+        log_error "Configuration loading failed, cannot proceed"
+        show_error_summary
+        exit 1
+    }
+    
+    log "Loaded configuration:"
+    log "  Pi-hole version: $version"
+    log "  Type: $Type"
+    log "  Test system: $test_system"
+    log "  DNS type: $is_cloudflared"
     
     # Check network connectivity if downloading
-    if [[ "$command" != "help" ]] && [[ "$command" != "--help" ]] && [[ "$command" != "-h" ]]; then
-        check_network || {
-            log "ERROR: Network check failed, cannot proceed with $command"
-            exit 1
+    check_network || {
+        log_error "Network check failed, cannot proceed with $command"
+        show_error_summary
+        exit 1
+    }
+    
+    # Validate Pi-hole installation
+    validate_pihole_installation || {
+        log_error "Pi-hole validation failed"
+        show_error_summary
+        exit 1
+    }
+    
+    # Check GPG configuration for commands that need decryption
+    if [[ "$command" == "full-update" ]] || [[ "$command" == "quick-update" ]] || \
+       [[ "$command" == "purge-and-update" ]] || [[ "$command" == "allow-update" ]]; then
+        check_gpg_keys || {
+            log_warning "GPG check failed - encrypted files may not decrypt properly"
+            log_warning "Continuing anyway, but encrypted downloads may fail"
         }
-        
-        # Check GPG configuration for commands that need decryption
-        if [[ "$command" == "full-update" ]] || [[ "$command" == "quick-update" ]] || [[ "$command" == "purge-and-update" ]]; then
-            check_gpg_keys || {
-                log "ERROR: GPG check failed - encrypted files cannot be decrypted"
-                log "ERROR: Either import your GPG private key or skip encrypted files"
-                exit 1
-            }
-        fi
     fi
     
     # Execute command
+    local exit_code=0
     case "$command" in
         refresh)
-            cmd_refresh
+            cmd_refresh || exit_code=$?
             ;;
         full-update)
-            cmd_full_update
+            cmd_full_update || exit_code=$?
             ;;
         allow-update)
-            cmd_allow_update
+            cmd_allow_update || exit_code=$?
             ;;
         block-regex-update)
-            cmd_block_regex_update
+            cmd_block_regex_update || exit_code=$?
             ;;
         quick-update)
-            cmd_quick_update
+            cmd_quick_update || exit_code=$?
             ;;
         purge-and-update)
-            cmd_purge_and_update
-            ;;
-        help|--help|-h)
-            show_help
-            exit 0
+            cmd_purge_and_update || exit_code=$?
             ;;
         *)
-            log "Unknown command: $command"
+            log_error "Unknown command: $command"
             show_help
             exit 1
             ;;
     esac
+    
+    # Note: cleanup_temp will be called automatically by the EXIT trap
+    # but we explicitly run cleanup here for the standard non-error path
+    # The trap will handle error/interrupt cases
+    
+    exit $exit_code
 }
 
 # Run main function with all arguments
