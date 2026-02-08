@@ -1,7 +1,25 @@
-## List of DNS servers
-## dns.blocklist
-## Re-Organized: 2020-07-03
-## Last Updated: 2024-09-13
+################################################################################
+# Pi-hole Configuration File
+# File: dns.blocklist
+# Type: Domain Blocklist
+# Category: DNS Security
+# Repository: Personal_Contained_Pihole/lists/blocks/
+# 
+# Created: 2020-07-03
+# Organized: 2025-12-07
+# Last Modified: 2024-09-13
+# Version: 1.0.0
+#
+# Description: 
+#   Blocks known public DNS resolver servers to prevent DNS leaks and enforce
+#   Pi-hole as the primary DNS resolver. Includes alternative DNS services that
+#   could bypass Pi-hole filtering (Google DNS, Cloudflare, etc.).
+#
+# Usage:
+#   Automatically loaded by Pi-hole during gravity updates
+#   Updates via: sudo bash /scripts/Finished/updates.sh
+#
+################################################################################
 
 
 _dns.resolver.arpa

@@ -1,7 +1,25 @@
-## A list of sites linked to malware, phising, spam, and government tracking - based on news reports & other sources
-## MalBlock.blocklist
-## Re-Organized: 2020-07-03
-## Last Updated: 2025-09-21
+﻿################################################################################
+# Pi-hole Configuration File
+# File: MalBlock.blocklist
+# Type: Domain Blocklist
+# Category: Malware Protection
+# Repository: Personal_Contained_Pihole/lists/blocks/
+#
+# Created: 2020-07-03
+# Organized: 2025-12-07
+# Last Modified: 2025-09-21
+# Version: 1.0.0
+#
+# Description:
+#   Domains linked to malware distribution, phishing attacks, spam operations,
+#   and government tracking. Compiled from security reports, threat intelligence,
+#   and news sources. High-confidence malicious domains.
+#
+# Usage:
+#   Automatically loaded by Pi-hole during gravity updates
+#   Updates via: sudo bash /scripts/Finished/updates.sh
+#
+################################################################################
 
 037008194168.suwalki.vectranet.pl
 037008209142.suwalki.vectranet.pl
@@ -41,8 +59,8 @@ apples.com
 appsync-api.us-west-2.avsvmcloud.com
 arabnews365.com
 arrowservice.net
-aufr.hurevell.com 
-avga.moverephroesing.com 
+aufr.hurevell.com
+avga.moverephroesing.com
 avsvmcloud.com
 balancefitstudio.com
 banca-movil.com
@@ -113,14 +131,14 @@ hennaie.com
 hornetxy.com
 huntingtomingalls.com
 ibytedtos.com
-idaean.supernobyl.com 
+idaean.supernobyl.com
 idahoanad.org
 indiadigest.in
 infosupports.com
 Inreachlink.com
 iwantquest.net
 jack-newnb.com
-jweese.drivefact.org 
+jweese.drivefact.org
 kAty197.chickenkiller.com
 kingdom-deals.com
 Krober.biz
@@ -131,7 +149,7 @@ louisdreyfu.com
 mail.robyla.com
 mail1.nsogroup.com
 mail2.ignorelist.com
-manational.com 
+manational.com
 marokeconstruction.com.au
 mary.mfqaz.vip
 masterroot.pw
@@ -187,15 +205,15 @@ pine-sales.com
 politica504.com
 politicalpress.org
 politicoportales.org
-politiques-infos.info 
+politiques-infos.info
 porndec143.chickenkiller.com
-ppehnyzdinkzbtdtzfeec.us 
-prefolon.com 
+ppehnyzdinkzbtdtzfeec.us
+prefolon.com
 privatlab.com
 privatlab.net
 Privnotes.com
 qaintqa.com
-qsjdaglghydwxjsjhkenw.us 
+qsjdaglghydwxjsjhkenw.us
 ratemygirth.com
 Re-deleveryusps.net
 redirectingat.com
@@ -209,7 +227,7 @@ reskort.com
 responder.iwantquest.net
 revolution-news.co
 rickeyteetering.com
-rocksa.tabiont.com 
+rocksa.tabiont.com
 royalasian.ee
 rs40khfg143ds5.w1628-1.kwf9uzy.tk
 s625pmc0.us
@@ -280,7 +298,7 @@ ultrasocial.info
 un.linuxd.org
 un0noticias.com
 un0noticias.net
-undamn.wideare.com 
+undamn.wideare.com
 universopolitico.net
 usdagroup.com
 uspfodigdwm.info
@@ -305,7 +323,7 @@ x999xx.biz
 xbug.uk.to
 xlog-va.byteoversea.com
 xodick.com
-xwkx.reactivisible.com 
+xwkx.reactivisible.com
 yootypes.com
 ysxbwi.drivefact.org
 zebvzyxfditynacqfcqdp.us

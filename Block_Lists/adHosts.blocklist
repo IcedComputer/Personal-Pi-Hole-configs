@@ -1,7 +1,25 @@
-# #List of tracking, advertising and other non-malicious hosts
-## adHosts.blocklist
-## Last Modified: 2025-11-18
-##
+﻿################################################################################
+# Pi-hole Configuration File
+# File: adHosts.blocklist
+# Type: Domain Blocklist
+# Category: Ads & Tracking
+# Repository: Personal_Contained_Pihole/lists/blocks/
+#
+# Created: 2020-07-03
+# Organized: 2025-12-07
+# Last Modified: 2025-11-18
+# Version: 1.0.0
+#
+# Description:
+#   Comprehensive list of tracking, advertising, and analytics domains.
+#   Contains non-malicious but privacy-invasive hosts that collect user data,
+#   serve advertisements, or track user behavior across websites.
+#
+# Usage:
+#   Automatically loaded by Pi-hole during gravity updates
+#   Updates via: sudo bash /scripts/Finished/updates.sh
+#
+################################################################################
 
 189229.measurementapi.com
 50analytics.secureserver.net
@@ -75,7 +93,7 @@ aimg.kwcdn.com
 amplitude.map.fastly.net
 analytics.snapchat.com
 api-tealeaf.goacoustic.com
-api.amplitude.com 
+api.amplitude.com
 app-analytics-v2.snapchat.com
 app-analytics.snapchat.com
 apple.comscoreresearch.com
@@ -96,7 +114,7 @@ beacons.extremereach.io
 beacons.gcp.gvt2.com
 beginads.com
 blkditsup.com
-ca.iadsdk.apple.com 
+ca.iadsdk.apple.com
 camschat.net
 cdn-adn-https-new.mtgglobals.com
 cdn.adswizz.com
@@ -112,7 +130,7 @@ cdn.samsungcloudsolution.com
 cdn.stripcash.com
 cds.k7y9i5a8.hwcdn.net
 celltrackingapps.com
-cf.iadsdk.apple.com 
+cf.iadsdk.apple.com
 ciaanalytics.wellsfargo.com
 cits-tracking-prod.americanexpress.com
 client-analytics-service.production.stitchfix.com
@@ -134,7 +152,7 @@ Coordinator-Production-28516768.us-east-1.elb.amazonaws.com
 corp-mktg.s3.amazonaws.com
 cpxy.a-mo.net.cdn.cloudflare.net
 creative-analytics.crossinstall.io
-cs.iadsdk.apple.com 
+cs.iadsdk.apple.com
 d3aqntjehoyiyc.cloudfront.net
 dat.itsup.com
 dat3.its-up.com
@@ -169,12 +187,12 @@ gtq6.sct.sc-prod.net
 healthguides.cnn.com
 hw-cdn-ap.trafficjunky.net
 i.psmimg.com
-iad.apple.com 
+iad.apple.com
 iadcontent.apple.com
-iadctest.qwapi.com 
+iadctest.qwapi.com
 iadmoo.apple.com
-iadsdk.apple.com 
-iadworkbench.apple.com 
+iadsdk.apple.com
+iadworkbench.apple.com
 if.psmimg.com
 imp-lb-us2.jampp.com
 imp2.ads.linkedin.com
@@ -183,7 +201,7 @@ integralads.com
 kindepend.com
 koi-3qcmwoxuw2.marketingautomation.services
 krg-tracker-production.elasticbeanstalk.com
-launch.apple.com 
+launch.apple.com
 lcprd1.samsungcloudsolution.net
 lib-ap-1.brilliantcollector.com
 lib-eu-1.brilliantcollector.com
@@ -194,7 +212,7 @@ livehdcams.com
 log-1.samsungacr.com
 log-2.samsungacr.com
 log.internetat.tv
-ls.advp.apple.com 
+ls.advp.apple.com
 m-metrics-prod-waf-metrictoggle.aws-stsd.capitalonegslbex.com
 market.android.com
 market.epom.com
@@ -205,7 +223,7 @@ marketing.dropbox.com
 marketing.triplelift.com
 marriott-booking-vacationsbymarriott-com.ezrez.net
 mas-ssr-ad.amazon.com
-mastersrecipes.com	
+mastersrecipes.com
 mc6ktt9crwdpg55f3p-9j1-1kfyq.device.marketingcloudapis.com
 media.promogogo.com
 media.propellerads.com
@@ -219,7 +237,7 @@ metrics1.citibank.com
 mparticle.map.fastly.net
 ms-trackingapi.phenompeople.com
 mybbc-analytics.files.bbci.co.uk
-news.iadsdk.apple.com 
+news.iadsdk.apple.com
 news.iadsdk.apple.com.akadns.net
 news.iadsdk.v.aaplimg.com
 nexus-test.ensighten.com
@@ -239,7 +257,7 @@ peoplefun.helpshift.com
 premium-videos.telly.com
 profilepics.cf.kik.com
 profilepics.kik.com
-proxy.advp.apple.com 
+proxy.advp.apple.com
 qwapi.apple.com
 rainydaymarketing.affise.com
 rainydaymarketing.g2afse.com
@@ -260,11 +278,11 @@ ssl-ccstatic.highwebmedia.com
 ssl.track2mobile.com
 sso.internetat.tv
 static.kwcdn.com
-su.iadsdk.apple.com 
+su.iadsdk.apple.com
 syncplusconfig.s3.amazonaws.com
 t.bdwafx.com
 tag.bounceexchange.com
-tag.device9.com 
+tag.device9.com
 target.mixi.media
 targeted-config-test.samsungacr.com
 targeting.mco.arcpublishing.com
@@ -281,7 +299,7 @@ telemetryhost235.cloudapp.net
 time.samsungcloudsolution.com
 tour.eplay.com
 tr.iadsdk.apple.com
-tr.iadsdk.apple.com 
+tr.iadsdk.apple.com
 tracker-sp-elb-1474841806.us-east-1.elb.amazonaws.com
 tracker-us.adsmoloco.com
 tracking-2.us-east-1.prod.intspot.com
@@ -292,7 +310,7 @@ us.pftk.temu.com
 usc.adserver.snapads.com
 use.adserver.snapads.com
 use.trk.svr-algorix.com
-ut.iadsdk.apple.com 
+ut.iadsdk.apple.com
 v.faphouse.com
 v.vfgtb.com
 v.vfgte.com

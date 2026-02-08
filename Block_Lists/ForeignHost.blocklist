@@ -1,8 +1,25 @@
-## ForeignHost.blocklist
-## A list of likely valid domains (non-ad / non-malicious)
-## I just do not want them on my network(s)
-## Re-Organized: 2020-07-20
-## Last Updated: 2024-01-10
+################################################################################
+# Pi-hole Configuration File
+# File: ForeignHost.blocklist
+# Type: Domain Blocklist
+# Category: Geographic Restriction
+# Repository: Personal_Contained_Pihole/lists/blocks/
+# 
+# Created: 2020-07-20
+# Organized: 2025-12-07
+# Last Modified: 2024-01-10
+# Version: 1.0.0
+#
+# Description: 
+#   Valid non-malicious domains that are intentionally blocked for network
+#   policy reasons. Primarily foreign/international services not intended for
+#   use on this network. Includes international retail and service sites.
+#
+# Usage:
+#   Automatically loaded by Pi-hole during gravity updates
+#   Updates via: sudo bash /scripts/Finished/updates.sh
+#
+################################################################################
 
 ac.opentable.com
 af-music-prod.betc.fr

@@ -1,5 +1,25 @@
-## Updated 2025-04-21
-## Unencrypted Allow List of domains where host-lists are obtained
+################################################################################
+# Pi-hole Configuration File
+# File: adlist.allow
+# Type: Domain Allowlist
+# Category: Blocklist Sources
+# Repository: Personal_Contained_Pihole/lists/allow/
+# 
+# Created: 2020-07-03
+# Organized: 2025-12-07
+# Last Modified: 2025-04-21
+# Version: 1.0.0
+#
+# Description: 
+#   Allowlist for domains hosting Pi-hole blocklists and adlists. Ensures
+#   Pi-hole can successfully download blocklist updates from GitHub, GitLab,
+#   and other hosting providers. Critical for gravity updates.
+#
+# Usage:
+#   Automatically loaded by Pi-hole during gravity updates
+#   Updates via: sudo bash /scripts/Finished/updates.sh
+#
+################################################################################
 
 adaway.org
 archive.ph

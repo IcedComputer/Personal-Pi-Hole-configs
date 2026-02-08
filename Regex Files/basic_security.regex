@@ -1,6 +1,25 @@
-## basic_security.regex
-## Re-Organized: 03 July 2020
-## Last Updated: 20 Nov 2022
+################################################################################
+# Pi-hole Configuration File
+# File: basic_security.regex
+# Type: Regex Rules
+# Category: Security Blocking
+# Repository: Personal_Contained_Pihole/lists/regex/
+# 
+# Created: 2020-07-03
+# Organized: 2025-12-07
+# Last Modified: 2022-11-20
+# Version: 1.0.0
+#
+# Description: 
+#   Basic security-focused regex patterns for blocking malicious domains,
+#   phishing attempts, typosquatting, and known threat patterns. Includes
+#   patterns for common attack vectors and suspicious domain structures.
+#
+# Usage:
+#   Automatically loaded by Pi-hole during gravity updates
+#   Updates via: sudo bash /scripts/Finished/updates.sh
+#
+################################################################################
 (^|\.|-)(0+)?apple(s)?0+\.com$
 (^|\.|-)......\.drivefact\.org$
 (^|\.|-)...police\.((com)|(net))$

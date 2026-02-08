@@ -1,7 +1,25 @@
-## A list of tracking sites, malicious sites and other things that likely need to be blocked
-## custom.blocklist
-## Re-Organized: 2020-07-04
-## Last Updated: 2025-10-06
+﻿################################################################################
+# Pi-hole Configuration File
+# File: custom.blocklist
+# Type: Domain Blocklist
+# Category: Custom Blocks
+# Repository: Personal_Contained_Pihole/lists/blocks/
+#
+# Created: 2020-07-04
+# Organized: 2025-12-07
+# Last Modified: 2025-10-06
+# Version: 1.0.0
+#
+# Description:
+#   Manually curated list of tracking sites, malicious domains, and other
+#   problematic hosts requiring blocking. Custom additions not found in
+#   standard blocklists or requiring immediate blocking action.
+#
+# Usage:
+#   Automatically loaded by Pi-hole during gravity updates
+#   Updates via: sudo bash /scripts/Finished/updates.sh
+#
+################################################################################
 
 accountingnews.bg
 api.revenuecat.com
@@ -19,7 +37,7 @@ conservativedirect.com
 domestic-static.duolingo.cn.w.kunlungr.com
 e-komerco.fr
 en.rageagainstthesoap.com
-free.opensourcefonts.org 
+free.opensourcefonts.org
 fueven.com
 gif9.shop
 heraldledger.com

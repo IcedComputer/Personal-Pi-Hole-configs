@@ -1,8 +1,28 @@
-# file encoding: 						utf-8 dos/windows 1252
-# license:								mit license (mit)
-# original source before modficiation	chef-koch
-# Updated 2025-08-25
-# uslocal.regex
+################################################################################
+# Pi-hole Configuration File
+# File: uslocal.regex
+# Type: Regex Rules
+# Category: US Local Government
+# Repository: Personal_Contained_Pihole/lists/regex/
+# 
+# Created: 2020-07-03
+# Organized: 2025-12-07
+# Last Modified: 2025-08-25
+# Version: 1.0.0
+#
+# Description: 
+#   Blocks US local government websites (.gov domains) for users who need to
+#   restrict access to municipal and state government services. Based on
+#   Chef-Koch's original work with modifications.
+#
+# File Encoding: UTF-8 (DOS/Windows 1252)
+# License: MIT License (MIT)
+#
+# Usage:
+#   Automatically loaded by Pi-hole during gravity updates
+#   Updates via: sudo bash /scripts/Finished/updates.sh
+#
+################################################################################
 (^|\.)(az)|(tx)|(texas))?511((ny)|(tx)|(maine)|(wi))?\.gov$
 (^|\.)29palmsbomi-nsn\.gov$
 (^|\.)abilityone\.gov$
